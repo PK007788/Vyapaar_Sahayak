@@ -30,6 +30,11 @@ Ek invoice bana do 510 ka Rohit ke naam se
 1500 ka bill create karo aur save karo
 Us customer ke liye 700 ka bill bana jo kal aaya tha
 Invoice create karo Suresh ke naam se
+Pooja ko 1500 ka bill bana do
+Lakshmi ke naam pe 2200 ka invoice generate karo
+Verma Traders ke liye 5000 ka bill create karo
+Maa Durga Traders ko 3200 ka maal gaya invoice bana
+Ritu Kirana Store ke naam se 1800 ka bill bana do
 2. Add_Credit
 Rahul ke udhaar mein 500 jod do
 Mohan ke account mein 1200 add karo
@@ -56,6 +61,11 @@ Rahul ka purana balance mein 400 aur jod do
 Sharma ji pe total 1000 aur chadha dena
 350 cash nahi diya usne udhaar mein daal do
 Usko 500 ka saman diya payment baad mein lega
+Neha ke udhaar mein 900 jod do
+Kavita pe 1400 aur chadha do
+Lakshmi General Store ke account mein 3000 add karo
+Khan Enterprises ke naam pe 2500 aur likh do
+Sunita ke khate mein 1100 daal do
 3. Record_Payment
 Rahul ne 500 ka payment kar diya
 Mohan ne 1200 bhej diya
@@ -76,8 +86,102 @@ Kal ka 700 mil gaya
 Mohit ne 1400 clear kiya
 2500 ka paisa aa gaya
 999 bheja Manoj ne
-
+Pooja ne 1500 ka payment kar diya
 Amit ne aadha paisa diya
+Pooja ne 1500 ka payment kar diya
+Lakshmi ne 2200 transfer kiya
+Verma Traders ka 5000 aa gaya
+Maa Durga Traders ne pura paisa clear kar diya
+Ritu ne 1800 bhej diya
 4. Check_Balance
+Rahul ka balance kitna hai
+Mohan ka udhaar batao
+Sharma ji ka total kitna pending hai
+Suresh ka khata dikhao
+Rakesh ka kitna paisa baaki hai
+Amit ka account balance kya hai
+Gupta ji ka outstanding amount batao
+Ravi ka total due kitna hai
+Manoj ka pura hisaab dikhao
+Uska current balance kya chal raha hai
+Rahul pe kitna baaki hai
+Mohan ka abhi tak kitna chadha hai
+Sharma ji ka hisaab bata
+5000 diya tha uska kya balance hai
+Us customer ka kitna pending hai
+Kal tak ka total balance dikhao
+Kitna lena hai usse
+Uska pura udhaar bata do
+Mohit ka khata check karo
+Total kitna reh gaya hai
+Agar usne 2000 diya tha to ab kitna baaki hai
+Pichle mahine ka total balance bata
+Sirf udhaar ka balance dikhao cash nahi
+Neha ka balance kitna hai
+Kavita pe kitna baaki hai
+Lakshmi General Store ka total pending batao
+Khan Enterprises ka outstanding kitna hai
+Maa Durga Traders ka pura hisaab dikhao
 5. Send_Reminder
+Rahul ko payment reminder bhej do
+Pooja ko bol do paisa bhejne ke liye
+Mohan ko yaad dila do ki balance pending hai
+Lakshmi General Store ko reminder send karo
+Sharma ji ko message karo payment ke liye
+Neha ko bata do ki 2000 abhi tak baaki hai
+Khan Enterprises ko follow up kar lo
+Usko ek reminder bhej dena kal
+Ritu ko pending amount ke liye ping karo
+Verma Traders ko payment yaad dila do
+Ramesh ko bol do paisa jaldi bheje
+Poonam ko ek baar phir se yaad dila do
+Mohak ko pending amount ke liye message karo
+Lakshmi ko reminder bhejna hai 1500 ke liye
+Das ji ko follow up kar lo balance ke liye
+Neena ko payment ke liye ping kar do
+Ram Enterprises ko outstanding ke liye yaad dila do
+Ritisha ko bata do ki abhi tak paisa nahi mila
+Verma Traders ko ek aur reminder bhej do
+Us customer ko message karo jiska payment due hai
 6. Update_Inventory
+5 packet Maggi stock mein add karo
+10 kg chawal kam kar do inventory se
+3 oil bottle minus kar do stock se
+20 biscuit packet inventory mein daal do
+Aaj 15 soap aaya hai stock update karo
+2 sugar bag nikal gaye stock kam karo
+12 cold drink add karo inventory mein
+4 packet atta reduce karo
+Naya 25 rice bag stock mein daal do
+6 shampoo bottle minus kar do
+8 packet Maggi aur add karo stock mein
+5 kg chawal kam ho gaya inventory update karo
+7 oil bottle add hui hai stock mein
+3 sugar bag kam kar do
+10 soap aur aaye hain inventory mein daal do
+6 biscuit packet nikal gaye stock se minus karo
+12 rice bag reduce kar do
+4 shampoo bottle add karo inventory mein
+9 cold drink kam ho gaye stock update karo
+15 atta packet stock mein jod do
+7. View_Sales_Summary
+Aaj ki total sale kitni hui
+Kal ka total revenue batao
+Is mahine ka total sale kitna hai
+Aaj kitna becha
+Pichle hafte ka sale summary dikhao
+Total sales report dikhao
+Is saal ka revenue kitna hai
+Aaj tak ka total becha hua amount batao
+Monthly sales ka total kya hai
+Last month ka pura sales data dikhao
+Aaj kitna maal gaya total
+Kal kitna kamaaya
+Abhi tak ki sale bata
+Is week ka total kitna bana
+Pichle 7 din ka hisaab dikhao
+Sirf aaj ka sale batao
+Aaj ka turnover kitna hai
+Total earning kitni hui
+Mahine ka overall sale kitna chal raha hai
+Abhi tak ka revenue kya hai
