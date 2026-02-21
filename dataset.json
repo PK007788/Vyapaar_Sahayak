@@ -1,0 +1,343 @@
+[
+  {
+    "text": "Rahul ko 500 ka bill bana do",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Rahul"},
+      {"entity": "AMOUNT", "value": "500"}
+    ]
+  },
+  {
+    "text": "Generate invoice for Mohan 1200",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Mohan"},
+      {"entity": "AMOUNT", "value": "1200"}
+    ]
+  },
+  {
+    "text": "3000 ka maal diya Sharma ji ko",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "AMOUNT", "value": "3000"},
+      {"entity": "CUSTOMER_NAME", "value": "Sharma ji"}
+    ]
+  },
+  {
+    "text": "Bill bana do 800 ka",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "AMOUNT", "value": "800"}
+    ]
+  },
+  {
+    "text": "1200 ka bill bana do Ramesh ke naam pe",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "AMOUNT", "value": "1200"},
+      {"entity": "CUSTOMER_NAME", "value": "Ramesh"}
+    ]
+  },
+  {
+    "text": "Sohan ko 750 ka invoice bhejna hai",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Sohan"},
+      {"entity": "AMOUNT", "value": "750"}
+    ]
+  },
+  {
+    "text": "2 hazar ka maal diya tha Amit ko bill bana do",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "AMOUNT", "value": "2000"},
+      {"entity": "CUSTOMER_NAME", "value": "Amit"}
+    ]
+  },
+  {
+    "text": "Invoice bana 450 ka Ankit ke liye",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "AMOUNT", "value": "450"},
+      {"entity": "CUSTOMER_NAME", "value": "Ankit"}
+    ]
+  },
+  {
+    "text": "Kal jo 900 ka saman diya tha uska bill generate karo",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "AMOUNT", "value": "900"},
+      {"entity": "DATE_REFERENCE", "value": "kal"}
+    ]
+  },
+  {
+    "text": "1800 ka bill create kar de Gupta ji ke naam se",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "AMOUNT", "value": "1800"},
+      {"entity": "CUSTOMER_NAME", "value": "Gupta ji"}
+    ]
+  },
+  {
+    "text": "650 ka bill bana aur bhej bhi dena",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "AMOUNT", "value": "650"}
+    ]
+  },
+  {
+    "text": "Mohit ko 3 hazar ka maal gaya invoice bana",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Mohit"},
+      {"entity": "AMOUNT", "value": "3000"}
+    ]
+  },
+  {
+    "text": "2500 ka invoice bana do kal ki date se",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "AMOUNT", "value": "2500"},
+      {"entity": "DATE_REFERENCE", "value": "kal"}
+    ]
+  },
+  {
+    "text": "999 ka bill bana do customer Ravi",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "AMOUNT", "value": "999"},
+      {"entity": "CUSTOMER_NAME", "value": "Ravi"}
+    ]
+  },
+  {
+    "text": "500 ka bana do bill Rahul",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "AMOUNT", "value": "500"},
+      {"entity": "CUSTOMER_NAME", "value": "Rahul"}
+    ]
+  },
+  {
+    "text": "bill 1400 ka Suresh",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "AMOUNT", "value": "1400"},
+      {"entity": "CUSTOMER_NAME", "value": "Suresh"}
+    ]
+  },
+  {
+    "text": "2100 ka maal gaya Sharma ji invoice",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "AMOUNT", "value": "2100"},
+      {"entity": "CUSTOMER_NAME", "value": "Sharma ji"}
+    ]
+  },
+  {
+    "text": "kal 800 diya tha uska bill",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "AMOUNT", "value": "800"},
+      {"entity": "DATE_REFERENCE", "value": "kal"}
+    ]
+  },
+  {
+    "text": "3000 ka bana do uske naam pe",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "AMOUNT", "value": "3000"}
+    ]
+  },
+  {
+    "text": "Sharma ji ke naam pe ek naya bill bana",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Sharma ji"}
+    ]
+  },
+  {
+    "text": "Aaj ka 1450 ka invoice bana do Deepak ke liye",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "aaj"},
+      {"entity": "AMOUNT", "value": "1450"},
+      {"entity": "CUSTOMER_NAME", "value": "Deepak"}
+    ]
+  },
+  {
+    "text": "4 packet diya tha Raju ko uska bill bana",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Raju"},
+      {"entity": "QUANTITY", "value": "4 packet"}
+    ]
+  },
+  {
+    "text": "Rakesh ko kal 2200 ka saman gaya invoice bana de",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Rakesh"},
+      {"entity": "AMOUNT", "value": "2200"},
+      {"entity": "DATE_REFERENCE", "value": "kal"}
+    ]
+  },
+  {
+    "text": "875 ka bill generate karo Manoj",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "AMOUNT", "value": "875"},
+      {"entity": "CUSTOMER_NAME", "value": "Manoj"}
+    ]
+  },
+  {
+    "text": "Amit ke liye naya invoice bana 3200 ka",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Amit"},
+      {"entity": "AMOUNT", "value": "3200"}
+    ]
+  },
+  {
+    "text": "600 ka saman diya tha uska bill bana",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "AMOUNT", "value": "600"}
+    ]
+  },
+  {
+    "text": "Ek invoice bana do 510 ka Rohit ke naam se",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "AMOUNT", "value": "510"},
+      {"entity": "CUSTOMER_NAME", "value": "Rohit"}
+    ]
+  },
+  {
+    "text": "1500 ka bill create karo aur save karo",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "AMOUNT", "value": "1500"}
+    ]
+  },
+  {
+    "text": "Us customer ke liye 700 ka bill bana jo kal aaya tha",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "AMOUNT", "value": "700"},
+      {"entity": "DATE_REFERENCE", "value": "kal"}
+    ]
+  },
+  {
+    "text": "Invoice create karo Suresh ke naam se",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Suresh"}
+    ]
+  },
+  {
+    "text": "Verma Traders ke liye 5000 ka bill create karo",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Verma Traders"},
+      {"entity": "AMOUNT", "value": "5000"}
+    ]
+  },
+  {
+    "text": "Maa Durga Traders ko 3200 ka maal gaya invoice bana",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Maa Durga Traders"},
+      {"entity": "AMOUNT", "value": "3200"}
+    ]
+  },
+  {
+    "text": "Ritu Kirana Store ke naam se 1800 ka bill bana do",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Ritu Kirana Store"},
+      {"entity": "AMOUNT", "value": "1800"}
+    ]
+  }
+]
+
+{
+  "text": "Rahul ke udhaar mein 500 jod do",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Rahul"},
+    {"entity": "AMOUNT", "value": "500"}
+  ]
+},
+{
+  "text": "Neha ke account mein 1200 add karo",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Neha"},
+    {"entity": "AMOUNT", "value": "1200"}
+  ]
+},
+{
+  "text": "3000 aur chadha do Sharma ji pe",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Sharma ji"},
+    {"entity": "AMOUNT", "value": "3000"}
+  ]
+},
+{
+  "text": "Lakshmi ke udhaar mein 900 jod do",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Lakshmi"},
+    {"entity": "AMOUNT", "value": "900"}
+  ]
+},
+{
+  "text": "Khan Enterprises ke naam pe 2500 aur likh do",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"},
+    {"entity": "AMOUNT", "value": "2500"}
+  ]
+},
+{
+  "text": "Manoj ke khate mein 750 daal do",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Manoj"},
+    {"entity": "AMOUNT", "value": "750"}
+  ]
+},
+{
+  "text": "Sunita pe 1100 aur chadha do",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Sunita"},
+    {"entity": "AMOUNT", "value": "1100"}
+  ]
+},
+{
+  "text": "450 aur add karo Ravi ke ledger mein",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Ravi"},
+    {"entity": "AMOUNT", "value": "450"}
+  ]
+},
+{
+  "text": "Kal ka 700 bhi add kar do Mohit ko",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Mohit"},
+    {"entity": "AMOUNT", "value": "700"},
+    {"entity": "DATE_REFERENCE", "value": "kal"}
+  ]
+},
+{
+  "text": "Gupta ji ka udhaar 1400 badha do",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Gupta ji"},
+    {"entity": "AMOUNT", "value": "1400"}
+  ]
+}
