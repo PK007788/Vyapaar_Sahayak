@@ -1,10 +1,19 @@
-[
-  {
-    "text": "Rahul ko 500 ka bill bana do",
+
+  [
+    {
+      "text": "Rahul ko 500 ka bill bana do",
     "intent": "Create_Invoice",
     "entities": [
       {"entity": "CUSTOMER_NAME", "value": "Rahul"},
       {"entity": "AMOUNT", "value": "500"}
+    ]
+  },
+  {
+    "text": "Neha ke liye 1200 ka invoice generate karo",
+    "intent": "Create_Invoice",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Neha"},
+      {"entity": "AMOUNT", "value": "1200"}
     ]
   },
   {
@@ -257,9 +266,7 @@
       {"entity": "CUSTOMER_NAME", "value": "Ritu Kirana Store"},
       {"entity": "AMOUNT", "value": "1800"}
     ]
-  }
-]
-
+},
 {
   "text": "Rahul ke udhaar mein 500 jod do",
   "intent": "Add_Credit",
@@ -340,4 +347,125 @@
     {"entity": "CUSTOMER_NAME", "value": "Gupta ji"},
     {"entity": "AMOUNT", "value": "1400"}
   ]
+},
+{
+  "text": "Rahul ke khate mein 200 aur jod do",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Rahul"},
+    {"entity": "AMOUNT", "value": "200"}
+  ]
+},
+{
+  "text": "Neha pe 1800 aur chadh gaya",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Neha"},
+    {"entity": "AMOUNT", "value": "1800"}
+  ]
+},
+{
+  "text": "Sharma ji ka 600 aur badha do",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Sharma ji"},
+    {"entity": "AMOUNT", "value": "600"}
+  ]
+},
+{
+  "text": "Lakshmi ke account mein aur 950 daal do",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Lakshmi"},
+    {"entity": "AMOUNT", "value": "950"}
+  ]
+},
+{
+  "text": "Ravi ko 400 aur udhaar likh do",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Ravi"},
+    {"entity": "AMOUNT", "value": "400"}
+  ]
+},
+{
+  "text": "Gupta ji pe 2200 aur chadha dena",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Gupta ji"},
+    {"entity": "AMOUNT", "value": "2200"}
+  ]
+},
+{
+  "text": "Kal ka 1300 bhi uske khate mein add karo",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "AMOUNT", "value": "1300"},
+    {"entity": "DATE_REFERENCE", "value": "kal"}
+  ]
+},
+{
+  "text": "Manoj ka udhaar 500 aur badha do",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Manoj"},
+    {"entity": "AMOUNT", "value": "500"}
+  ]
+},
+{
+  "text": "Sunita ke naam pe 750 aur daal do",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Sunita"},
+    {"entity": "AMOUNT", "value": "750"}
+  ]
+},
+{
+  "text": "Maa Durga Traders ka 3000 aur likh do",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Maa Durga Traders"},
+    {"entity": "AMOUNT", "value": "3000"}
+  ]
+},
+{
+  "text": "Usko 850 aur jod do",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "AMOUNT", "value": "850"}
+  ]
+},
+{
+  "text": "Ritu Kirana Store ke khate mein 1700 aur daal do",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Ritu Kirana Store"},
+    {"entity": "AMOUNT", "value": "1700"}
+  ]
+},
+{
+  "text": "Pichle hafte ka 900 bhi add kar do Mohit ko",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Mohit"},
+    {"entity": "AMOUNT", "value": "900"},
+    {"entity": "DATE_REFERENCE", "value": "pichle hafte"}
+  ]
+},
+{
+  "text": "Khan Enterprises pe 2600 aur chadha do",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"},
+    {"entity": "AMOUNT", "value": "2600"}
+  ]
+},
+{
+  "text": "Aaj ka 1200 bhi uske account mein daal do",
+  "intent": "Add_Credit",
+  "entities": [
+    {"entity": "AMOUNT", "value": "1200"},
+    {"entity": "DATE_REFERENCE", "value": "aaj"}
+  ]
 }
+]
