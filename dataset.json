@@ -467,5 +467,228 @@
     {"entity": "AMOUNT", "value": "1200"},
     {"entity": "DATE_REFERENCE", "value": "aaj"}
   ]
+},
+{
+  "text": "Rahul ne 500 ka payment kar diya",
+  "intent": "Record_Payment",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Rahul"},
+    {"entity": "AMOUNT", "value": "500"}
+  ]
+},
+{
+  "text": "Neha ne 1200 bhej diya",
+  "intent": "Record_Payment",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Neha"},
+    {"entity": "AMOUNT", "value": "1200"}
+  ]
+},
+{
+  "text": "Sharma ji ne 3000 transfer kiya",
+  "intent": "Record_Payment",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Sharma ji"},
+    {"entity": "AMOUNT", "value": "3000"}
+  ]
+},
+{
+  "text": "Lakshmi ka 800 mil gaya",
+  "intent": "Record_Payment",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Lakshmi"},
+    {"entity": "AMOUNT", "value": "800"}
+  ]
+},
+{
+  "text": "Gupta ji ne pura paisa de diya",
+  "intent": "Record_Payment",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Gupta ji"},
+    {"entity": "TRANSACTION_STATUS", "value": "FULL_PAYMENT"}
+  ]
+},
+{
+  "text": "Ravi ne aadha paisa diya",
+  "intent": "Record_Payment",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Ravi"},
+    {"entity": "TRANSACTION_STATUS", "value": "PARTIAL_PAYMENT"}
+  ]
+},
+{
+  "text": "Manoj ka 750 aa gaya",
+  "intent": "Record_Payment",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Manoj"},
+    {"entity": "AMOUNT", "value": "750"}
+  ]
+},
+{
+  "text": "Sunita ne 1500 UPI se bheja",
+  "intent": "Record_Payment",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Sunita"},
+    {"entity": "AMOUNT", "value": "1500"},
+    {"entity": "PAYMENT_MODE", "value": "UPI"}
+  ]
+},
+{
+  "text": "Khan Enterprises ka payment receive ho gaya",
+  "intent": "Record_Payment",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"}
+  ]
+},
+{
+  "text": "Ritu ne 2000 transfer kiya",
+  "intent": "Record_Payment",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Ritu"},
+    {"entity": "AMOUNT", "value": "2000"}
+  ]
+},
+{
+  "text": "Verma Traders ne 5000 clear kar diya",
+  "intent": "Record_Payment",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Verma Traders"},
+    {"entity": "AMOUNT", "value": "5000"}
+  ]
+},
+{
+  "text": "Pooja ka 900 mil gaya",
+  "intent": "Record_Payment",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Pooja"},
+    {"entity": "AMOUNT", "value": "900"}
+  ]
+},
+{
+  "text": "Amit ne 2500 cash diya",
+  "intent": "Record_Payment",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Amit"},
+    {"entity": "AMOUNT", "value": "2500"},
+    {"entity": "PAYMENT_MODE", "value": "CASH"}
+  ]
+},
+{
+  "text": "Maa Durga Traders ne aadha payment kiya",
+  "intent": "Record_Payment",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Maa Durga Traders"},
+    {"entity": "TRANSACTION_STATUS", "value": "PARTIAL_PAYMENT"}
+  ]
+},
+{
+  "text": "Rakesh ka 1100 aa gaya",
+  "intent": "Record_Payment",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Rakesh"},
+    {"entity": "AMOUNT", "value": "1100"}
+  ]
 }
+,
+  {
+    "text": "Suresh ne 1300 ka payment bheja",
+    "intent": "Record_Payment",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Suresh"},
+      {"entity": "AMOUNT", "value": "1300"}
+    ]
+  },
+  {
+    "text": "Received 750 from Rohit",
+    "intent": "Record_Payment",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Rohit"},
+      {"entity": "AMOUNT", "value": "750"}
+    ]
+  },
+  {
+    "text": "Parveen ne kal 400 bheja",
+    "intent": "Record_Payment",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Parveen"},
+      {"entity": "AMOUNT", "value": "400"},
+      {"entity": "DATE_REFERENCE", "value": "kal"}
+    ]
+  },
+  {
+    "text": "Full payment from Ritu received",
+    "intent": "Record_Payment",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Ritu"},
+      {"entity": "TRANSACTION_STATUS", "value": "FULL_PAYMENT"}
+    ]
+  },
+  {
+    "text": "Partial payment 200 by Ankit",
+    "intent": "Record_Payment",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Ankit"},
+      {"entity": "AMOUNT", "value": "200"},
+      {"entity": "TRANSACTION_STATUS", "value": "PARTIAL_PAYMENT"}
+    ]
+  },
+  {
+    "text": "Payment of 300 via NEFT from Gupta ji",
+    "intent": "Record_Payment",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Gupta ji"},
+      {"entity": "AMOUNT", "value": "300"},
+      {"entity": "PAYMENT_MODE", "value": "NEFT"}
+    ]
+  },
+  {
+    "text": "Cash 1000 mil gaya Vikram",
+    "intent": "Record_Payment",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Vikram"},
+      {"entity": "AMOUNT", "value": "1000"},
+      {"entity": "PAYMENT_MODE", "value": "CASH"}
+    ]
+  },
+  {
+    "text": "Khan Enterprises ne 1800 transfer kiya via bank",
+    "intent": "Record_Payment",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"},
+      {"entity": "AMOUNT", "value": "1800"},
+      {"entity": "PAYMENT_MODE", "value": "BANK"}
+    ]
+  },
+  {
+    "text": "Aaj ka 450 payment aa gaya",
+    "intent": "Record_Payment",
+    "entities": [
+      {"entity": "AMOUNT", "value": "450"},
+      {"entity": "DATE_REFERENCE", "value": "aaj"}
+    ]
+  },
+  {
+    "text": "Customer paid 600",
+    "intent": "Record_Payment",
+    "entities": [
+      {"entity": "AMOUNT", "value": "600"}
+    ]
+  },
+  {
+    "text": "Neha ne aadha 300 bheja",
+    "intent": "Record_Payment",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Neha"},
+      {"entity": "AMOUNT", "value": "300"},
+      {"entity": "TRANSACTION_STATUS", "value": "PARTIAL_PAYMENT"}
+    ]
+  },
+  {
+    "text": "Invoice 123 paid 750 by Pooja",
+    "intent": "Record_Payment",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Pooja"},
+      {"entity": "AMOUNT", "value": "750"}
+    ]
+  }
 ]
