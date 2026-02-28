@@ -690,5 +690,196 @@
       {"entity": "CUSTOMER_NAME", "value": "Pooja"},
       {"entity": "AMOUNT", "value": "750"}
     ]
+  },
+  {
+  "text": "Rahul ka balance kitna hai",
+  "intent": "Check_Balance",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Rahul"}
+  ]
+},
+{
+  "text": "Neha pe kitna baaki hai",
+  "intent": "Check_Balance",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Neha"}
+  ]
+},
+{
+  "text": "Sharma ji ka outstanding batao",
+  "intent": "Check_Balance",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Sharma ji"}
+  ]
+},
+{
+  "text": "Lakshmi ke account mein total kitna pending hai",
+  "intent": "Check_Balance",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Lakshmi"}
+  ]
+},
+{
+  "text": "Gupta ji ka pura hisaab dikhao",
+  "intent": "Check_Balance",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Gupta ji"}
+  ]
+},
+{
+  "text": "Ravi pe total kitna udhaar hai",
+  "intent": "Check_Balance",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Ravi"}
+  ]
+},
+{
+  "text": "Manoj ka balance bata",
+  "intent": "Check_Balance",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Manoj"}
+  ]
+},
+{
+  "text": "Sunita ka kitna amount baaki hai",
+  "intent": "Check_Balance",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Sunita"}
+  ]
+},
+{
+  "text": "Khan Enterprises ka total due kitna hai",
+  "intent": "Check_Balance",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"}
+  ]
+},
+{
+  "text": "Ritu ka pending amount dikhao",
+  "intent": "Check_Balance",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Ritu"}
+  ]
+},
+{
+  "text": "Verma Traders pe kitna baaki chal raha hai",
+  "intent": "Check_Balance",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Verma Traders"}
+  ]
+},
+{
+  "text": "Amit ka current balance kya hai",
+  "intent": "Check_Balance",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Amit"}
+  ]
+}
+  ,
+  {
+    "text": "Rahul ka aaj ka balance batao",
+    "intent": "Check_Balance",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Rahul"},
+      {"entity": "DATE_REFERENCE", "value": "aaj"}
+    ]
+  },
+  {
+    "text": "Is mahine Neha pe kitna pending hai",
+    "intent": "Check_Balance",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Neha"},
+      {"entity": "DATE_REFERENCE", "value": "is mahine"}
+    ]
+  },
+  {
+    "text": "Customer ka total outstanding kitna hai",
+    "intent": "Check_Balance",
+    "entities": []
+  },
+  {
+    "text": "Kitna udhaar hai Sharma ji ko abhi tak",
+    "intent": "Check_Balance",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Sharma ji"}
+    ]
+  },
+  {
+    "text": "Pichle mahine ka balance dikhao Lakshmi ka",
+    "intent": "Check_Balance",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Lakshmi"},
+      {"entity": "DATE_REFERENCE", "value": "pichle mahine"}
+    ]
+  },
+  {
+    "text": "Ravi ke ledger ka due bata",
+    "intent": "Check_Balance",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Ravi"}
+    ]
+  },
+  {
+    "text": "Mere sab customers ka total due batado",
+    "intent": "Check_Balance",
+    "entities": []
+  },
+  {
+    "text": "Kya Manoj ne pura clear kiya ya kuch baaki hai",
+    "intent": "Check_Balance",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Manoj"}
+    ]
+  },
+  {
+    "text": "Ritu ka current due show karo",
+    "intent": "Check_Balance",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Ritu"}
+    ]
+  },
+  {
+    "text": "Verma Traders ke liye outstanding amount batao kal tak",
+    "intent": "Check_Balance",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Verma Traders"},
+      {"entity": "DATE_REFERENCE", "value": "kal"}
+    ]
+  },
+  {
+    "text": "Aaj ka total pending amount batao",
+    "intent": "Check_Balance",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "aaj"}
+    ]
+  },
+  {
+    "text": "Khan Enterprises ka balance as of aaj kya hai",
+    "intent": "Check_Balance",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"},
+      {"entity": "DATE_REFERENCE", "value": "aaj"}
+    ]
+  },
+  {
+    "text": "Deepak pe kitna baaki hai",
+    "intent": "Check_Balance",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Deepak"}
+    ]
+  },
+  {
+    "text": "Maa Durga Traders ka pending bata",
+    "intent": "Check_Balance",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Maa Durga Traders"}
+    ]
+  },
+  {
+    "text": "Kis customer ka sabse zyada balance hai",
+    "intent": "Check_Balance",
+    "entities": []
   }
 ]
+
+ 
