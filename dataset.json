@@ -14,7 +14,107 @@
     "entities": [
       {"entity": "CUSTOMER_NAME", "value": "Neha"},
       {"entity": "AMOUNT", "value": "1200"}
+  ,
+  {
+    "text": "Aaj ki sales kitni rahi",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "aaj"}
     ]
+  },
+  {
+    "text": "Show today's sales",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "aaj"}
+    ]
+  },
+  {
+    "text": "Is mahine ki total revenue batao",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "is mahine"}
+    ]
+  },
+  {
+    "text": "Last month ka revenue dikhao",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "pichle mahine"}
+    ]
+  },
+  {
+    "text": "Pichle 7 din ka sales summary dikhado",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "pichle 7 din"}
+    ]
+  },
+  {
+    "text": "Quarterly sales report do",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "quarter"}
+    ]
+  },
+  {
+    "text": "Year-to-date sales batao",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "year-to-date"}
+    ]
+  },
+  {
+    "text": "Online payments se kitna aaya aaj",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "aaj"}
+    ]
+  },
+  {
+    "text": "Cash sales ka total dikhao aaj",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "aaj"}
+    ]
+  },
+  {
+    "text": "Top 5 selling items ka report dikhao",
+    "intent": "View_Sales_Summary",
+    "entities": []
+  },
+  {
+    "text": "Store-wise sales summary dikhao",
+    "intent": "View_Sales_Summary",
+    "entities": []
+  },
+  {
+    "text": "Is week ka net sales batao",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "is week"}
+    ]
+  },
+  {
+    "text": "Daily sales trend dikhao pichle 30 din",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "pichle 30 din"}
+    ]
+  },
+  {
+    "text": "Gross revenue for February 2026",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "February 2026"}
+    ]
+  },
+  {
+    "text": "Total sales after discounts and returns batao",
+    "intent": "View_Sales_Summary",
+    "entities": []
+  }
+]
   },
   {
     "text": "Generate invoice for Mohan 1200",
@@ -879,6 +979,690 @@
     "text": "Kis customer ka sabse zyada balance hai",
     "intent": "Check_Balance",
     "entities": []
+  },
+  {
+  "text": "Rahul ko payment reminder bhej do",
+  "intent": "Send_Reminder",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Rahul"}
+  ]
+},
+{
+  "text": "Neha ko yaad dila do paisa bhejne ke liye",
+  "intent": "Send_Reminder",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Neha"}
+  ]
+},
+{
+  "text": "Sharma ji ko pending amount ke liye message karo",
+  "intent": "Send_Reminder",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Sharma ji"}
+  ]
+},
+{
+  "text": "Lakshmi ko follow up kar lo payment ke liye",
+  "intent": "Send_Reminder",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Lakshmi"}
+  ]
+},
+{
+  "text": "Gupta ji ko ek reminder bhejna hai",
+  "intent": "Send_Reminder",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Gupta ji"}
+  ]
+},
+{
+  "text": "Ravi ko bol do balance clear kare",
+  "intent": "Send_Reminder",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Ravi"}
+  ]
+},
+{
+  "text": "Manoj ko pending ke liye ping karo",
+  "intent": "Send_Reminder",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Manoj"}
+  ]
+},
+{
+  "text": "Sunita ko paisa bhejne ke liye yaad kara do",
+  "intent": "Send_Reminder",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Sunita"}
+  ]
+},
+{
+  "text": "Khan Enterprises ko outstanding ke liye remind karo",
+  "intent": "Send_Reminder",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"}
+  ]
+},
+{
+  "text": "Ritu ko ek baar phir se payment yaad dila do",
+  "intent": "Send_Reminder",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Ritu"}
+  ]
+},
+{
+  "text": "Verma Traders ko follow up message bhej do",
+  "intent": "Send_Reminder",
+  "entities": [
+    {"entity": "CUSTOMER_NAME", "value": "Verma Traders"}
+  ]
+},
+  {
+    "text": "Amit ko bol do ki paisa abhi tak pending hai",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Amit"}
+    ]
+  },
+  {
+    "text": "Rahul ko payment yaad dila do kal",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Rahul"},
+      {"entity": "DATE_REFERENCE", "value": "kal"}
+    ]
+  },
+  {
+    "text": "Neha ko ek SMS bhej kar payment yaad dila do",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Neha"}
+    ]
+  },
+  {
+    "text": "Sharma ji ko pending amount ke liye reminder bhejo",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Sharma ji"}
+    ]
+  },
+  {
+    "text": "Lakshmi ko kal subah reminder bhej dena",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Lakshmi"},
+      {"entity": "DATE_REFERENCE", "value": "kal subah"}
+    ]
+  },
+  {
+    "text": "Khan Enterprises ko email bhej do payment ke liye",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"}
+    ]
+  },
+  {
+    "text": "Ritu ko payment reminder schedule kar do 3 din baad",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Ritu"},
+      {"entity": "DATE_REFERENCE", "value": "3 din baad"}
+    ]
+  },
+  {
+    "text": "Verma Traders ko payment ke liye call karne ko bolo",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Verma Traders"}
+    ]
+  },
+  {
+    "text": "Amit ko ek baar phir se invoice yaad dila do",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Amit"}
+    ]
+  },
+  {
+    "text": "Maa Durga Traders ko outstanding ke liye message bhejo",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Maa Durga Traders"}
+    ]
+  },
+  {
+    "text": "Rohit ko payment reminder bhej — urgent",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Rohit"}
+    ]
+  },
+  {
+    "text": "Manoj ko chhota reminder bhej do",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Manoj"}
+    ]
+  },
+  {
+    "text": "Sunita ko pending amount ke liye follow up bhejo",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Sunita"}
+    ]
+  },
+  {
+    "text": "Khan Enterprises ko aaj reminder bhej do",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"},
+      {"entity": "DATE_REFERENCE", "value": "aaj"}
+    ]
+  },
+  {
+    "text": "Parveen aur Gupta ji dono ko reminder bhej do",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Parveen"},
+      {"entity": "CUSTOMER_NAME", "value": "Gupta ji"}
+    ]
+  },
+  {
+    "text": "Sab customers ko bulk reminder bhej do",
+    "intent": "Send_Reminder",
+    "entities": []
+  },
+  {
+  "text": "5 packet Maggi stock mein add karo",
+  "intent": "Update_Inventory",
+  "entities": [
+    {"entity": "QUANTITY", "value": "5 packet"},
+    {"entity": "ITEM_NAME", "value": "Maggi"}
+  ]
+},
+{
+  "text": "10 kg chawal inventory mein daal do",
+  "intent": "Update_Inventory",
+  "entities": [
+    {"entity": "QUANTITY", "value": "10 kg"},
+    {"entity": "ITEM_NAME", "value": "chawal"}
+  ]
+},
+{
+  "text": "3 oil bottle stock se minus karo",
+  "intent": "Update_Inventory",
+  "entities": [
+    {"entity": "QUANTITY", "value": "3"},
+    {"entity": "ITEM_NAME", "value": "oil bottle"}
+  ]
+},
+{
+  "text": "20 biscuit packet add karo inventory mein",
+  "intent": "Update_Inventory",
+  "entities": [
+    {"entity": "QUANTITY", "value": "20"},
+    {"entity": "ITEM_NAME", "value": "biscuit packet"}
+  ]
+},
+{
+  "text": "15 soap stock mein jod do",
+  "intent": "Update_Inventory",
+  "entities": [
+    {"entity": "QUANTITY", "value": "15"},
+    {"entity": "ITEM_NAME", "value": "soap"}
+  ]
+},
+{
+  "text": "4 rice bag reduce kar do",
+  "intent": "Update_Inventory",
+  "entities": [
+    {"entity": "QUANTITY", "value": "4"},
+    {"entity": "ITEM_NAME", "value": "rice bag"}
+  ]
+},
+{
+  "text": "12 cold drink inventory mein daal do",
+  "intent": "Update_Inventory",
+  "entities": [
+    {"entity": "QUANTITY", "value": "12"},
+    {"entity": "ITEM_NAME", "value": "cold drink"}
+  ]
+},
+{
+  "text": "6 shampoo bottle kam kar do",
+  "intent": "Update_Inventory",
+  "entities": [
+    {"entity": "QUANTITY", "value": "6"},
+    {"entity": "ITEM_NAME", "value": "shampoo bottle"}
+  ]
+},
+{
+  "text": "25 atta packet stock update karo",
+  "intent": "Update_Inventory",
+  "entities": [
+    {"entity": "QUANTITY", "value": "25"},
+    {"entity": "ITEM_NAME", "value": "atta packet"}
+  ]
+},
+{
+  "text": "8 sugar bag inventory mein add karo",
+  "intent": "Update_Inventory",
+  "entities": [
+    {"entity": "QUANTITY", "value": "8"},
+    {"entity": "ITEM_NAME", "value": "sugar bag"}
+  ]
+},
+{
+  "text": "2 oil tin stock kam karo",
+  "intent": "Update_Inventory",
+  "entities": [
+    {"entity": "QUANTITY", "value": "2"},
+    {"entity": "ITEM_NAME", "value": "oil tin"}
+  ]
+},
+{
+  "text": "18 chips packet add kar do inventory mein",
+  "intent": "Update_Inventory",
+  "entities": [
+    {"entity": "QUANTITY", "value": "18"},
+    {"entity": "ITEM_NAME", "value": "chips packet"}
+  ]
+}
+  ,
+  {
+    "text": "Please remind Rahul to pay the pending amount",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Rahul"}
+    ]
+  },
+  {
+    "text": "Kal Neha ko payment ke liye call kar dena",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Neha"},
+      {"entity": "DATE_REFERENCE", "value": "kal"}
+    ]
+  },
+  {
+    "text": "Sharma ji ko WhatsApp message bhej kar reminder do",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Sharma ji"}
+    ]
+  },
+  {
+    "text": "Aaj subah Lakshmi ko reminder bhej do",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Lakshmi"},
+      {"entity": "DATE_REFERENCE", "value": "aaj subah"}
+    ]
+  },
+  {
+    "text": "Khan Enterprises ko email bhej do invoice ke liye",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"}
+    ]
+  },
+  {
+    "text": "Ritu ko due payment ke liye ek gentle reminder bhej",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Ritu"}
+    ]
+  },
+  {
+    "text": "Verma Traders aur Ritu dono ko reminder schedule karo",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Verma Traders"},
+      {"entity": "CUSTOMER_NAME", "value": "Ritu"}
+    ]
+  },
+  {
+    "text": "All customers ko ek weekly reminder bhejne ke liye set karo",
+    "intent": "Send_Reminder",
+    "entities": []
+  },
+  {
+    "text": "Rohit ko urgent payment reminder bhejo abhi",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Rohit"}
+    ]
+  },
+  {
+    "text": "Manoj aur Sunita ko ek combined reminder bhej do",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Manoj"},
+      {"entity": "CUSTOMER_NAME", "value": "Sunita"}
+    ]
+  },
+  {
+    "text": "Reminder bhej do Amit ko due date se 2 din pehle",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Amit"},
+      {"entity": "DATE_REFERENCE", "value": "2 din pehle"}
+    ]
+  },
+  {
+    "text": "Parveen ko baar-baar reminder na bhejna, ek gentle nudge bhej",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Parveen"}
+    ]
+  },
+  {
+    "text": "Khan Enterprises ko payment reminder SMS bhej",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"}
+    ]
+  },
+  {
+    "text": "Gupta ji ko invoice ke details ke saath reminder bhejo",
+    "intent": "Send_Reminder",
+    "entities": [
+      {"entity": "CUSTOMER_NAME", "value": "Gupta ji"}
+    ]
+  },
+  {
+    "text": "Sab clients ko ek final reminder bhej do",
+    "intent": "Send_Reminder",
+    "entities": []
+  },
+  {
+  "text": "Aaj ki total sale kitni hui",
+  "intent": "View_Sales_Summary",
+  "entities": [
+    {"entity": "DATE_REFERENCE", "value": "aaj"}
+  ]
+},
+{
+  "text": "Kal ka total revenue batao",
+  "intent": "View_Sales_Summary",
+  "entities": [
+    {"entity": "DATE_REFERENCE", "value": "kal"}
+  ]
+},
+{
+  "text": "Is mahine ka sale summary dikhao",
+  "intent": "View_Sales_Summary",
+  "entities": [
+    {"entity": "DATE_REFERENCE", "value": "is mahine"}
+  ]
+},
+{
+  "text": "Pichle hafte ka total kitna bana",
+  "intent": "View_Sales_Summary",
+  "entities": [
+    {"entity": "DATE_REFERENCE", "value": "pichle hafte"}
+  ]
+},
+{
+  "text": "Aaj tak ka revenue kya hai",
+  "intent": "View_Sales_Summary",
+  "entities": [
+    {"entity": "DATE_REFERENCE", "value": "aaj tak"}
+  ]
+},
+{
+  "text": "Is saal ka total sale batao",
+  "intent": "View_Sales_Summary",
+  "entities": [
+    {"entity": "DATE_REFERENCE", "value": "is saal"}
+  ]
+},
+{
+  "text": "Monthly sales report dikhao",
+  "intent": "View_Sales_Summary",
+  "entities": []
+},
+{
+  "text": "Last month ka turnover kitna tha",
+  "intent": "View_Sales_Summary",
+  "entities": [
+    {"entity": "DATE_REFERENCE", "value": "last month"}
+  ]
+},
+{
+  "text": "Aaj kitna kamaaya",
+  "intent": "View_Sales_Summary",
+  "entities": [
+    {"entity": "DATE_REFERENCE", "value": "aaj"}
+  ]
+},
+{
+  "text": "Total earning kitni hui",
+  "intent": "View_Sales_Summary",
+  "entities": []
+},
+{
+  "text": "Is week ka overall sale batao",
+  "intent": "View_Sales_Summary",
+  "entities": [
+    {"entity": "DATE_REFERENCE", "value": "is week"}
+  ]
+},
+{
+  "text": "Abhi tak ki sales dikhao",
+  "intent": "View_Sales_Summary",
+  "entities": [
+    {"entity": "DATE_REFERENCE", "value": "abhi tak"}
+  ]
+}
+  ,
+  {
+    "text": "Stock mein 10 packet biscuits add karo",
+    "intent": "Update_Inventory",
+    "entities": [
+      {"entity": "QUANTITY", "value": "10 packet"},
+      {"entity": "ITEM_NAME", "value": "biscuits"}
+    ]
+  },
+  {
+    "text": "2 litre cooking oil inventory mein daal do",
+    "intent": "Update_Inventory",
+    "entities": [
+      {"entity": "QUANTITY", "value": "2 litre"},
+      {"entity": "ITEM_NAME", "value": "cooking oil"}
+    ]
+  },
+  {
+    "text": "5 kg sugar stock mein add karo",
+    "intent": "Update_Inventory",
+    "entities": [
+      {"entity": "QUANTITY", "value": "5 kg"},
+      {"entity": "ITEM_NAME", "value": "sugar"}
+    ]
+  },
+  {
+    "text": "15 bottles shampoo inventory se minus karo",
+    "intent": "Update_Inventory",
+    "entities": [
+      {"entity": "QUANTITY", "value": "15"},
+      {"entity": "ITEM_NAME", "value": "shampoo bottles"}
+    ]
+  },
+  {
+    "text": "3 dozen anda add kar do stock mein",
+    "intent": "Update_Inventory",
+    "entities": [
+      {"entity": "QUANTITY", "value": "3 dozen"},
+      {"entity": "ITEM_NAME", "value": "anda"}
+    ]
+  },
+  {
+    "text": "50 unit face mask inventory update karo",
+    "intent": "Update_Inventory",
+    "entities": [
+      {"entity": "QUANTITY", "value": "50 unit"},
+      {"entity": "ITEM_NAME", "value": "face mask"}
+    ]
+  },
+  {
+    "text": "6 packets atta stock se hata do",
+    "intent": "Update_Inventory",
+    "entities": [
+      {"entity": "QUANTITY", "value": "6 packet"},
+      {"entity": "ITEM_NAME", "value": "atta"}
+    ]
+  },
+  {
+    "text": "1 carton cold drink inventory mein add karo",
+    "intent": "Update_Inventory",
+    "entities": [
+      {"entity": "QUANTITY", "value": "1 carton"},
+      {"entity": "ITEM_NAME", "value": "cold drink"}
+    ]
+  },
+  {
+    "text": "20 chocolate bars stock mein daal dena",
+    "intent": "Update_Inventory",
+    "entities": [
+      {"entity": "QUANTITY", "value": "20"},
+      {"entity": "ITEM_NAME", "value": "chocolate bars"}
+    ]
+  },
+  {
+    "text": "2 kg rice inventory se kam kar do",
+    "intent": "Update_Inventory",
+    "entities": [
+      {"entity": "QUANTITY", "value": "2 kg"},
+      {"entity": "ITEM_NAME", "value": "rice"}
+    ]
+  },
+  {
+    "text": "7 packets maggi add karo",
+    "intent": "Update_Inventory",
+    "entities": [
+      {"entity": "QUANTITY", "value": "7 packet"},
+      {"entity": "ITEM_NAME", "value": "Maggi"}
+    ]
+  },
+  {
+    "text": "4 soap bars inventory mein jod do",
+    "intent": "Update_Inventory",
+    "entities": [
+      {"entity": "QUANTITY", "value": "4"},
+      {"entity": "ITEM_NAME", "value": "soap bars"}
+    ]
+  },
+  {
+    "text": "30 packets namkeen stock se minus karo",
+    "intent": "Update_Inventory",
+    "entities": [
+      {"entity": "QUANTITY", "value": "30 packet"},
+      {"entity": "ITEM_NAME", "value": "namkeen"}
+    ]
+  },
+  {
+    "text": "Stock update: 9 toothpaste tubes add karo",
+    "intent": "Update_Inventory",
+    "entities": [
+      {"entity": "QUANTITY", "value": "9"},
+      {"entity": "ITEM_NAME", "value": "toothpaste tubes"}
+    ]
+  },
+  {
+    "text": "Aaj ki total sale kitni hui",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "aaj"}
+    ]
+  },
+  {
+    "text": "Kal ka total revenue batao",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "kal"}
+    ]
+  },
+  {
+    "text": "Is mahine ka sale summary dikhao",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "is mahine"}
+    ]
+  },
+  {
+    "text": "Pichle hafte ka total kitna bana",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "pichle hafte"}
+    ]
+  },
+  {
+    "text": "Aaj tak ka revenue kya hai",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "aaj tak"}
+    ]
+  },
+  {
+    "text": "Is saal ka total sale batao",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "is saal"}
+    ]
+  },
+  {
+    "text": "Monthly sales report dikhao",
+    "intent": "View_Sales_Summary",
+    "entities": []
+  },
+  {
+    "text": "Top selling item ka monthly report dikhao",
+    "intent": "View_Sales_Summary",
+    "entities": []
+  },
+  {
+    "text": "Daily average sales pichle 30 din batao",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "pichle 30 din"}
+    ]
+  },
+  {
+    "text": "Refunds aur returns ke baad net sales dikhao",
+    "intent": "View_Sales_Summary",
+    "entities": []
+  },
+  {
+    "text": "Payment mode-wise sales breakdown dikhao",
+    "intent": "View_Sales_Summary",
+    "entities": []
+  },
+  {
+    "text": "Sales comparison: is mahine vs pichle mahine",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "is mahine"},
+      {"entity": "DATE_REFERENCE", "value": "pichle mahine"}
+    ]
+  },
+  {
+    "text": "Store wise top-performing item dikhao",
+    "intent": "View_Sales_Summary",
+    "entities": []
+  },
+  {
+    "text": "Weekly sales trend last 8 weeks dikhado",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "last 8 weeks"}
+    ]
+  },
+  {
+    "text": "Average order value batao pichle mahine",
+    "intent": "View_Sales_Summary",
+    "entities": [
+      {"entity": "DATE_REFERENCE", "value": "pichle mahine"}
+    ]
   }
 ]
 
