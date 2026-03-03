@@ -1,17 +1,18 @@
 import sqlite3
 from pathlib import Path
 
-# Define database file path
-BASE_DIR = Path(__file__).resolve().parent.parent # input file is app/database.py, so we go up two levels to get to the project root
-DB_PATH = BASE_DIR / "data" / "vyapaar.db" #  output file is data/vyapaar.db in the project root base directory data directory
+BASE_DIR = Path(__file__).resolve().parent.parent
+DB_PATH = BASE_DIR / "data" / "vyapaar.db"
 
 
 def get_connection():
     """
     Creates and returns a database connection.
+    Foreign keys are enforced.
     """
     conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row  # Allows accessing columns by name
+    conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA foreign_keys = ON;")
     return conn
 
 
@@ -22,7 +23,7 @@ def initialize_database():
     conn = get_connection()
     cursor = conn.cursor()
 
-    # Create users table
+    # USERS
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -31,21 +32,69 @@ def initialize_database():
             phone TEXT UNIQUE NOT NULL,
             password_hash TEXT NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            is_active INTEGER DEFAULT 1
+            is_active INTEGER DEFAULT 1,
+            next_invoice_number INTEGER NOT NULL DEFAULT 1
         )
     """)
 
-    # Create customers table
+    # CUSTOMERS
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS customers (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_id INTEGER NOT NULL,
             name TEXT NOT NULL,
             phone TEXT,
-            total_balance REAL DEFAULT 0,
+            current_balance REAL NOT NULL DEFAULT 0,
             is_active INTEGER DEFAULT 1,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY(user_id) REFERENCES users(id)
+        )
+    """)
+
+    # INVOICES
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS invoices (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            customer_id INTEGER NOT NULL,
+            invoice_number INTEGER NOT NULL,
+            total_amount REAL NOT NULL CHECK (total_amount >= 0),
+            status TEXT NOT NULL DEFAULT 'ISSUED'
+                CHECK (status IN ('ISSUED', 'VOID')),
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY(user_id) REFERENCES users(id),
+            FOREIGN KEY(customer_id) REFERENCES customers(id),
+            UNIQUE(user_id, invoice_number)
+        )
+    """)
+
+    # TRANSACTIONS (UPDATED)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS transactions (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            customer_id INTEGER NOT NULL,
+            invoice_id INTEGER NULL,
+            type TEXT NOT NULL CHECK (type IN ('CREDIT', 'PAYMENT', 'ADJUSTMENT')),
+            amount REAL NOT NULL CHECK (amount > 0),
+            description TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY(user_id) REFERENCES users(id),
+            FOREIGN KEY(customer_id) REFERENCES customers(id),
+            FOREIGN KEY(invoice_id) REFERENCES invoices(id)
+        )
+    """)
+
+    # INVOICE ITEMS
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS invoice_items (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            invoice_id INTEGER NOT NULL,
+            item_name TEXT NOT NULL,
+            quantity REAL NOT NULL CHECK (quantity > 0),
+            unit_price REAL NOT NULL CHECK (unit_price >= 0),
+            line_total REAL NOT NULL CHECK (line_total >= 0),
+            FOREIGN KEY(invoice_id) REFERENCES invoices(id)
         )
     """)
 
