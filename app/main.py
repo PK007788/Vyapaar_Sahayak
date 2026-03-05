@@ -1,157 +1,195 @@
-from app.database import initialize_database
+from fastapi import FastAPI, Depends, HTTPException, Header
+from pydantic import BaseModel
+from typing import List, Optional
+from jose import jwt
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials 
+
+
 from app.business_logic import (
     create_user,
     login_user,
     create_customer,
+    create_invoice,
     create_transaction,
-    create_invoice
+    get_customer_statement,
+    get_customers_with_balance,
+    void_invoice
 )
 
+from app.auth import create_access_token, SECRET_KEY, ALGORITHM
 
-def main():
-    initialize_database()
+app = FastAPI(title="Vyapaar Saathi API")
+security = HTTPBearer()
 
-    logged_in_user_id = None
+# -----------------------------
+# Request Models
+# -----------------------------
 
-    while True:
-        print("\n--- Vyapaar Saathi CLI ---")
-        print("1. Register")
-        print("2. Login")
-        print("3. Create Customer")
-        print("4. Add Credit")
-        print("5. Record Payment")
-        print("6. Create Invoice")
-        print("7. Exit")
-
-        choice = input("Enter choice: ")
-
-        # ---------------- REGISTER ----------------
-        if choice == "1":
-            shop = input("Shop Name: ")
-            owner = input("Owner Name: ")
-            phone = input("Phone: ")
-            password = input("Password: ")
-
-            result = create_user(shop, owner, phone, password)
-            print(result)
-
-        # ---------------- LOGIN ----------------
-        elif choice == "2":
-            phone = input("Phone: ")
-            password = input("Password: ")
-
-            result = login_user(phone, password)
-            print(result)
-
-            if result["status"] == "success":
-                logged_in_user_id = result["user_id"]
-
-        # ---------------- CREATE CUSTOMER ----------------
-        elif choice == "3":
-            if not logged_in_user_id:
-                print("Please login first.")
-                continue
-
-            name = input("Customer Name: ")
-            phone = input("Customer Phone (optional): ").strip()
-            phone = phone if phone else None
-
-            result = create_customer(logged_in_user_id, name, phone)
-            print(result)
-
-        # ---------------- ADD CREDIT ----------------
-        elif choice == "4":
-            if not logged_in_user_id:
-                print("Please login first.")
-                continue
-
-            try:
-                customer_id = int(input("Customer ID: "))
-                amount = float(input("Amount: "))
-            except ValueError:
-                print("Invalid numeric input.")
-                continue
-
-            desc = input("Description: ")
-
-            result = create_transaction(
-                logged_in_user_id,
-                customer_id,
-                "CREDIT",
-                amount,
-                desc
-            )
-            print(result)
-
-        # ---------------- RECORD PAYMENT ----------------
-        elif choice == "5":
-            if not logged_in_user_id:
-                print("Please login first.")
-                continue
-
-            try:
-                customer_id = int(input("Customer ID: "))
-                amount = float(input("Amount: "))
-            except ValueError:
-                print("Invalid numeric input.")
-                continue
-
-            desc = input("Description: ")
-
-            result = create_transaction(
-                logged_in_user_id,
-                customer_id,
-                "PAYMENT",
-                amount,
-                desc
-            )
-            print(result)
-
-        # ---------------- CREATE INVOICE ----------------
-        elif choice == "6":
-            if not logged_in_user_id:
-                print("Please login first.")
-                continue
-
-            try:
-                customer_id = int(input("Customer ID: "))
-            except ValueError:
-                print("Invalid customer ID.")
-                continue
-
-            items = []
-            print("Enter invoice items. Type 'done' as item name to finish.")
-
-            while True:
-                item_name = input("Item Name: ")
-
-                if item_name.lower() == "done":
-                    break
-
-                try:
-                    quantity = float(input("Quantity: "))
-                    unit_price = float(input("Unit Price: "))
-                except ValueError:
-                    print("Invalid numeric input. Try again.")
-                    continue
-
-                items.append({
-                    "item_name": item_name,
-                    "quantity": quantity,
-                    "unit_price": unit_price
-                })
-
-            result = create_invoice(logged_in_user_id, customer_id, items)
-            print(result)
-
-        # ---------------- EXIT ----------------
-        elif choice == "7":
-            print("Exiting...")
-            break
-
-        else:
-            print("Invalid choice.")
+class RegisterRequest(BaseModel):
+    shop_name: str
+    owner_name: str
+    phone: str
+    password: str
 
 
-if __name__ == "__main__":
-    main()
+class LoginRequest(BaseModel):
+    phone: str
+    password: str
+
+
+class CustomerRequest(BaseModel):
+    name: str
+    phone: Optional[str] = None
+
+
+class PaymentRequest(BaseModel):
+    customer_id: int
+    amount: float
+    description: Optional[str] = None
+
+
+class InvoiceItem(BaseModel):
+    item_name: str
+    quantity: float
+    unit_price: float
+
+
+class InvoiceRequest(BaseModel):
+    customer_id: int
+    items: List[InvoiceItem]
+
+
+# -----------------------------
+# Authentication Dependency
+# -----------------------------
+
+def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    try:
+        token = credentials.credentials
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload["user_id"]
+
+    except Exception:
+        raise HTTPException(status_code=401, detail="Invalid or expired token")
+
+# -----------------------------
+# Root Endpoint
+# -----------------------------
+
+@app.get("/")
+def root():
+    return {"message": "Vyapaar Saathi API is running"}
+
+
+# -----------------------------
+# Authentication Routes
+# -----------------------------
+
+@app.post("/register")
+def register(data: RegisterRequest):
+
+    return create_user(
+        data.shop_name,
+        data.owner_name,
+        data.phone,
+        data.password
+    )
+
+
+@app.post("/login")
+def login(data: LoginRequest):
+
+    result = login_user(data.phone, data.password)
+
+    if result["status"] != "success":
+        return result
+
+    token = create_access_token(result["user_id"])
+
+    return {
+        "access_token": token,
+        "token_type": "bearer"
+    }
+
+
+# -----------------------------
+# Customer Routes
+# -----------------------------
+
+@app.post("/customers")
+def add_customer(
+    data: CustomerRequest,
+    user_id: int = Depends(get_current_user)
+):
+
+    return create_customer(
+        user_id,
+        data.name,
+        data.phone
+    )
+
+
+@app.get("/customers")
+def list_customers(user_id: int = Depends(get_current_user)):
+
+    return get_customers_with_balance(user_id)
+
+
+# -----------------------------
+# Payment Route
+# -----------------------------
+
+@app.post("/payment")
+def record_payment(
+    data: PaymentRequest,
+    user_id: int = Depends(get_current_user)
+):
+
+    return create_transaction(
+        user_id,
+        data.customer_id,
+        "PAYMENT",
+        data.amount,
+        data.description
+    )
+
+
+# -----------------------------
+# Invoice Routes
+# -----------------------------
+
+@app.post("/invoice")
+def create_invoice_api(
+    data: InvoiceRequest,
+    user_id: int = Depends(get_current_user)
+):
+
+    items = [item.dict() for item in data.items]
+
+    return create_invoice(
+        user_id,
+        data.customer_id,
+        items
+    )
+
+
+@app.post("/invoice/{invoice_id}/void")
+def void_invoice_api(
+    invoice_id: int,
+    user_id: int = Depends(get_current_user)
+):
+
+    return void_invoice(user_id, invoice_id)
+
+
+# -----------------------------
+# Statement Route
+# -----------------------------
+
+@app.get("/statement/{customer_id}")
+def statement(
+    customer_id: int,
+    user_id: int = Depends(get_current_user)
+):
+
+    return get_customer_statement(user_id, customer_id)
