@@ -324,3 +324,201 @@ def create_invoice(user_id, customer_id, items):
 
     finally:
         conn.close()
+# ---------------------------------------------------
+# INVOICE VOIDING
+# ---------------------------------------------------
+
+
+def void_invoice(user_id, invoice_id, reason=None):
+    """
+    Voids an existing invoice by creating a reversal transaction.
+    Financial history is never deleted.
+    """
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    try:
+        # Validate invoice ownership
+        cursor.execute("""
+            SELECT id, customer_id, total_amount, status, invoice_number
+            FROM invoices
+            WHERE id = ? AND user_id = ?
+        """, (invoice_id, user_id))
+
+        invoice = cursor.fetchone()
+
+        if not invoice:
+            return {"status": "error", "message": "Invoice not found."}
+
+        if invoice["status"] == "VOID":
+            return {"status": "error", "message": "Invoice already voided."}
+
+        conn.execute("BEGIN")
+
+        # Create reversal transaction
+        reversal_desc = f"Reversal of Invoice #{invoice['invoice_number']}"
+
+        if reason:
+            reversal_desc += f" ({reason})"
+
+        txn_result = create_transaction(
+        user_id=user_id,
+            customer_id=invoice["customer_id"],
+            txn_type="PAYMENT",
+            amount=invoice["total_amount"],
+            description=f"Reversal of Invoice #{invoice['invoice_number']}",
+            invoice_id=invoice_id,
+            conn=conn
+)
+
+        if txn_result["status"] != "success":
+            raise Exception("Failed to create reversal transaction")
+
+        # Mark invoice VOID
+        cursor.execute("""
+            UPDATE invoices
+            SET status = 'VOID'
+            WHERE id = ?
+        """, (invoice_id,))
+
+        conn.commit()
+
+        return {
+            "status": "success",
+            "message": "Invoice voided successfully."
+        }
+
+    except Exception as e:
+        conn.rollback()
+        print("DEBUG ERROR:", e)
+        return {"status": "error", "message": "Failed to void invoice."}
+
+    finally:
+        conn.close()
+
+# ---------------------------------------------------
+# CUSTOMER BALANCE RETRIEVAL
+# ---------------------------------------------------
+
+def get_customer_balance(user_id, customer_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT current_balance
+        FROM customers
+        WHERE id = ? AND user_id = ?
+    """, (customer_id, user_id))
+
+    result = cursor.fetchone()
+    conn.close()
+
+    if not result:
+        return {"status": "error", "message": "Customer not found."}
+
+    return {
+        "status": "success",
+        "balance": result["current_balance"]
+    }
+
+# ---------------------------------------------------
+# CUSTOMER TRANSACTIONS RETRIEVAL
+# ---------------------------------------------------
+
+
+def get_customer_transactions(user_id, customer_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT id, type, amount, description, created_at
+        FROM transactions
+        WHERE user_id = ? AND customer_id = ?
+        ORDER BY created_at
+    """, (user_id, customer_id))
+
+    rows = cursor.fetchall()
+    conn.close()
+
+    return [dict(row) for row in rows]
+
+# ---------------------------------------------------
+# CUSTOMER STATEMENT RETRIEVAL
+# ---------------------------------------------------
+
+
+
+def get_customer_statement(user_id, customer_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT type, amount, description, created_at
+        FROM transactions
+        WHERE user_id = ? AND customer_id = ?
+        ORDER BY created_at
+    """, (user_id, customer_id))
+
+    rows = cursor.fetchall()
+    conn.close()
+
+    statement = []
+    running_balance = 0
+
+    for row in rows:
+        txn_type = row["type"]
+        amount = row["amount"]
+
+        if txn_type == "CREDIT":
+            running_balance += amount
+            signed_amount = f"+{amount}"
+
+        elif txn_type == "PAYMENT":
+            running_balance -= amount
+            signed_amount = f"-{amount}"
+
+        elif txn_type == "ADJUSTMENT":
+            running_balance += amount
+            signed_amount = str(amount)
+
+        statement.append({
+            "date": row["created_at"],
+            "description": row["description"],
+            "amount": signed_amount,
+            "balance": running_balance
+        })
+
+    return statement
+
+# ---------------------------------------------------
+# CUSTOMERS WITH BALANCE
+# ---------------------------------------------------
+
+
+
+def get_customers_with_balance(user_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT id, name, phone, current_balance
+        FROM customers
+        WHERE user_id = ? AND is_active = 1
+        ORDER BY name
+    """, (user_id,))
+
+    rows = cursor.fetchall()
+    conn.close()
+
+    customers = []
+
+    for row in rows:
+        customers.append({
+            "customer_id": row["id"],
+            "name": row["name"],
+            "phone": row["phone"],
+            "balance": row["current_balance"]
+        })
+
+    return customers
