@@ -1,0 +1,69 @@
+# ===============================
+# PYTHON (FastAPI Backend)
+# ===============================
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+
+# virtual environments
+venv/
+env/
+.venv/
+
+# python build files
+build/
+dist/
+*.egg-info/
+
+
+# ===============================
+# DATABASE
+# ===============================
+
+data/*.db
+
+
+# ===============================
+# NODE / REACT (Frontend)
+# ===============================
+
+vyapaar-frontend/node_modules/
+vyapaar-frontend/dist/
+vyapaar-frontend/.vite/
+
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+
+# ===============================
+# ENVIRONMENT VARIABLES
+# ===============================
+
+.env
+.env.local
+.env.production
+
+
+# ===============================
+# EDITOR FILES
+# ===============================
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+
+# ===============================
+# OS FILES
+# ===============================
+
+.DS_Store
+Thumbs.db

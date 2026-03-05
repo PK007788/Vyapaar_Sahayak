@@ -4,6 +4,9 @@ from typing import List, Optional
 from jose import jwt
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials 
 
+from app.database import get_connection
+from app.auth import get_current_user
+
 
 from app.business_logic import (
     create_user,
@@ -193,3 +196,69 @@ def statement(
 ):
 
     return get_customer_statement(user_id, customer_id)
+
+# -----------------------------
+# Dashboard Route
+# -----------------------------
+
+
+@app.get("/dashboard")
+def get_dashboard(current_user=Depends(get_current_user)):
+    """
+    Returns dashboard summary for the logged-in shop.
+    """
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    user_id = current_user
+    
+    # TOTAL CUSTOMERS
+    cursor.execute("""
+        SELECT COUNT(*) as total
+        FROM customers
+        WHERE user_id = ?
+        AND is_active = 1
+    """, (user_id,))
+    
+    total_customers = cursor.fetchone()["total"]
+
+    # OUTSTANDING BALANCE
+    cursor.execute("""
+        SELECT COALESCE(SUM(current_balance), 0) as total
+        FROM customers
+        WHERE user_id = ?
+    """, (user_id,))
+    
+    outstanding_balance = cursor.fetchone()["total"]
+
+    # TODAY'S INVOICES
+    cursor.execute("""
+        SELECT COUNT(*) as total
+        FROM invoices
+        WHERE user_id = ?
+        AND DATE(created_at) = DATE('now')
+        AND status = 'ISSUED'
+    """, (user_id,))
+    
+    today_invoices = cursor.fetchone()["total"]
+
+    # RECENT TRANSACTIONS
+    cursor.execute("""
+        SELECT id, type, amount, description, created_at
+        FROM transactions
+        WHERE user_id = ?
+        ORDER BY created_at DESC
+        LIMIT 5
+    """, (user_id,))
+
+    recent_transactions = [dict(row) for row in cursor.fetchall()]
+
+    conn.close()
+
+    return {
+        "total_customers": total_customers,
+        "outstanding_balance": outstanding_balance,
+        "today_invoices": today_invoices,
+        "recent_transactions": recent_transactions
+    }
