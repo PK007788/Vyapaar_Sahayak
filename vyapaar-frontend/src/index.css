@@ -11,14 +11,14 @@
 
   html {
     scroll-behavior: smooth;
-    background: theme(colors.cream);
+    background: hsl(60 30% 96%);
   }
 
   body {
     min-height: 100vh;
-    background: theme(colors.cream);
-    color: theme(colors.ink);
-    font-family: theme(fontFamily.sans);
+    background: hsl(60 30% 96%);
+    color: hsl(160 20% 12%);
+    font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
     text-rendering: geometricPrecision;
   }
 }
