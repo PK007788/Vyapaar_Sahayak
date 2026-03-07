@@ -1,36 +1,52 @@
+import { useState, useEffect } from "react"
+
 import Navbar from "./components/Navbar"
+import Hero from "./components/Hero"
+import Services from "./components/Services"
+import FeatureSection from "./components/FeatureSection"
+import TrustBar from "./components/TrustBar"
+import CTA from "./components/CTA"
 
 function App() {
 
+  const [language, setLanguage] = useState("en")
+  const [visible, setVisible] = useState(true)
+
+  useEffect(() => {
+
+    const interval = setInterval(() => {
+
+      setVisible(false)
+
+      setTimeout(() => {
+
+        setLanguage(prev => prev === "en" ? "hi" : "en")
+        setVisible(true)
+
+      }, 600)
+
+    }, 15000)
+
+    return () => clearInterval(interval)
+
+  }, [])
+
+
   return (
 
-  <div className="min-h-screen bg-slate-50 text-slate-900">  
+    <div className={`bg-[#f7f7f2] transition-opacity duration-700 ${visible ? "opacity-100" : "opacity-0"}`}>
 
       <Navbar />
 
-      <div className="flex flex-col items-center justify-center text-center mt-40">
+      <Hero language={language} />
 
-       <h1 className="text-6xl font-bold mb-6 text-slate-900">
-          Vyapaar Sahayak
-       </h1>
+      <Services language={language} />
 
-        <p className="text-xl text-gray-300 mb-10">
-          AI-powered accounting assistant for Indian shopkeepers
-        </p>
+      <FeatureSection language={language} />
 
-        <div className="flex gap-6">
+      <TrustBar language={language} />
 
-          <button className="bg-blue-600 px-8 py-4 rounded-xl hover:bg-blue-700 transition">
-            Start Free
-          </button>
-
-          <button className="border border-gray-500 px-8 py-4 rounded-xl hover:bg-gray-800 transition">
-            Login
-          </button>
-
-        </div>
-
-      </div>
+      <CTA language={language} />
 
     </div>
 
