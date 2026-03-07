@@ -1,55 +1,49 @@
-import { useState, useEffect } from "react"
-
+import { Routes, Route } from "react-router-dom"
 import Navbar from "./components/Navbar"
-import Hero from "./components/Hero"
-import Services from "./components/Services"
-import FeatureSection from "./components/FeatureSection"
-import TrustBar from "./components/TrustBar"
-import CTA from "./components/CTA"
+import ProtectedRoute from "./components/ProtectedRoute"
+import Landing from "./pages/Landing"
+import Login from "./pages/Login"
+import Register from "./pages/Register"
+import Dashboard from "./pages/Dashboard"
+import About from "./pages/About"
+import { useLanguage } from "./context/LanguageContext"
 
 function App() {
-
-  const [language, setLanguage] = useState("en")
-  const [visible, setVisible] = useState(true)
-
-  useEffect(() => {
-
-    const interval = setInterval(() => {
-
-      setVisible(false)
-
-      setTimeout(() => {
-
-        setLanguage(prev => prev === "en" ? "hi" : "en")
-        setVisible(true)
-
-      }, 600)
-
-    }, 15000)
-
-    return () => clearInterval(interval)
-
-  }, [])
-
+  const { language, setLanguage } = useLanguage()
 
   return (
-
-    <div className={`bg-[#f7f7f2] transition-opacity duration-700 ${visible ? "opacity-100" : "opacity-0"}`}>
-
-      <Navbar />
-
-      <Hero language={language} />
-
-      <Services language={language} />
-
-      <FeatureSection language={language} />
-
-      <TrustBar language={language} />
-
-      <CTA language={language} />
-
+    <div className="min-h-screen bg-cream">
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Navbar language={language} />
+              <Landing language={language} />
+            </>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <>
+              <Navbar language={language} />
+              <About />
+            </>
+          }
+        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route
+          path="/app"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
     </div>
-
   )
 }
 

@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# User uploads & heavy assets
+public/images/*.jpg
+public/images/*.jpeg
+public/images/*.png
+!public/images/logo.png
+public/*.png

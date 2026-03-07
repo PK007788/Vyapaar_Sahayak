@@ -398,6 +398,42 @@ def void_invoice(user_id, invoice_id, reason=None):
         conn.close()
 
 # ---------------------------------------------------
+# INVOICE DETAILS
+# ---------------------------------------------------
+
+def get_invoice_details(user_id, invoice_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT id, invoice_number, total_amount, status, created_at
+        FROM invoices
+        WHERE id = ? AND user_id = ?
+    """, (invoice_id, user_id))
+    
+    invoice = cursor.fetchone()
+
+    if not invoice:
+        conn.close()
+        return {"status": "error", "message": "Invoice not found."}
+
+    cursor.execute("""
+        SELECT item_name, quantity, unit_price, line_total
+        FROM invoice_items
+        WHERE invoice_id = ?
+    """, (invoice_id,))
+    
+    items = [dict(row) for row in cursor.fetchall()]
+
+    conn.close()
+
+    return {
+        "status": "success",
+        "invoice": dict(invoice),
+        "items": items
+    }
+
+# ---------------------------------------------------
 # CUSTOMER BALANCE RETRIEVAL
 # ---------------------------------------------------
 
@@ -454,7 +490,7 @@ def get_customer_statement(user_id, customer_id):
     cursor = conn.cursor()
 
     cursor.execute("""
-        SELECT type, amount, description, created_at
+        SELECT type, amount, description, created_at, invoice_id
         FROM transactions
         WHERE user_id = ? AND customer_id = ?
         ORDER BY created_at
@@ -486,7 +522,8 @@ def get_customer_statement(user_id, customer_id):
             "date": row["created_at"],
             "description": row["description"],
             "amount": signed_amount,
-            "balance": running_balance
+            "balance": running_balance,
+            "invoice_id": row["invoice_id"]
         })
 
     return statement

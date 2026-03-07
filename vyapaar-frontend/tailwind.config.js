@@ -16,8 +16,8 @@ export default {
         },
       },
       fontFamily: {
-        sans: ["Manrope", "ui-sans-serif", "system-ui", "sans-serif"],
-        display: ["Fraunces", "ui-serif", "Georgia", "serif"],
+        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["Outfit", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       boxShadow: {
         soft: "0 12px 30px rgba(15, 23, 42, 0.08)",
@@ -32,10 +32,15 @@ export default {
           "0%, 100%": { transform: "translateY(0px)" },
           "50%": { transform: "translateY(-6px)" },
         },
+        fadeIn: {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        }
       },
       animation: {
         caret: "caret 1s step-end infinite",
         floaty: "floaty 4.5s ease-in-out infinite",
+        "fade-in": "fadeIn 0.5s ease-out forwards",
       },
     },
   },

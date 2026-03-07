@@ -81,5 +81,7 @@ export const api = {
     }),
 
   statement: (customer_id) => apiFetch(`/statement/${customer_id}`),
+
+  getInvoiceDetails: (invoice_id) => apiFetch(`/invoice/${invoice_id}`),
 }
 

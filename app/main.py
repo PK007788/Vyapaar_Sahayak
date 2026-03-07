@@ -4,7 +4,7 @@ from typing import List, Optional
 from jose import jwt
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials 
 
-from app.database import get_connection
+from app.database import get_connection, initialize_database
 from app.auth import get_current_user
 
 
@@ -16,13 +16,17 @@ from app.business_logic import (
     create_transaction,
     get_customer_statement,
     get_customers_with_balance,
-    void_invoice
+    void_invoice,
+    get_invoice_details
 )
 
 from app.auth import create_access_token, SECRET_KEY, ALGORITHM
 
 app = FastAPI(title="Vyapaar Saathi API")
 security = HTTPBearer()
+
+# Initialize the database on startup
+initialize_database()
 
 # -----------------------------
 # Request Models
@@ -183,6 +187,15 @@ def void_invoice_api(
 ):
 
     return void_invoice(user_id, invoice_id)
+
+
+@app.get("/invoice/{invoice_id}")
+def get_invoice_endpoints(
+    invoice_id: int,
+    user_id: int = Depends(get_current_user)
+):
+
+    return get_invoice_details(user_id, invoice_id)
 
 
 # -----------------------------
