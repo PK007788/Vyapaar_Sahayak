@@ -1,1669 +1,3607 @@
-
-  [
+[
     {
-      "text": "Rahul ko 500 ka bill bana do",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Rahul"},
-      {"entity": "AMOUNT", "value": "500"}
-    ]
-  },
-  {
-    "text": "Neha ke liye 1200 ka invoice generate karo",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Neha"},
-      {"entity": "AMOUNT", "value": "1200"}
-  ,
-  {
-    "text": "Aaj ki sales kitni rahi",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "aaj"}
-    ]
-  },
-  {
-    "text": "Show today's sales",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "aaj"}
-    ]
-  },
-  {
-    "text": "Is mahine ki total revenue batao",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "is mahine"}
-    ]
-  },
-  {
-    "text": "Last month ka revenue dikhao",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "pichle mahine"}
-    ]
-  },
-  {
-    "text": "Pichle 7 din ka sales summary dikhado",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "pichle 7 din"}
-    ]
-  },
-  {
-    "text": "Quarterly sales report do",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "quarter"}
-    ]
-  },
-  {
-    "text": "Year-to-date sales batao",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "year-to-date"}
-    ]
-  },
-  {
-    "text": "Online payments se kitna aaya aaj",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "aaj"}
-    ]
-  },
-  {
-    "text": "Cash sales ka total dikhao aaj",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "aaj"}
-    ]
-  },
-  {
-    "text": "Top 5 selling items ka report dikhao",
-    "intent": "View_Sales_Summary",
-    "entities": []
-  },
-  {
-    "text": "Store-wise sales summary dikhao",
-    "intent": "View_Sales_Summary",
-    "entities": []
-  },
-  {
-    "text": "Is week ka net sales batao",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "is week"}
-    ]
-  },
-  {
-    "text": "Daily sales trend dikhao pichle 30 din",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "pichle 30 din"}
-    ]
-  },
-  {
-    "text": "Gross revenue for February 2026",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "February 2026"}
-    ]
-  },
-  {
-    "text": "Total sales after discounts and returns batao",
-    "intent": "View_Sales_Summary",
-    "entities": []
-  }
-]
-  },
-  {
-    "text": "Generate invoice for Mohan 1200",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Mohan"},
-      {"entity": "AMOUNT", "value": "1200"}
-    ]
-  },
-  {
-    "text": "3000 ka maal diya Sharma ji ko",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "AMOUNT", "value": "3000"},
-      {"entity": "CUSTOMER_NAME", "value": "Sharma ji"}
-    ]
-  },
-  {
-    "text": "Bill bana do 800 ka",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "AMOUNT", "value": "800"}
-    ]
-  },
-  {
-    "text": "1200 ka bill bana do Ramesh ke naam pe",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "AMOUNT", "value": "1200"},
-      {"entity": "CUSTOMER_NAME", "value": "Ramesh"}
-    ]
-  },
-  {
-    "text": "Sohan ko 750 ka invoice bhejna hai",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Sohan"},
-      {"entity": "AMOUNT", "value": "750"}
-    ]
-  },
-  {
-    "text": "2 hazar ka maal diya tha Amit ko bill bana do",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "AMOUNT", "value": "2000"},
-      {"entity": "CUSTOMER_NAME", "value": "Amit"}
-    ]
-  },
-  {
-    "text": "Invoice bana 450 ka Ankit ke liye",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "AMOUNT", "value": "450"},
-      {"entity": "CUSTOMER_NAME", "value": "Ankit"}
-    ]
-  },
-  {
-    "text": "Kal jo 900 ka saman diya tha uska bill generate karo",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "AMOUNT", "value": "900"},
-      {"entity": "DATE_REFERENCE", "value": "kal"}
-    ]
-  },
-  {
-    "text": "1800 ka bill create kar de Gupta ji ke naam se",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "AMOUNT", "value": "1800"},
-      {"entity": "CUSTOMER_NAME", "value": "Gupta ji"}
-    ]
-  },
-  {
-    "text": "650 ka bill bana aur bhej bhi dena",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "AMOUNT", "value": "650"}
-    ]
-  },
-  {
-    "text": "Mohit ko 3 hazar ka maal gaya invoice bana",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Mohit"},
-      {"entity": "AMOUNT", "value": "3000"}
-    ]
-  },
-  {
-    "text": "2500 ka invoice bana do kal ki date se",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "AMOUNT", "value": "2500"},
-      {"entity": "DATE_REFERENCE", "value": "kal"}
-    ]
-  },
-  {
-    "text": "999 ka bill bana do customer Ravi",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "AMOUNT", "value": "999"},
-      {"entity": "CUSTOMER_NAME", "value": "Ravi"}
-    ]
-  },
-  {
-    "text": "500 ka bana do bill Rahul",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "AMOUNT", "value": "500"},
-      {"entity": "CUSTOMER_NAME", "value": "Rahul"}
-    ]
-  },
-  {
-    "text": "bill 1400 ka Suresh",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "AMOUNT", "value": "1400"},
-      {"entity": "CUSTOMER_NAME", "value": "Suresh"}
-    ]
-  },
-  {
-    "text": "2100 ka maal gaya Sharma ji invoice",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "AMOUNT", "value": "2100"},
-      {"entity": "CUSTOMER_NAME", "value": "Sharma ji"}
-    ]
-  },
-  {
-    "text": "kal 800 diya tha uska bill",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "AMOUNT", "value": "800"},
-      {"entity": "DATE_REFERENCE", "value": "kal"}
-    ]
-  },
-  {
-    "text": "3000 ka bana do uske naam pe",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "AMOUNT", "value": "3000"}
-    ]
-  },
-  {
-    "text": "Sharma ji ke naam pe ek naya bill bana",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Sharma ji"}
-    ]
-  },
-  {
-    "text": "Aaj ka 1450 ka invoice bana do Deepak ke liye",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "aaj"},
-      {"entity": "AMOUNT", "value": "1450"},
-      {"entity": "CUSTOMER_NAME", "value": "Deepak"}
-    ]
-  },
-  {
-    "text": "4 packet diya tha Raju ko uska bill bana",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Raju"},
-      {"entity": "QUANTITY", "value": "4 packet"}
-    ]
-  },
-  {
-    "text": "Rakesh ko kal 2200 ka saman gaya invoice bana de",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Rakesh"},
-      {"entity": "AMOUNT", "value": "2200"},
-      {"entity": "DATE_REFERENCE", "value": "kal"}
-    ]
-  },
-  {
-    "text": "875 ka bill generate karo Manoj",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "AMOUNT", "value": "875"},
-      {"entity": "CUSTOMER_NAME", "value": "Manoj"}
-    ]
-  },
-  {
-    "text": "Amit ke liye naya invoice bana 3200 ka",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Amit"},
-      {"entity": "AMOUNT", "value": "3200"}
-    ]
-  },
-  {
-    "text": "600 ka saman diya tha uska bill bana",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "AMOUNT", "value": "600"}
-    ]
-  },
-  {
-    "text": "Ek invoice bana do 510 ka Rohit ke naam se",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "AMOUNT", "value": "510"},
-      {"entity": "CUSTOMER_NAME", "value": "Rohit"}
-    ]
-  },
-  {
-    "text": "1500 ka bill create karo aur save karo",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "AMOUNT", "value": "1500"}
-    ]
-  },
-  {
-    "text": "Us customer ke liye 700 ka bill bana jo kal aaya tha",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "AMOUNT", "value": "700"},
-      {"entity": "DATE_REFERENCE", "value": "kal"}
-    ]
-  },
-  {
-    "text": "Invoice create karo Suresh ke naam se",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Suresh"}
-    ]
-  },
-  {
-    "text": "Verma Traders ke liye 5000 ka bill create karo",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Verma Traders"},
-      {"entity": "AMOUNT", "value": "5000"}
-    ]
-  },
-  {
-    "text": "Maa Durga Traders ko 3200 ka maal gaya invoice bana",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Maa Durga Traders"},
-      {"entity": "AMOUNT", "value": "3200"}
-    ]
-  },
-  {
-    "text": "Ritu Kirana Store ke naam se 1800 ka bill bana do",
-    "intent": "Create_Invoice",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Ritu Kirana Store"},
-      {"entity": "AMOUNT", "value": "1800"}
-    ]
-},
-{
-  "text": "Rahul ke udhaar mein 500 jod do",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Rahul"},
-    {"entity": "AMOUNT", "value": "500"}
-  ]
-},
-{
-  "text": "Neha ke account mein 1200 add karo",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Neha"},
-    {"entity": "AMOUNT", "value": "1200"}
-  ]
-},
-{
-  "text": "3000 aur chadha do Sharma ji pe",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Sharma ji"},
-    {"entity": "AMOUNT", "value": "3000"}
-  ]
-},
-{
-  "text": "Lakshmi ke udhaar mein 900 jod do",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Lakshmi"},
-    {"entity": "AMOUNT", "value": "900"}
-  ]
-},
-{
-  "text": "Khan Enterprises ke naam pe 2500 aur likh do",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"},
-    {"entity": "AMOUNT", "value": "2500"}
-  ]
-},
-{
-  "text": "Manoj ke khate mein 750 daal do",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Manoj"},
-    {"entity": "AMOUNT", "value": "750"}
-  ]
-},
-{
-  "text": "Sunita pe 1100 aur chadha do",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Sunita"},
-    {"entity": "AMOUNT", "value": "1100"}
-  ]
-},
-{
-  "text": "450 aur add karo Ravi ke ledger mein",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Ravi"},
-    {"entity": "AMOUNT", "value": "450"}
-  ]
-},
-{
-  "text": "Kal ka 700 bhi add kar do Mohit ko",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Mohit"},
-    {"entity": "AMOUNT", "value": "700"},
-    {"entity": "DATE_REFERENCE", "value": "kal"}
-  ]
-},
-{
-  "text": "Gupta ji ka udhaar 1400 badha do",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Gupta ji"},
-    {"entity": "AMOUNT", "value": "1400"}
-  ]
-},
-{
-  "text": "Rahul ke khate mein 200 aur jod do",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Rahul"},
-    {"entity": "AMOUNT", "value": "200"}
-  ]
-},
-{
-  "text": "Neha pe 1800 aur chadh gaya",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Neha"},
-    {"entity": "AMOUNT", "value": "1800"}
-  ]
-},
-{
-  "text": "Sharma ji ka 600 aur badha do",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Sharma ji"},
-    {"entity": "AMOUNT", "value": "600"}
-  ]
-},
-{
-  "text": "Lakshmi ke account mein aur 950 daal do",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Lakshmi"},
-    {"entity": "AMOUNT", "value": "950"}
-  ]
-},
-{
-  "text": "Ravi ko 400 aur udhaar likh do",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Ravi"},
-    {"entity": "AMOUNT", "value": "400"}
-  ]
-},
-{
-  "text": "Gupta ji pe 2200 aur chadha dena",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Gupta ji"},
-    {"entity": "AMOUNT", "value": "2200"}
-  ]
-},
-{
-  "text": "Kal ka 1300 bhi uske khate mein add karo",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "AMOUNT", "value": "1300"},
-    {"entity": "DATE_REFERENCE", "value": "kal"}
-  ]
-},
-{
-  "text": "Manoj ka udhaar 500 aur badha do",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Manoj"},
-    {"entity": "AMOUNT", "value": "500"}
-  ]
-},
-{
-  "text": "Sunita ke naam pe 750 aur daal do",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Sunita"},
-    {"entity": "AMOUNT", "value": "750"}
-  ]
-},
-{
-  "text": "Maa Durga Traders ka 3000 aur likh do",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Maa Durga Traders"},
-    {"entity": "AMOUNT", "value": "3000"}
-  ]
-},
-{
-  "text": "Usko 850 aur jod do",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "AMOUNT", "value": "850"}
-  ]
-},
-{
-  "text": "Ritu Kirana Store ke khate mein 1700 aur daal do",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Ritu Kirana Store"},
-    {"entity": "AMOUNT", "value": "1700"}
-  ]
-},
-{
-  "text": "Pichle hafte ka 900 bhi add kar do Mohit ko",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Mohit"},
-    {"entity": "AMOUNT", "value": "900"},
-    {"entity": "DATE_REFERENCE", "value": "pichle hafte"}
-  ]
-},
-{
-  "text": "Khan Enterprises pe 2600 aur chadha do",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"},
-    {"entity": "AMOUNT", "value": "2600"}
-  ]
-},
-{
-  "text": "Aaj ka 1200 bhi uske account mein daal do",
-  "intent": "Add_Credit",
-  "entities": [
-    {"entity": "AMOUNT", "value": "1200"},
-    {"entity": "DATE_REFERENCE", "value": "aaj"}
-  ]
-},
-{
-  "text": "Rahul ne 500 ka payment kar diya",
-  "intent": "Record_Payment",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Rahul"},
-    {"entity": "AMOUNT", "value": "500"}
-  ]
-},
-{
-  "text": "Neha ne 1200 bhej diya",
-  "intent": "Record_Payment",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Neha"},
-    {"entity": "AMOUNT", "value": "1200"}
-  ]
-},
-{
-  "text": "Sharma ji ne 3000 transfer kiya",
-  "intent": "Record_Payment",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Sharma ji"},
-    {"entity": "AMOUNT", "value": "3000"}
-  ]
-},
-{
-  "text": "Lakshmi ka 800 mil gaya",
-  "intent": "Record_Payment",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Lakshmi"},
-    {"entity": "AMOUNT", "value": "800"}
-  ]
-},
-{
-  "text": "Gupta ji ne pura paisa de diya",
-  "intent": "Record_Payment",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Gupta ji"},
-    {"entity": "TRANSACTION_STATUS", "value": "FULL_PAYMENT"}
-  ]
-},
-{
-  "text": "Ravi ne aadha paisa diya",
-  "intent": "Record_Payment",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Ravi"},
-    {"entity": "TRANSACTION_STATUS", "value": "PARTIAL_PAYMENT"}
-  ]
-},
-{
-  "text": "Manoj ka 750 aa gaya",
-  "intent": "Record_Payment",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Manoj"},
-    {"entity": "AMOUNT", "value": "750"}
-  ]
-},
-{
-  "text": "Sunita ne 1500 UPI se bheja",
-  "intent": "Record_Payment",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Sunita"},
-    {"entity": "AMOUNT", "value": "1500"},
-    {"entity": "PAYMENT_MODE", "value": "UPI"}
-  ]
-},
-{
-  "text": "Khan Enterprises ka payment receive ho gaya",
-  "intent": "Record_Payment",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"}
-  ]
-},
-{
-  "text": "Ritu ne 2000 transfer kiya",
-  "intent": "Record_Payment",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Ritu"},
-    {"entity": "AMOUNT", "value": "2000"}
-  ]
-},
-{
-  "text": "Verma Traders ne 5000 clear kar diya",
-  "intent": "Record_Payment",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Verma Traders"},
-    {"entity": "AMOUNT", "value": "5000"}
-  ]
-},
-{
-  "text": "Pooja ka 900 mil gaya",
-  "intent": "Record_Payment",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Pooja"},
-    {"entity": "AMOUNT", "value": "900"}
-  ]
-},
-{
-  "text": "Amit ne 2500 cash diya",
-  "intent": "Record_Payment",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Amit"},
-    {"entity": "AMOUNT", "value": "2500"},
-    {"entity": "PAYMENT_MODE", "value": "CASH"}
-  ]
-},
-{
-  "text": "Maa Durga Traders ne aadha payment kiya",
-  "intent": "Record_Payment",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Maa Durga Traders"},
-    {"entity": "TRANSACTION_STATUS", "value": "PARTIAL_PAYMENT"}
-  ]
-},
-{
-  "text": "Rakesh ka 1100 aa gaya",
-  "intent": "Record_Payment",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Rakesh"},
-    {"entity": "AMOUNT", "value": "1100"}
-  ]
-}
-,
-  {
-    "text": "Suresh ne 1300 ka payment bheja",
-    "intent": "Record_Payment",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Suresh"},
-      {"entity": "AMOUNT", "value": "1300"}
-    ]
-  },
-  {
-    "text": "Received 750 from Rohit",
-    "intent": "Record_Payment",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Rohit"},
-      {"entity": "AMOUNT", "value": "750"}
-    ]
-  },
-  {
-    "text": "Parveen ne kal 400 bheja",
-    "intent": "Record_Payment",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Parveen"},
-      {"entity": "AMOUNT", "value": "400"},
-      {"entity": "DATE_REFERENCE", "value": "kal"}
-    ]
-  },
-  {
-    "text": "Full payment from Ritu received",
-    "intent": "Record_Payment",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Ritu"},
-      {"entity": "TRANSACTION_STATUS", "value": "FULL_PAYMENT"}
-    ]
-  },
-  {
-    "text": "Partial payment 200 by Ankit",
-    "intent": "Record_Payment",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Ankit"},
-      {"entity": "AMOUNT", "value": "200"},
-      {"entity": "TRANSACTION_STATUS", "value": "PARTIAL_PAYMENT"}
-    ]
-  },
-  {
-    "text": "Payment of 300 via NEFT from Gupta ji",
-    "intent": "Record_Payment",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Gupta ji"},
-      {"entity": "AMOUNT", "value": "300"},
-      {"entity": "PAYMENT_MODE", "value": "NEFT"}
-    ]
-  },
-  {
-    "text": "Cash 1000 mil gaya Vikram",
-    "intent": "Record_Payment",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Vikram"},
-      {"entity": "AMOUNT", "value": "1000"},
-      {"entity": "PAYMENT_MODE", "value": "CASH"}
-    ]
-  },
-  {
-    "text": "Khan Enterprises ne 1800 transfer kiya via bank",
-    "intent": "Record_Payment",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"},
-      {"entity": "AMOUNT", "value": "1800"},
-      {"entity": "PAYMENT_MODE", "value": "BANK"}
-    ]
-  },
-  {
-    "text": "Aaj ka 450 payment aa gaya",
-    "intent": "Record_Payment",
-    "entities": [
-      {"entity": "AMOUNT", "value": "450"},
-      {"entity": "DATE_REFERENCE", "value": "aaj"}
-    ]
-  },
-  {
-    "text": "Customer paid 600",
-    "intent": "Record_Payment",
-    "entities": [
-      {"entity": "AMOUNT", "value": "600"}
-    ]
-  },
-  {
-    "text": "Neha ne aadha 300 bheja",
-    "intent": "Record_Payment",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Neha"},
-      {"entity": "AMOUNT", "value": "300"},
-      {"entity": "TRANSACTION_STATUS", "value": "PARTIAL_PAYMENT"}
-    ]
-  },
-  {
-    "text": "Invoice 123 paid 750 by Pooja",
-    "intent": "Record_Payment",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Pooja"},
-      {"entity": "AMOUNT", "value": "750"}
-    ]
-  },
-  {
-  "text": "Rahul ka balance kitna hai",
-  "intent": "Check_Balance",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Rahul"}
-  ]
-},
-{
-  "text": "Neha pe kitna baaki hai",
-  "intent": "Check_Balance",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Neha"}
-  ]
-},
-{
-  "text": "Sharma ji ka outstanding batao",
-  "intent": "Check_Balance",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Sharma ji"}
-  ]
-},
-{
-  "text": "Lakshmi ke account mein total kitna pending hai",
-  "intent": "Check_Balance",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Lakshmi"}
-  ]
-},
-{
-  "text": "Gupta ji ka pura hisaab dikhao",
-  "intent": "Check_Balance",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Gupta ji"}
-  ]
-},
-{
-  "text": "Ravi pe total kitna udhaar hai",
-  "intent": "Check_Balance",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Ravi"}
-  ]
-},
-{
-  "text": "Manoj ka balance bata",
-  "intent": "Check_Balance",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Manoj"}
-  ]
-},
-{
-  "text": "Sunita ka kitna amount baaki hai",
-  "intent": "Check_Balance",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Sunita"}
-  ]
-},
-{
-  "text": "Khan Enterprises ka total due kitna hai",
-  "intent": "Check_Balance",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"}
-  ]
-},
-{
-  "text": "Ritu ka pending amount dikhao",
-  "intent": "Check_Balance",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Ritu"}
-  ]
-},
-{
-  "text": "Verma Traders pe kitna baaki chal raha hai",
-  "intent": "Check_Balance",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Verma Traders"}
-  ]
-},
-{
-  "text": "Amit ka current balance kya hai",
-  "intent": "Check_Balance",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Amit"}
-  ]
-}
-  ,
-  {
-    "text": "Rahul ka aaj ka balance batao",
-    "intent": "Check_Balance",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Rahul"},
-      {"entity": "DATE_REFERENCE", "value": "aaj"}
-    ]
-  },
-  {
-    "text": "Is mahine Neha pe kitna pending hai",
-    "intent": "Check_Balance",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Neha"},
-      {"entity": "DATE_REFERENCE", "value": "is mahine"}
-    ]
-  },
-  {
-    "text": "Customer ka total outstanding kitna hai",
-    "intent": "Check_Balance",
-    "entities": []
-  },
-  {
-    "text": "Kitna udhaar hai Sharma ji ko abhi tak",
-    "intent": "Check_Balance",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Sharma ji"}
-    ]
-  },
-  {
-    "text": "Pichle mahine ka balance dikhao Lakshmi ka",
-    "intent": "Check_Balance",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Lakshmi"},
-      {"entity": "DATE_REFERENCE", "value": "pichle mahine"}
-    ]
-  },
-  {
-    "text": "Ravi ke ledger ka due bata",
-    "intent": "Check_Balance",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Ravi"}
-    ]
-  },
-  {
-    "text": "Mere sab customers ka total due batado",
-    "intent": "Check_Balance",
-    "entities": []
-  },
-  {
-    "text": "Kya Manoj ne pura clear kiya ya kuch baaki hai",
-    "intent": "Check_Balance",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Manoj"}
-    ]
-  },
-  {
-    "text": "Ritu ka current due show karo",
-    "intent": "Check_Balance",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Ritu"}
-    ]
-  },
-  {
-    "text": "Verma Traders ke liye outstanding amount batao kal tak",
-    "intent": "Check_Balance",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Verma Traders"},
-      {"entity": "DATE_REFERENCE", "value": "kal"}
-    ]
-  },
-  {
-    "text": "Aaj ka total pending amount batao",
-    "intent": "Check_Balance",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "aaj"}
-    ]
-  },
-  {
-    "text": "Khan Enterprises ka balance as of aaj kya hai",
-    "intent": "Check_Balance",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"},
-      {"entity": "DATE_REFERENCE", "value": "aaj"}
-    ]
-  },
-  {
-    "text": "Deepak pe kitna baaki hai",
-    "intent": "Check_Balance",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Deepak"}
-    ]
-  },
-  {
-    "text": "Maa Durga Traders ka pending bata",
-    "intent": "Check_Balance",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Maa Durga Traders"}
-    ]
-  },
-  {
-    "text": "Kis customer ka sabse zyada balance hai",
-    "intent": "Check_Balance",
-    "entities": []
-  },
-  {
-  "text": "Rahul ko payment reminder bhej do",
-  "intent": "Send_Reminder",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Rahul"}
-  ]
-},
-{
-  "text": "Neha ko yaad dila do paisa bhejne ke liye",
-  "intent": "Send_Reminder",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Neha"}
-  ]
-},
-{
-  "text": "Sharma ji ko pending amount ke liye message karo",
-  "intent": "Send_Reminder",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Sharma ji"}
-  ]
-},
-{
-  "text": "Lakshmi ko follow up kar lo payment ke liye",
-  "intent": "Send_Reminder",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Lakshmi"}
-  ]
-},
-{
-  "text": "Gupta ji ko ek reminder bhejna hai",
-  "intent": "Send_Reminder",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Gupta ji"}
-  ]
-},
-{
-  "text": "Ravi ko bol do balance clear kare",
-  "intent": "Send_Reminder",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Ravi"}
-  ]
-},
-{
-  "text": "Manoj ko pending ke liye ping karo",
-  "intent": "Send_Reminder",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Manoj"}
-  ]
-},
-{
-  "text": "Sunita ko paisa bhejne ke liye yaad kara do",
-  "intent": "Send_Reminder",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Sunita"}
-  ]
-},
-{
-  "text": "Khan Enterprises ko outstanding ke liye remind karo",
-  "intent": "Send_Reminder",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"}
-  ]
-},
-{
-  "text": "Ritu ko ek baar phir se payment yaad dila do",
-  "intent": "Send_Reminder",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Ritu"}
-  ]
-},
-{
-  "text": "Verma Traders ko follow up message bhej do",
-  "intent": "Send_Reminder",
-  "entities": [
-    {"entity": "CUSTOMER_NAME", "value": "Verma Traders"}
-  ]
-},
-  {
-    "text": "Amit ko bol do ki paisa abhi tak pending hai",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Amit"}
-    ]
-  },
-  {
-    "text": "Rahul ko payment yaad dila do kal",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Rahul"},
-      {"entity": "DATE_REFERENCE", "value": "kal"}
-    ]
-  },
-  {
-    "text": "Neha ko ek SMS bhej kar payment yaad dila do",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Neha"}
-    ]
-  },
-  {
-    "text": "Sharma ji ko pending amount ke liye reminder bhejo",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Sharma ji"}
-    ]
-  },
-  {
-    "text": "Lakshmi ko kal subah reminder bhej dena",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Lakshmi"},
-      {"entity": "DATE_REFERENCE", "value": "kal subah"}
-    ]
-  },
-  {
-    "text": "Khan Enterprises ko email bhej do payment ke liye",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"}
-    ]
-  },
-  {
-    "text": "Ritu ko payment reminder schedule kar do 3 din baad",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Ritu"},
-      {"entity": "DATE_REFERENCE", "value": "3 din baad"}
-    ]
-  },
-  {
-    "text": "Verma Traders ko payment ke liye call karne ko bolo",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Verma Traders"}
-    ]
-  },
-  {
-    "text": "Amit ko ek baar phir se invoice yaad dila do",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Amit"}
-    ]
-  },
-  {
-    "text": "Maa Durga Traders ko outstanding ke liye message bhejo",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Maa Durga Traders"}
-    ]
-  },
-  {
-    "text": "Rohit ko payment reminder bhej — urgent",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Rohit"}
-    ]
-  },
-  {
-    "text": "Manoj ko chhota reminder bhej do",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Manoj"}
-    ]
-  },
-  {
-    "text": "Sunita ko pending amount ke liye follow up bhejo",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Sunita"}
-    ]
-  },
-  {
-    "text": "Khan Enterprises ko aaj reminder bhej do",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"},
-      {"entity": "DATE_REFERENCE", "value": "aaj"}
-    ]
-  },
-  {
-    "text": "Parveen aur Gupta ji dono ko reminder bhej do",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Parveen"},
-      {"entity": "CUSTOMER_NAME", "value": "Gupta ji"}
-    ]
-  },
-  {
-    "text": "Sab customers ko bulk reminder bhej do",
-    "intent": "Send_Reminder",
-    "entities": []
-  },
-  {
-  "text": "5 packet Maggi stock mein add karo",
-  "intent": "Update_Inventory",
-  "entities": [
-    {"entity": "QUANTITY", "value": "5 packet"},
-    {"entity": "ITEM_NAME", "value": "Maggi"}
-  ]
-},
-{
-  "text": "10 kg chawal inventory mein daal do",
-  "intent": "Update_Inventory",
-  "entities": [
-    {"entity": "QUANTITY", "value": "10 kg"},
-    {"entity": "ITEM_NAME", "value": "chawal"}
-  ]
-},
-{
-  "text": "3 oil bottle stock se minus karo",
-  "intent": "Update_Inventory",
-  "entities": [
-    {"entity": "QUANTITY", "value": "3"},
-    {"entity": "ITEM_NAME", "value": "oil bottle"}
-  ]
-},
-{
-  "text": "20 biscuit packet add karo inventory mein",
-  "intent": "Update_Inventory",
-  "entities": [
-    {"entity": "QUANTITY", "value": "20"},
-    {"entity": "ITEM_NAME", "value": "biscuit packet"}
-  ]
-},
-{
-  "text": "15 soap stock mein jod do",
-  "intent": "Update_Inventory",
-  "entities": [
-    {"entity": "QUANTITY", "value": "15"},
-    {"entity": "ITEM_NAME", "value": "soap"}
-  ]
-},
-{
-  "text": "4 rice bag reduce kar do",
-  "intent": "Update_Inventory",
-  "entities": [
-    {"entity": "QUANTITY", "value": "4"},
-    {"entity": "ITEM_NAME", "value": "rice bag"}
-  ]
-},
-{
-  "text": "12 cold drink inventory mein daal do",
-  "intent": "Update_Inventory",
-  "entities": [
-    {"entity": "QUANTITY", "value": "12"},
-    {"entity": "ITEM_NAME", "value": "cold drink"}
-  ]
-},
-{
-  "text": "6 shampoo bottle kam kar do",
-  "intent": "Update_Inventory",
-  "entities": [
-    {"entity": "QUANTITY", "value": "6"},
-    {"entity": "ITEM_NAME", "value": "shampoo bottle"}
-  ]
-},
-{
-  "text": "25 atta packet stock update karo",
-  "intent": "Update_Inventory",
-  "entities": [
-    {"entity": "QUANTITY", "value": "25"},
-    {"entity": "ITEM_NAME", "value": "atta packet"}
-  ]
-},
-{
-  "text": "8 sugar bag inventory mein add karo",
-  "intent": "Update_Inventory",
-  "entities": [
-    {"entity": "QUANTITY", "value": "8"},
-    {"entity": "ITEM_NAME", "value": "sugar bag"}
-  ]
-},
-{
-  "text": "2 oil tin stock kam karo",
-  "intent": "Update_Inventory",
-  "entities": [
-    {"entity": "QUANTITY", "value": "2"},
-    {"entity": "ITEM_NAME", "value": "oil tin"}
-  ]
-},
-{
-  "text": "18 chips packet add kar do inventory mein",
-  "intent": "Update_Inventory",
-  "entities": [
-    {"entity": "QUANTITY", "value": "18"},
-    {"entity": "ITEM_NAME", "value": "chips packet"}
-  ]
-}
-  ,
-  {
-    "text": "Please remind Rahul to pay the pending amount",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Rahul"}
-    ]
-  },
-  {
-    "text": "Kal Neha ko payment ke liye call kar dena",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Neha"},
-      {"entity": "DATE_REFERENCE", "value": "kal"}
-    ]
-  },
-  {
-    "text": "Sharma ji ko WhatsApp message bhej kar reminder do",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Sharma ji"}
-    ]
-  },
-  {
-    "text": "Aaj subah Lakshmi ko reminder bhej do",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Lakshmi"},
-      {"entity": "DATE_REFERENCE", "value": "aaj subah"}
-    ]
-  },
-  {
-    "text": "Khan Enterprises ko email bhej do invoice ke liye",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"}
-    ]
-  },
-  {
-    "text": "Ritu ko due payment ke liye ek gentle reminder bhej",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Ritu"}
-    ]
-  },
-  {
-    "text": "Verma Traders aur Ritu dono ko reminder schedule karo",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Verma Traders"},
-      {"entity": "CUSTOMER_NAME", "value": "Ritu"}
-    ]
-  },
-  {
-    "text": "All customers ko ek weekly reminder bhejne ke liye set karo",
-    "intent": "Send_Reminder",
-    "entities": []
-  },
-  {
-    "text": "Rohit ko urgent payment reminder bhejo abhi",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Rohit"}
-    ]
-  },
-  {
-    "text": "Manoj aur Sunita ko ek combined reminder bhej do",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Manoj"},
-      {"entity": "CUSTOMER_NAME", "value": "Sunita"}
-    ]
-  },
-  {
-    "text": "Reminder bhej do Amit ko due date se 2 din pehle",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Amit"},
-      {"entity": "DATE_REFERENCE", "value": "2 din pehle"}
-    ]
-  },
-  {
-    "text": "Parveen ko baar-baar reminder na bhejna, ek gentle nudge bhej",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Parveen"}
-    ]
-  },
-  {
-    "text": "Khan Enterprises ko payment reminder SMS bhej",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Khan Enterprises"}
-    ]
-  },
-  {
-    "text": "Gupta ji ko invoice ke details ke saath reminder bhejo",
-    "intent": "Send_Reminder",
-    "entities": [
-      {"entity": "CUSTOMER_NAME", "value": "Gupta ji"}
-    ]
-  },
-  {
-    "text": "Sab clients ko ek final reminder bhej do",
-    "intent": "Send_Reminder",
-    "entities": []
-  },
-  {
-  "text": "Aaj ki total sale kitni hui",
-  "intent": "View_Sales_Summary",
-  "entities": [
-    {"entity": "DATE_REFERENCE", "value": "aaj"}
-  ]
-},
-{
-  "text": "Kal ka total revenue batao",
-  "intent": "View_Sales_Summary",
-  "entities": [
-    {"entity": "DATE_REFERENCE", "value": "kal"}
-  ]
-},
-{
-  "text": "Is mahine ka sale summary dikhao",
-  "intent": "View_Sales_Summary",
-  "entities": [
-    {"entity": "DATE_REFERENCE", "value": "is mahine"}
-  ]
-},
-{
-  "text": "Pichle hafte ka total kitna bana",
-  "intent": "View_Sales_Summary",
-  "entities": [
-    {"entity": "DATE_REFERENCE", "value": "pichle hafte"}
-  ]
-},
-{
-  "text": "Aaj tak ka revenue kya hai",
-  "intent": "View_Sales_Summary",
-  "entities": [
-    {"entity": "DATE_REFERENCE", "value": "aaj tak"}
-  ]
-},
-{
-  "text": "Is saal ka total sale batao",
-  "intent": "View_Sales_Summary",
-  "entities": [
-    {"entity": "DATE_REFERENCE", "value": "is saal"}
-  ]
-},
-{
-  "text": "Monthly sales report dikhao",
-  "intent": "View_Sales_Summary",
-  "entities": []
-},
-{
-  "text": "Last month ka turnover kitna tha",
-  "intent": "View_Sales_Summary",
-  "entities": [
-    {"entity": "DATE_REFERENCE", "value": "last month"}
-  ]
-},
-{
-  "text": "Aaj kitna kamaaya",
-  "intent": "View_Sales_Summary",
-  "entities": [
-    {"entity": "DATE_REFERENCE", "value": "aaj"}
-  ]
-},
-{
-  "text": "Total earning kitni hui",
-  "intent": "View_Sales_Summary",
-  "entities": []
-},
-{
-  "text": "Is week ka overall sale batao",
-  "intent": "View_Sales_Summary",
-  "entities": [
-    {"entity": "DATE_REFERENCE", "value": "is week"}
-  ]
-},
-{
-  "text": "Abhi tak ki sales dikhao",
-  "intent": "View_Sales_Summary",
-  "entities": [
-    {"entity": "DATE_REFERENCE", "value": "abhi tak"}
-  ]
-}
-  ,
-  {
-    "text": "Stock mein 10 packet biscuits add karo",
-    "intent": "Update_Inventory",
-    "entities": [
-      {"entity": "QUANTITY", "value": "10 packet"},
-      {"entity": "ITEM_NAME", "value": "biscuits"}
-    ]
-  },
-  {
-    "text": "2 litre cooking oil inventory mein daal do",
-    "intent": "Update_Inventory",
-    "entities": [
-      {"entity": "QUANTITY", "value": "2 litre"},
-      {"entity": "ITEM_NAME", "value": "cooking oil"}
-    ]
-  },
-  {
-    "text": "5 kg sugar stock mein add karo",
-    "intent": "Update_Inventory",
-    "entities": [
-      {"entity": "QUANTITY", "value": "5 kg"},
-      {"entity": "ITEM_NAME", "value": "sugar"}
-    ]
-  },
-  {
-    "text": "15 bottles shampoo inventory se minus karo",
-    "intent": "Update_Inventory",
-    "entities": [
-      {"entity": "QUANTITY", "value": "15"},
-      {"entity": "ITEM_NAME", "value": "shampoo bottles"}
-    ]
-  },
-  {
-    "text": "3 dozen anda add kar do stock mein",
-    "intent": "Update_Inventory",
-    "entities": [
-      {"entity": "QUANTITY", "value": "3 dozen"},
-      {"entity": "ITEM_NAME", "value": "anda"}
-    ]
-  },
-  {
-    "text": "50 unit face mask inventory update karo",
-    "intent": "Update_Inventory",
-    "entities": [
-      {"entity": "QUANTITY", "value": "50 unit"},
-      {"entity": "ITEM_NAME", "value": "face mask"}
-    ]
-  },
-  {
-    "text": "6 packets atta stock se hata do",
-    "intent": "Update_Inventory",
-    "entities": [
-      {"entity": "QUANTITY", "value": "6 packet"},
-      {"entity": "ITEM_NAME", "value": "atta"}
-    ]
-  },
-  {
-    "text": "1 carton cold drink inventory mein add karo",
-    "intent": "Update_Inventory",
-    "entities": [
-      {"entity": "QUANTITY", "value": "1 carton"},
-      {"entity": "ITEM_NAME", "value": "cold drink"}
-    ]
-  },
-  {
-    "text": "20 chocolate bars stock mein daal dena",
-    "intent": "Update_Inventory",
-    "entities": [
-      {"entity": "QUANTITY", "value": "20"},
-      {"entity": "ITEM_NAME", "value": "chocolate bars"}
-    ]
-  },
-  {
-    "text": "2 kg rice inventory se kam kar do",
-    "intent": "Update_Inventory",
-    "entities": [
-      {"entity": "QUANTITY", "value": "2 kg"},
-      {"entity": "ITEM_NAME", "value": "rice"}
-    ]
-  },
-  {
-    "text": "7 packets maggi add karo",
-    "intent": "Update_Inventory",
-    "entities": [
-      {"entity": "QUANTITY", "value": "7 packet"},
-      {"entity": "ITEM_NAME", "value": "Maggi"}
-    ]
-  },
-  {
-    "text": "4 soap bars inventory mein jod do",
-    "intent": "Update_Inventory",
-    "entities": [
-      {"entity": "QUANTITY", "value": "4"},
-      {"entity": "ITEM_NAME", "value": "soap bars"}
-    ]
-  },
-  {
-    "text": "30 packets namkeen stock se minus karo",
-    "intent": "Update_Inventory",
-    "entities": [
-      {"entity": "QUANTITY", "value": "30 packet"},
-      {"entity": "ITEM_NAME", "value": "namkeen"}
-    ]
-  },
-  {
-    "text": "Stock update: 9 toothpaste tubes add karo",
-    "intent": "Update_Inventory",
-    "entities": [
-      {"entity": "QUANTITY", "value": "9"},
-      {"entity": "ITEM_NAME", "value": "toothpaste tubes"}
-    ]
-  },
-  {
-    "text": "Aaj ki total sale kitni hui",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "aaj"}
-    ]
-  },
-  {
-    "text": "Kal ka total revenue batao",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "kal"}
-    ]
-  },
-  {
-    "text": "Is mahine ka sale summary dikhao",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "is mahine"}
-    ]
-  },
-  {
-    "text": "Pichle hafte ka total kitna bana",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "pichle hafte"}
-    ]
-  },
-  {
-    "text": "Aaj tak ka revenue kya hai",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "aaj tak"}
-    ]
-  },
-  {
-    "text": "Is saal ka total sale batao",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "is saal"}
-    ]
-  },
-  {
-    "text": "Monthly sales report dikhao",
-    "intent": "View_Sales_Summary",
-    "entities": []
-  },
-  {
-    "text": "Top selling item ka monthly report dikhao",
-    "intent": "View_Sales_Summary",
-    "entities": []
-  },
-  {
-    "text": "Daily average sales pichle 30 din batao",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "pichle 30 din"}
-    ]
-  },
-  {
-    "text": "Refunds aur returns ke baad net sales dikhao",
-    "intent": "View_Sales_Summary",
-    "entities": []
-  },
-  {
-    "text": "Payment mode-wise sales breakdown dikhao",
-    "intent": "View_Sales_Summary",
-    "entities": []
-  },
-  {
-    "text": "Sales comparison: is mahine vs pichle mahine",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "is mahine"},
-      {"entity": "DATE_REFERENCE", "value": "pichle mahine"}
-    ]
-  },
-  {
-    "text": "Store wise top-performing item dikhao",
-    "intent": "View_Sales_Summary",
-    "entities": []
-  },
-  {
-    "text": "Weekly sales trend last 8 weeks dikhado",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "last 8 weeks"}
-    ]
-  },
-  {
-    "text": "Average order value batao pichle mahine",
-    "intent": "View_Sales_Summary",
-    "entities": [
-      {"entity": "DATE_REFERENCE", "value": "pichle mahine"}
-    ]
-  }
-]
+        "text":  "Rahul ko 500 ka bill bana do",
+        "intent":  "Create_Invoice",
+        "entities":  [
 
- 
+                     ]
+    },
+    {
+        "text":  "Generate invoice for Mohan 1200",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "3000 ka maal diya Sharma ji ko",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Bill bana do 800 ka",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "1200 ka bill bana do Ramesh ke naam pe",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sohan ko 750 ka invoice bhejna hai",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "2 hazar ka maal diya tha Amit ko bill bana do",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Invoice bana 450 ka Ankit ke liye",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Kal jo 900 ka saman diya tha uska bill generate karo",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "1800 ka bill create kar de Gupta ji ke naam se",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "650 ka bill bana aur bhej bhi dena",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mohit ko 3 hazar ka maal gaya invoice bana",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "2500 ka invoice bana do kal ki date se",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "999 ka bill bana do customer Ravi",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "500 ka bana do bill Rahul",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "bill 1400 ka Suresh",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "2100 ka maal gaya Sharma ji invoice",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "kal 800 diya tha uska bill",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "3000 ka bana do uske naam pe",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sharma ji ke naam pe ek naya bill bana",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Aaj ka 1450 ka invoice bana do Deepak ke liye",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "4 packet diya tha Raju ko uska bill bana",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rakesh ko kal 2200 ka saman gaya invoice bana de",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "875 ka bill generate karo Manoj",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Amit ke liye naya invoice bana 3200 ka",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "600 ka saman diya tha uska bill bana",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ek invoice bana do 510 ka Rohit ke naam se",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "1500 ka bill create karo aur save karo",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Us customer ke liye 700 ka bill bana jo kal aaya tha",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Invoice create karo Suresh ke naam se",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Pooja ko 1500 ka bill bana do",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Lakshmi ke naam pe 2200 ka invoice generate karo",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Verma Traders ke liye 5000 ka bill create karo",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Maa Durga Traders ko 3200 ka maal gaya invoice bana",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ritu Kirana Store ke naam se 1800 ka bill bana do",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ek naya invoice bana do 500 ke liye Rahul ke naam se",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul ke liye 500 ka invoice generate karo aur save kar do",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "500 ka bill Rahul ko bhej dena",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Customer Mohan ko 1200 ka invoice bana ke bhej do",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mohan ke naam pe 1,200 ka bill bana do",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "3000 ka invoice Sharma Traders ke liye banado",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sharma ji ke liye teen hazaar ka bill generate karo",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Bhai ek invoice bana 250 ke liye",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "250 ka bill bana do aur print kar lo",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ramesh ke naam pe 1200 ka naya invoice create karo",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Aaj ke date ka 1450 ka invoice Deepak ke liye bana do",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Kal ka 800 ka invoice banake bhej do",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ek draft invoice bana do 999 ka Ravi ke liye",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Invoice bana ke email bhi kar do 1500 ka Pooja ko",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Verma Traders ke liye 5000 ka formal invoice generate karo",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Maa Durga Traders ka 3,200 ka invoice draft karo",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ritu Kirana Store ka 1800 ka bill bana ke save karo",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ek receipt create karo 650 ka customer ke liye",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "350 ka invoice bana do aur print file bhi bhej do",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Do hazaar ka invoice bana aur usme discount laga do",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "2 hazaar 500 ka invoice customer ke naam pe create karo",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Teen hazaar do sau ka invoice bana do uske liye",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Pehle ka bill banana hai — 750 ka invoice taiyar karo",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "400 ka bill bana kar ledger mein add karo",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ek naya bill generate karo 2100 ka Sharma ji ke liye",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "30 packet ka maal gaya tha uska invoice bana do 3000",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Aaj subah jo order hua uska 875 ka bill bana do",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Bilkul simple invoice create kar do 600 ka Ankit ke naam",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ek urgent invoice chahiye 550 ka, Turant bana do",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Customer ka invoice recover karo — 1400 ka bill phir se bana do",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Raju ko 4 packet beche the, invoice 320 bana do",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Kal ka 2200 ka sale invoice create karo Rakesh ke liye",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "510 ka invoice banao aur WhatsApp pe bhejo Rohit ko",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "1500 ka credit invoice bana ke record karo",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "700 ka bill uss customer ke liye jo kal aaya tha bana do",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "2500 ka invoice bana do aur date yesterday set karo",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "999 ka quick invoice bana do aur save kar do",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Aaj ka special 1450 ka invoice Deepak ke liye bana do",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "1 hazaar ka proforma invoice bana ke rakh do",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Do hazaar paanch sau ka invoice customer ke naam pe create karo",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ek combined invoice bana do 3000 + 500 = 3500 ka",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Bulk invoice generate karo 5 items total 2600",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Email aur print dono ke liye invoice create karo 1800",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Invoice bana do aur usko \u0027paid\u0027 mark mat karo (draft) 900",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Iss customer ke liye recurring invoice setup karo 1200",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "GST ke saath 2200 ka final invoice generate karo",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Advance payment ke liye proforma invoice 2000 bana do",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Customer return ke liye correction invoice create karo 400",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ek chhota receipt jaisa invoice bana do 150 ka",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Urgent se urgent invoice bana ke bhej do 800",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rohit ke khate ke liye closing invoice 1650 bana do",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Store credit ke liye credit-note jaisa invoice bana do 300",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Invoice create karo aur \u0027due date\u0027 7 din set kar do 2100",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Kal ki sale ka consolidated invoice bana do 5000",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Multiple items ka invoice create karo total 3200",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Generate a tax invoice for 999 and save",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Create invoice for customer who bought 6 items totalling 1450",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Create proforma for order of 10 kg chawal worth 2500",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Make an invoice and attach order id for 600",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Send invoice by SMS for 700 to the customer",
+        "intent":  "Create_Invoice",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul ke udhaar mein 500 jod do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mohan ke account mein 1200 add karo",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "3000 add kar do Sharma ji ke naam pe",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Suresh ko 800 aur udhaar likh do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rakesh ke khate mein 1500 daal do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "2000 rupaye aur chadh gaye Amit pe",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Gupta ji ka udhaar 900 badha do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "450 add karo Ravi ke ledger mein",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "1000 aur likh do uske khate mein",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "750 udhaar mein daal do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul pe 600 aur chadha do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "3 hazar aur add kar do usko",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sharma ji ka 1200 aur badh gaya",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "500 aur likh do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Uske account mein aur 850 daal do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Kal ka 700 bhi add kar do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "1400 aur daal dena Mohit ko",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "2500 aur chadh gaya hai us pe",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "999 aur add karo uske naam se",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Manoj ke udhaar mein aur paisa jod do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul ka purana balance mein 400 aur jod do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "600 likh diya tha kya? usme 200 aur add karo",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sharma ji pe total 1000 aur chadha dena",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "350 cash nahi diya usne udhaar mein daal do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Usko 500 ka saman diya payment baad mein lega",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Neha ke udhaar mein 900 jod do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Kavita pe 1400 aur chadha do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Lakshmi General Store ke account mein 3000 add karo",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Khan Enterprises ke naam pe 2500 aur likh do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sunita ke khate mein 1100 daal do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Raj ko 500 udhar likh do aur ledger update karo",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul ke account mein 500 daal ke balance badha do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ravi ko paanch sau udhar add kar do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul pe 500 chadha do aur note kar lo",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Shivil ke khate mein do sau likh do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul ke liye 2 hazaar 5 sau udhar add kar do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mohan ke account mein 300 add kar do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mohan ko teen sau aur udhar likh do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "300 ka udhar Mohan pe add karo",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sharma ji ke liye 3,000 aur udhaar daal do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sharma ji pe teen hazaar aur chadha do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Suresh ke account mein 800 jod do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rakesh ke khate mein 1500 daal do aur save karo",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Amit pe 2 hazaar aur add kar do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Gupta ji ka udhaar 900 badha ke record karo",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ravi ke ledger mein 450 jod do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ravi ke liye 450 ka udhar likh do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "1000 ka udhar uske account mein daal do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "750 udhaar mein daal ke update karo",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul pe 600 aur chadha do aaj ka entry karo",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Usko 3 hazaar aur add kar do (3000)",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sharma ji ka 1200 aur chadha gaya hai, update karo",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "500 aur likh do unke account mein",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Uske account mein 850 daal do aur note karo",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Kal ka 700 bhi uske khate mein add karo",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mohit ko 1400 additional credit likh do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "2500 aur chadh gaye uske khate mein",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "999 rupaye aur add karo uske account mein",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Manoj ke udhaar mein 350 daal do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul ka purana balance mein 400 aur jod do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "600 likha hua tha, usme 200 aur add kar do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sharma ji pe total ek hazaar aur badha do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "350 cash nahi diya tha, ledger mein udhar likh do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Usko 500 ka saman diya, udhar daal do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Neha ke account mein 900 jod do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Kavita pe 1400 aur chadha do aur confirm karo",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Lakshmi General Store ke account mein 3000 add karo",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Khan Enterprises ke naam pe 2500 aur likh do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sunita ke khate mein 1100 daal ke save karo",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ek quick entry 200 add kar do Vikas ke liye",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Bijli bhugtan ke baad 500 credit wapas jod do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Customer return ke baad 150 credit add karo",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Party balance mein 2 hazaar jod do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Do hazaar ka udhar Ajay pe add karo",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Teen hazaar ka adjustment kar ke udhar likh do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Paanch sau ka chhota sa udhar note kar lo",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Chhe sau aur chadha do uske account mein",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Saat sau ka balance aur add karna hai",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Aath sau jod do aur receipt bhej do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Nau sau extra add kar ke total update karo",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Record karo: Rahul ko 2 hazaar paanch sau udhar likh do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Add credit for bulk purchase: 5 hazaar udhar likh do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Temporary credit 500 add karo and mark as pending",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Cash not received par 350 udhar likh do",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Adjust previous balance by adding 450 rupees",
+        "intent":  "Add_Credit",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul ne 500 ka payment kar diya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mohan ne 1200 bhej diya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sharma ji ne 3000 transfer kiya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Suresh ka 800 mil gaya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rakesh ne pura paisa de diya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "2000 receive ho gaye Amit se",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Gupta ji ne 900 clear kar diya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ravi ka 450 aa gaya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "1000 rupaye mil gaye usse",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Manoj ne 750 de diya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul ka 600 aa gaya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "3 hazar bheja usne",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sharma ji ka payment aaya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "500 de diya usne",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Usne 850 transfer kiya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Kal ka 700 mil gaya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mohit ne 1400 clear kiya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "2500 ka paisa aa gaya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "999 bheja Manoj ne",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Pooja ne 1500 ka payment kar diya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Amit ne aadha paisa diya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Pooja ne 1500 ka payment kar diya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Lakshmi ne 2200 transfer kiya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Verma Traders ka 5000 aa gaya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Maa Durga Traders ne pura paisa clear kar diya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ritu ne 1800 bhej diya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ravi ne 500 de diye cash mein",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ronit ne paanch sau jama kar diye",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul ne 500 rupaye payment kar diya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rashel ne do sau payment bheja",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul ne teen hazaar transfer kiya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Raj ne 2 hazaar 5 sau online payment kiya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mohan ne 1200 ka payment kara diya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sharma ji ne 3000 ka payment bhej diya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Suresh ka 800 ka payment receive hua",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rakesh ne pura paisa de diya, record karo",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Amit se 2000 receive hua, ledger update karo",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Gupta ji ne 900 clear kar diya account",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ravi ne 450 rupaye jama kiye",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Usne 1000 rupaye bank transfer kiye",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Manoj ne 750 de diya cash",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul ka 600 aaj mil gaya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Usne 3 hazaar bheje aur confirmation chahiye",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sharma ji ka payment aaya 500",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Usne 850 transfer kiya internet banking se",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Kal ka 700 mil gaya customer ne de diya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mohit ne 1400 ka payment clear kar diya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "2500 rupaye aa gaye usne pay kar diye",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Manoj ne 999 bhej diye UPI se",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Pooja ne 1500 ka payment diya aur receipt chahiye",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Amit ne aadha paisa diya 1500 mein se 750 diya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Lakshmi ne 2200 transfer kiya aur message bheja",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Verma Traders ka 5000 ka payment receive hua",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Maa Durga Traders ne pura paisa 3200 clear kar diya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ritu ne 1800 bheja aur reference diya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Customer ne 500 ki cash payment ki",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Customer ne 200 payment kar diya to record karo",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Customer ne 3 hazaar deposit kiya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "3 hazaar rupaye Rahul ne bank se jama kiye",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Do hazaar ke payment ka entry banao",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Do hazaar paanch sau ka part payment mila",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Teen hazaar ka full payment aaya",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Pichle udhaar mein se 400 return karke payment record karo",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Advance payment 1000 mila customer se",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Partial payment 700 mila aur note karo",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Cheque se 1500 aaya uska entry karo",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "UPI reference ke saath 850 payment record karo",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Cash received 350 rupees, ledger update",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Online transfer 2,500 record kar do",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Payment received today 600 from Rakesh",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Payment of 750 cleared by Manoj via cash",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Record payment: 999 received from buyer",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mark 1400 as paid by Mohit and close invoice",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Record 200 as payment for small purchase",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Add entry: 500 payment received but no invoice",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Customer returned 300 and paid remaining 700",
+        "intent":  "Record_Payment",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul ka balance kitna hai",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mohan ka udhaar batao",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sharma ji ka total kitna pending hai",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Suresh ka khata dikhao",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rakesh ka kitna paisa baaki hai",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Amit ka account balance kya hai",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Gupta ji ka outstanding amount batao",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ravi ka total due kitna hai",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Manoj ka pura hisaab dikhao",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Uska current balance kya chal raha hai",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul pe kitna baaki hai",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mohan ka abhi tak kitna chadha hai",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sharma ji ka hisaab bata",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "5000 diya tha uska kya balance hai",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Us customer ka kitna pending hai",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Kal tak ka total balance dikhao",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Kitna lena hai usse",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Uska pura udhaar bata do",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mohit ka khata check karo",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Total kitna reh gaya hai",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Agar usne 2000 diya tha to ab kitna baaki hai",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Pichle mahine ka total balance bata",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sirf udhaar ka balance dikhao cash nahi",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Neha ka balance kitna hai",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Kavita pe kitna baaki hai",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Lakshmi General Store ka total pending batao",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Khan Enterprises ka outstanding kitna hai",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Maa Durga Traders ka pura hisaab dikhao",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul ka balance batao abhi kitna hai",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mohan ka udhaar kitna reh gaya hai batao",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sharma ji ka total udhaar kitna pending hai",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Suresh ka khata dikhao detailed",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rakesh ka kitna paisa baaki hai abhi",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Amit ka account balance current kya hai",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Gupta ji ka outstanding amount bata do",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ravi ka total due kitna hai aaj",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Manoj ka pura hisaab dikhao ledger ke saath",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Uska current balance kya chal raha hai abhi",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul pe kitna baaki hai aur last payment kab tha",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mohan ka abhi tak kitna chadha hai poora hisaab batao",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sharma ji ka hisaab bata, pending aur paid dono",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "5000 diya tha uska kya baki balance aa raha hai",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Us customer ka kitna pending hai total",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Kal tak ka total balance dikhao ledger wise",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Kitna lena hai usse agar 2000 deduction ho to kya bachega",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Uska pura udhaar bata do with transactions",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mohit ka khata check karo aur last due show karo",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Total kitna reh gaya hai combined across parties",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Agar usne 2000 diya tha to ab kitna baaki hai uske hisaab se",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Pichle mahine ka total balance bata per customer",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sirf udhaar ka balance dikhao cash entries ignore karo",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Neha ka balance kitna hai aur last credit kab tha",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Kavita pe kitna baaki hai aur due date kya hai",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Lakshmi General Store ka total pending batao exact",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Khan Enterprises ka outstanding kitna hai abhi",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Maa Durga Traders ka pura hisaab dikhao aur unpaid invoices list karo",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Total receivables ka ek summary dikhao aaj tak ka",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Customer-wise balance sheet nikal do Rahul se lekar Ram tak",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show balance for account Rahul between dates",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Baki amount show karo: 2 hazaar aur upar wale khate",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show only unpaid invoices and outstanding totals",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show me ledger summary for last 30 days and total due",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Check if Ravi ka balance zero hua ya abhi bhi baki hai",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Display balance in numeric and words for Kavita",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "What is the current due for Verma Traders",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "If he pays 2000 today, remaining balance kya rahega",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show credit limit and current outstanding for Mohan",
+        "intent":  "Check_Balance",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul ko payment reminder bhej do",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Pooja ko bol do paisa bhejne ke liye",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mohan ko yaad dila do ki balance pending hai",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Lakshmi General Store ko reminder send karo",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sharma ji ko message karo payment ke liye",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Neha ko bata do ki 2000 abhi tak baaki hai",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Khan Enterprises ko follow up kar lo",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Usko ek reminder bhej dena kal",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ritu ko pending amount ke liye ping karo",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Verma Traders ko payment yaad dila do",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ramesh ko bol do paisa jaldi bheje",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Poonam ko ek baar phir se yaad dila do",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mohak ko pending amount ke liye message karo",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Lakshmi ko reminder bhejna hai 1500 ke liye",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Das ji ko follow up kar lo balance ke liye",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Neena ko payment ke liye ping kar do",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ram Enterprises ko outstanding ke liye yaad dila do",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ritisha ko bata do ki abhi tak paisa nahi mila",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Verma Traders ko ek aur reminder bhej do",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Us customer ko message karo jiska payment due hai",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul ko payment reminder bhej do aaj hi",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul ko yaad dila do paisa dena hai kal tak",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Rahul ko udhar ka message bhej do politely",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Pooja ko ek reminder bhej do pending 1500 ke liye",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mohan ko yaad dila do ki balance pending hai 1200",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Lakshmi General Store ko reminder send karo for 2200",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sharma ji ko message karo payment ke liye politely",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Neha ko bata do ki 2000 abhi tak baaki hai, remind karo",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Khan Enterprises ko follow up karo and send reminder",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Usko ek reminder bhej dena kal due date se pehle",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ritu ko pending amount ke liye ping karo aur due date mention karo",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Verma Traders ko payment yaad dila do aur invoice attach karo",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ramesh ko bol do paisa jaldi bheje, ek baar phir se reminder",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Poonam ko ek baar phir se yaad dila do outstanding ke liye",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mohak ko pending amount ke liye message bhejo urgent",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Lakshmi ko reminder bhejna hai 1500 ke liye aur last invoice attach karo",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Das ji ko follow up kar lo balance ke liye aur due date mention",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Neena ko payment ke liye ping kar do aur payment link bhejo",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ram Enterprises ko outstanding ke liye yaad dila do aur note karo",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ritisha ko bata do ki abhi tak paisa nahi mila, ek reminder bhejo",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Verma Traders ko ek aur reminder bhej do aur escalate karo if needed",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Us customer ko message karo jiska payment due hai aaj",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Send SMS reminder to Rahul for 500 unpaid",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Send WhatsApp reminder to Mohan about his 1200 balance",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Phone call reminder schedule karo for Sharma ji",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Auto-reminder setup karo for invoices older than 7 din",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Send polite follow-up mail to Lakshmi General Store",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Urge customer to clear 2500 pending via reminder",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Send SMS and email both to Rakesh for 800 due",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Notify customer about late fee before sending final reminder",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Draft a short message reminding about outstanding 999",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Create reminder note for Pooja to pay 1500 by tomorrow",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Send a bulk reminder to customers with dues over 1000",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Ping Neha with payment link for 900 pending",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Send payment reminder with invoice copy to Khan Enterprises",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Remind customer about partial payment due 700 left",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Schedule reminder for next week to follow up unpaid accounts",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Send friendly reminder to Amit for 2000 pending",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Flag high-value accounts and send priority reminders",
+        "intent":  "Send_Reminder",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "5 packet Maggi stock mein add karo aur update karo",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "10 kg chawal inventory se kam kar do aur save karo",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "3 oil bottle minus kar do stock se aur note karo",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "20 biscuit packet inventory mein daal do aur confirm karo",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Aaj 15 soap aaya hai stock update karo ledger mein",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "2 sugar bag nikal gaye stock kam karo and update",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "12 cold drink add karo inventory mein aur shelf label banao",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "4 packet atta reduce karo stock se aur notify manager",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Naya 25 rice bag stock mein daal do aur total update karo",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "6 shampoo bottle minus kar do stock mein se",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "8 packet Maggi aur add karo stock mein aaj ke delivery se",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "5 kg chawal kam ho gaya inventory update karo immediately",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "7 oil bottle add hui hai stock mein aur cost enter karo",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "3 sugar bag kam kar do aur reorder agar below threshold",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "10 soap aur aaye hain inventory mein daal do and tag",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "6 biscuit packet nikal gaye stock se minus karo aur note reason",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "12 rice bag reduce kar do aur supplier notify karo",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "4 shampoo bottle add karo and set location in store",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "9 cold drink kam ho gaye stock update karo and report",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "15 atta packet stock mein jod do aur expiry track karo",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Stock add karo: 2 hazaar rupaye ke saman ka entry karo",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "5 packet Maggi kam karo numeric form 5 and also \u0027paanch\u0027 mention",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "10 biscuit packet add karke reorder level set karo",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "3 oil bottle aaj bech diye, stock kam karo",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "25 rice bag new shipment add karo and record lot no",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "6 shampoo bottles expire date update karo inventory mein",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Stock adjust karo: 7 items miscount hua the",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Inventory reconcile karo aur 350 missing items adjust karo",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Update inventory for returns: 2 packet Maggi vapas aaye add karo",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Inventory deduction 10 kg chawal - put reason \u0027sale\u0027",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Add 5 hazaar worth of goods to inventory and record supplier",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Reduce stock by 500 units after damage report",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Add 2 hazaar rupees value of stock received today",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Record stock transfer: 50 items transferred to branch",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Update SKU stock for item code 1234 by adding 100",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Reduce 3 hazaar rupees worth of inventory due to loss",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mark perishable items 20 pcs as expired and remove",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Adjust stock count for Maggi from 30 to 28 and note discrepancy",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Add stock in words: do hazaar ka samaan inventory mein jod do",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Remove inventory: teen hazaar ka saman nikalo aur update",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Add small quantity: paanch sau ka saman stock mein jod do",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Bulk add: panch hazaar ka maal aaya, inventory update karo",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Subtract damaged stock: 350 rupees ka maal kam kar do",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Update inventory for sale: 10 items sold, reduce stock",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Add new product entry and initial stock 100 units",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Scan barcode and auto-update stock by 1 unit",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "5 packet Maggi stock mein add karo",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "10 kg chawal kam kar do inventory se",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "3 oil bottle minus kar do stock se",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "20 biscuit packet inventory mein daal do",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Aaj 15 soap aaya hai stock update karo",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "2 sugar bag nikal gaye stock kam karo",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "12 cold drink add karo inventory mein",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "4 packet atta reduce karo",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Naya 25 rice bag stock mein daal do",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "6 shampoo bottle minus kar do",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "8 packet Maggi aur add karo stock mein",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "5 kg chawal kam ho gaya inventory update karo",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "7 oil bottle add hui hai stock mein",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "3 sugar bag kam kar do",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "10 soap aur aaye hain inventory mein daal do",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "6 biscuit packet nikal gaye stock se minus karo",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "12 rice bag reduce kar do",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "4 shampoo bottle add karo inventory mein",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "9 cold drink kam ho gaye stock update karo",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "15 atta packet stock mein jod do",
+        "intent":  "Update_Inventory",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Aaj ki total sale dikhao poore din ki",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Aaj kitni sale hui total revenue batao",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Is mahine ki sale summary dikhao month-wise breakup",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show today\u0027s total sales and number of invoices",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Pichle hafte ka sale summary dikhao aur compare karo",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Total sales report dikhao aur top 5 customers list karo",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Is saal ka revenue kitna hua ab tak dikhao",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Aaj tak ka total becha hua amount batao ledger wise",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Monthly sales ka total nikal lo for current month",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Last month ka pura sales data dikhao per day breakup",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Aaj kitna maal gaya total aur net profit batao",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Kal kitna kamaaya compare with aaj bata do",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Abhi tak ki sale bata and trend for last 7 days",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Is week ka total kitna bana aur average daily sale batao",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Pichle 7 din ka hisaab dikhao with graph summary",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sirf aaj ka sale batao — cash aur credit dono",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Aaj ka turnover kitna hai after discounts",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Total earning kitni hui including taxes aur discounts",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mahine ka overall sale kitna chal raha hai projected bhi batao",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show sales for last 30 days and top selling items",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Daily sales summary for this week dikhao",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show sales for specific date 2026-03-01",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show comparison: this month vs last month revenue",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Top 10 sold items this month with quantities",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show net sales after returns for last month",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Generate a simple sales report for printing",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show cash vs credit sales split for today",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show sales by category for this month",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show total invoices generated today and total value",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show sales trend for last 12 weeks",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show average ticket size for today and this month",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show customers who bought more than 2000 this month",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show day-wise revenue for last 15 days",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show total GST collected this month",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Export sales summary to CSV for accounting",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show refund/returns amount for the month",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show gross vs net revenue for specified period",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show sales for store location Main Street for last week",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show sales for product Maggi for this month",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show comparative day sales: today vs yesterday",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show weekly sales summary and highlight top day",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show monthly sales growth percentage",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show summary: total sales, total invoices, avg invoice value",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show total collections received this month vs sales billed",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show unpaid invoices total (accounts receivable) alongside sales",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show last 7 days sales and mark days with low turnover",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Show consolidated sales for multiple stores this month",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Aaj ki total sale kitni hui",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Kal ka total revenue batao",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Is mahine ka total sale kitna hai",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Aaj kitna becha",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Pichle hafte ka sale summary dikhao",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Total sales report dikhao",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Is saal ka revenue kitna hai",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Aaj tak ka total becha hua amount batao",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Monthly sales ka total kya hai",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Last month ka pura sales data dikhao",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Aaj kitna maal gaya total",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Kal kitna kamaaya",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Abhi tak ki sale bata",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Is week ka total kitna bana",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Pichle 7 din ka hisaab dikhao",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Sirf aaj ka sale batao",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Aaj ka turnover kitna hai",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Total earning kitni hui",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Mahine ka overall sale kitna chal raha hai",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    },
+    {
+        "text":  "Abhi tak ka revenue kya hai",
+        "intent":  "View_Sales_Summary",
+        "entities":  [
+
+                     ]
+    }
+]

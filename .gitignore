@@ -67,3 +67,43 @@ yarn-error.log*
 
 .DS_Store
 Thumbs.db
+# ===============================
+# MACHINE LEARNING MODELS
+# ===============================
+
+data/*.pkl
+*.pkl
+*.joblib
+
+
+# ===============================
+# JUPYTER
+# ===============================
+
+.ipynb_checkpoints/
+
+
+# ===============================
+# TEST / TEMP FILES
+# ===============================
+
+*.log
+*.tmp
+*.bak
+
+
+# ===============================
+# DATABASE BACKUPS
+# ===============================
+
+*.sqlite
+*.sqlite3
+
+
+# ===============================
+# MAC / WINDOWS TEMP
+# ===============================
+
+.AppleDouble
+.LSOverride
+ehthumbs.db

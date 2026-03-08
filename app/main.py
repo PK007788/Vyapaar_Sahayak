@@ -1,12 +1,11 @@
-from fastapi import FastAPI, Depends, HTTPException, Header
+from fastapi import FastAPI, Depends, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
 from jose import jwt
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials 
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 from app.database import get_connection, initialize_database
-from app.auth import get_current_user
-
+from app.ai.command_engine import process_command
 
 from app.business_logic import (
     create_user,
@@ -25,12 +24,12 @@ from app.auth import create_access_token, SECRET_KEY, ALGORITHM
 app = FastAPI(title="Vyapaar Saathi API")
 security = HTTPBearer()
 
-# Initialize the database on startup
+# Initialize DB
 initialize_database()
 
-# -----------------------------
+# --------------------------------------------------
 # Request Models
-# -----------------------------
+# --------------------------------------------------
 
 class RegisterRequest(BaseModel):
     shop_name: str
@@ -66,9 +65,13 @@ class InvoiceRequest(BaseModel):
     items: List[InvoiceItem]
 
 
-# -----------------------------
+class AICommandRequest(BaseModel):
+    text: str
+
+
+# --------------------------------------------------
 # Authentication Dependency
-# -----------------------------
+# --------------------------------------------------
 
 def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
     try:
@@ -79,18 +82,19 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
     except Exception:
         raise HTTPException(status_code=401, detail="Invalid or expired token")
 
-# -----------------------------
-# Root Endpoint
-# -----------------------------
+
+# --------------------------------------------------
+# Root
+# --------------------------------------------------
 
 @app.get("/")
 def root():
     return {"message": "Vyapaar Saathi API is running"}
 
 
-# -----------------------------
+# --------------------------------------------------
 # Authentication Routes
-# -----------------------------
+# --------------------------------------------------
 
 @app.post("/register")
 def register(data: RegisterRequest):
@@ -119,9 +123,9 @@ def login(data: LoginRequest):
     }
 
 
-# -----------------------------
+# --------------------------------------------------
 # Customer Routes
-# -----------------------------
+# --------------------------------------------------
 
 @app.post("/customers")
 def add_customer(
@@ -142,9 +146,9 @@ def list_customers(user_id: int = Depends(get_current_user)):
     return get_customers_with_balance(user_id)
 
 
-# -----------------------------
+# --------------------------------------------------
 # Payment Route
-# -----------------------------
+# --------------------------------------------------
 
 @app.post("/payment")
 def record_payment(
@@ -161,9 +165,9 @@ def record_payment(
     )
 
 
-# -----------------------------
+# --------------------------------------------------
 # Invoice Routes
-# -----------------------------
+# --------------------------------------------------
 
 @app.post("/invoice")
 def create_invoice_api(
@@ -198,9 +202,9 @@ def get_invoice_endpoints(
     return get_invoice_details(user_id, invoice_id)
 
 
-# -----------------------------
+# --------------------------------------------------
 # Statement Route
-# -----------------------------
+# --------------------------------------------------
 
 @app.get("/statement/{customer_id}")
 def statement(
@@ -210,23 +214,19 @@ def statement(
 
     return get_customer_statement(user_id, customer_id)
 
-# -----------------------------
-# Dashboard Route
-# -----------------------------
 
+# --------------------------------------------------
+# Dashboard Route
+# --------------------------------------------------
 
 @app.get("/dashboard")
 def get_dashboard(current_user=Depends(get_current_user)):
-    """
-    Returns dashboard summary for the logged-in shop.
-    """
 
     conn = get_connection()
     cursor = conn.cursor()
 
     user_id = current_user
-    
-    # TOTAL CUSTOMERS
+
     cursor.execute("""
         SELECT COUNT(*) as total
         FROM customers
@@ -236,7 +236,6 @@ def get_dashboard(current_user=Depends(get_current_user)):
     
     total_customers = cursor.fetchone()["total"]
 
-    # OUTSTANDING BALANCE
     cursor.execute("""
         SELECT COALESCE(SUM(current_balance), 0) as total
         FROM customers
@@ -245,7 +244,6 @@ def get_dashboard(current_user=Depends(get_current_user)):
     
     outstanding_balance = cursor.fetchone()["total"]
 
-    # TODAY'S INVOICES
     cursor.execute("""
         SELECT COUNT(*) as total
         FROM invoices
@@ -256,7 +254,6 @@ def get_dashboard(current_user=Depends(get_current_user)):
     
     today_invoices = cursor.fetchone()["total"]
 
-    # RECENT TRANSACTIONS
     cursor.execute("""
         SELECT id, type, amount, description, created_at
         FROM transactions
@@ -275,3 +272,21 @@ def get_dashboard(current_user=Depends(get_current_user)):
         "today_invoices": today_invoices,
         "recent_transactions": recent_transactions
     }
+
+
+# --------------------------------------------------
+# AI COMMAND ROUTE
+# --------------------------------------------------
+
+@app.post("/ai-command")
+def ai_command(
+    data: AICommandRequest,
+    user_id: int = Depends(get_current_user)
+):
+    """
+    Natural language accounting command endpoint.
+    """
+
+    result = process_command(data.text, user_id)
+
+    return result
