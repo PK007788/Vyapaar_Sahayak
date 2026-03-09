@@ -1,51 +1,33 @@
 import re
 from app.ai.customer_lookup import get_customer_list
+from app.ai.text_normalizer import normalize_input
+from app.ai.hindi_number_parser import parse_hindi_number
+from rapidfuzz import fuzz
 
 
-# -------------------------
-# HINDI NUMBER DICTIONARIES
-# -------------------------
+# ─────────────────────────────────────────────────────────────────────────────
+# HINDI GRAMMAR STOP-WORDS
+# Removed from the text before name matching so postpositions like "ne", "ko"
+# don't break substring / token checks.
+# ─────────────────────────────────────────────────────────────────────────────
 
-HINDI_DIGITS = {
-    "ek": 1,
-    "do": 2,
-    "teen": 3,
-    "char": 4,
-    "paanch": 5,
-    "che": 6,
-    "chhe": 6,
-    "saat": 7,
-    "aath": 8,
-    "nau": 9,
-    "dus": 10
+STOP_WORDS = {
+    "ne", "ko", "se", "ke", "ki", "ka", "liye", "tha", "thi", "the",
+    "hai", "hain", "ho", "hoga", "hua", "huaa", "di", "diya", "diye",
+    "de", "do", "lo", "le", "aur", "bhi", "par", "pe", "mein", "me",
+    "wala", "wale", "wali", "ya", "aur", "ek", "yeh", "wo", "woh",
+    "please", "jaldi", "abhi",
 }
 
-TENS = {
-    "bees": 20,
-    "tees": 30,
-    "chalis": 40,
-    "pachaas": 50,
-    "saath": 60,
-    "sattar": 70,
-    "assi": 80,
-    "nabbe": 90
-}
-
-MULTIPLIERS = {
-    "sau": 100,
-    "hundred": 100,
-    "hazaar": 1000,
-    "hazar": 1000,
-    "thousand": 1000
-}
+# Threshold for fuzzy matching (0–100). Lower = more lenient.
+FUZZY_THRESHOLD = 78
 
 
-# -------------------------
-# AMOUNT EXTRACTION
-# -------------------------
+# ─────────────────────────────────────────────────────────────────────────────
+# TEXT NORMALISATION  (existing – kept for amount extraction)
+# ─────────────────────────────────────────────────────────────────────────────
 
-def normalize_text(text: str):
-
+def normalize_text(text: str) -> str:
     text = text.lower()
 
     replacements = {
@@ -61,7 +43,7 @@ def normalize_text(text: str):
         "aur likh do": "udhar",
         "jama kar do": "payment",
         "de diya": "payment",
-        "de do": "payment"
+        "de do": "payment",
     }
 
     for key, value in replacements.items():
@@ -69,138 +51,156 @@ def normalize_text(text: str):
 
     return text
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TEXT CLEANING
+# Strips grammar stop-words so name tokens are not interrupted.
+# ─────────────────────────────────────────────────────────────────────────────
+
+def clean_text(text: str) -> str:
+    """
+    Remove Hindi postpositions / grammar tokens from the text.
+
+    Example:
+        "rahul gupta ne 500 rupaye diye the"
+        → "rahul gupta 500 rupaye diye"
+    """
+    words = text.lower().split()
+    words = [w for w in words if w not in STOP_WORDS]
+    return " ".join(words)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# AMOUNT EXTRACTION
+# Uses digits first, then falls back to hindi_number_parser.
+# ─────────────────────────────────────────────────────────────────────────────
+
 def extract_amount(text: str):
     """
     Extract numeric amount from text.
-    Supports numeric + Hindi numbers.
+
+    Priority:
+      1. Digit sequences (500, 1200, …)
+      2. Hindi spoken numbers via hindi_number_parser (paanch sau → 500)
     """
-
-    # numeric match (500, 1200)
+    # Try digits first
     match = re.search(r"\d+", text)
-
     if match:
         return int(match.group())
 
-    #  Hindi number parsing
-
-    words = text.lower().split()
-
-    total = 0
-    current = 0
-
-    for word in words:
-
-        if word in HINDI_DIGITS:
-            current = HINDI_DIGITS[word]
-
-        elif word in TENS:
-            current = TENS[word]
-
-        elif word in MULTIPLIERS:
-
-            if current == 0:
-                current = 1
-
-            current = current * MULTIPLIERS[word]
-            total += current
-            current = 0
-
-    total += current
-
-    if total > 0:
-        return total
-
-    return None
+    # Fall back to Hindi spoken-number parsing
+    return parse_hindi_number(text)
 
 
-# -------------------------
+# ─────────────────────────────────────────────────────────────────────────────
 # CUSTOMER MATCHING
-# -------------------------
+# Two-tier substring strategy:  full-name → first-name → fuzzy fallback
+# ─────────────────────────────────────────────────────────────────────────────
 
-def extract_customer(text, customers):
+def extract_customer(text: str, customers: list) -> dict:
+    """
+    Match a customer name inside *text*.
 
-    text = text.lower()
+    Strategy:
+      1. If the full customer name appears as a substring → exact match.
+      2. If only the first name appears and multiple customers share it
+         → return clarification_needed.
+      3. Fuzzy fallback for mispronunciations.
 
+    Never auto-selects the first match when multiple customers match.
+
+    Returns:
+        {"type": "single",   "customer": {...}}
+        {"type": "multiple", "customers": [...]}
+        {"type": "none"}
+    """
+    cleaned = clean_text(text)
+
+    # ── Tier 1: exact full-name substring match ─────────────────────────
     matches = []
-
     for customer in customers:
-
-        name = customer["name"].lower()
-
-        # full name match
-        if name in text:
+        if customer["name"].lower() in cleaned:
             matches.append(customer)
-            continue
-
-        # first name match
-        first_name = name.split()[0]
-
-        if first_name in text:
-            matches.append(customer)
-
-        # last name match
-        last_name = name.split()[-1]
-
-        if last_name in text:
-            matches.append(customer)
-
-    # -------------------------
-    # EXACTLY ONE MATCH
-    # -------------------------
 
     if len(matches) == 1:
-        return {
-            "type": "single",
-            "customer": matches[0]
-        }
-
-    # -------------------------
-    # MULTIPLE MATCHES
-    # -------------------------
+        return {"type": "single", "customer": matches[0]}
 
     if len(matches) > 1:
-        return {
-            "type": "multiple",
-            "customers": matches
-        }
+        return {"type": "multiple", "customers": matches}
 
-    # -------------------------
-    # NO MATCH
-    # -------------------------
+    # ── Tier 2: first-name substring match ──────────────────────────────
+    first_name_matches = []
+    for customer in customers:
+        first = customer["name"].split()[0].lower()
+        if first in cleaned:
+            first_name_matches.append(customer)
 
-    return {
-        "type": "none"
-    }
+    if len(first_name_matches) == 1:
+        return {"type": "single", "customer": first_name_matches[0]}
+
+    if len(first_name_matches) > 1:
+        return {"type": "multiple", "customers": first_name_matches}
+
+    # ── Tier 3: fuzzy fallback (handles mispronunciation) ───────────────
+    fuzzy_matches = []
+    for customer in customers:
+        score = fuzz.partial_ratio(customer["name"].lower(), cleaned)
+        if score >= FUZZY_THRESHOLD:
+            fuzzy_matches.append(customer)
+
+    if len(fuzzy_matches) == 1:
+        return {"type": "single", "customer": fuzzy_matches[0]}
+
+    if len(fuzzy_matches) > 1:
+        return {"type": "multiple", "customers": fuzzy_matches}
+
+    return {"type": "none"}
 
 
-# -------------------------
-# ENTITY PIPELINE
-# -------------------------
+# ─────────────────────────────────────────────────────────────────────────────
+# ENTITY PIPELINE  (public API – unchanged signature)
+# ─────────────────────────────────────────────────────────────────────────────
 
-def extract_entities(text: str, user_id: int):
+def extract_entities(text: str, user_id: int) -> dict:
+    # Step 0: Devanagari → Roman transliteration (handles Hindi speech input)
+    #   "राहुल गुप्ता ने 500 दे दिए" → "rahul gupta ne 500 de die"
+    text = normalize_input(text)
 
+    # Step 1: Hinglish stop-word / phrase normalisation
     text = normalize_text(text)
 
-    customers = get_customer_list(user_id)
-
-    amount = extract_amount(text)
-
+    customers       = get_customer_list(user_id)
+    amount          = extract_amount(text)
     customer_result = extract_customer(text, customers)
 
     return {
-        "amount": amount,
-        "customer_result": customer_result
+        "amount":          amount,
+        "customer_result": customer_result,
     }
-# -------------------------
-# TEST BLOCK
-# -------------------------
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# QUICK SMOKE-TEST
+# ─────────────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
+    fake_customers = [
+        {"customer_id": 1, "name": "Rahul Gupta"},
+        {"customer_id": 2, "name": "Amit Sharma"},
+        {"customer_id": 3, "name": "Rahul Das"},
+    ]
 
-    user_id = 1
+    test_cases = [
+        "Rahul Gupta ne 500 rupaye diye the",       # exact full name
+        "rahool guptha ne paanch sau diye",          # fuzzy mispronunciation
+        "Amit ko teen sau udhar likh do",            # first-name match
+        "Rahul ne 200 rupaye diye",                  # ambiguous → multiple
+        "unknown person ko 100 do",                  # no match
+    ]
 
-    text = "Amit ko paanch sau udhar likh do"
-
-    entities = extract_entities(text, user_id)
-
-    print(entities)
+    for tc in test_cases:
+        result = extract_customer(tc, fake_customers)
+        amount = extract_amount(tc)
+        print(f"\nInput   : {tc}")
+        print(f"Customer: {result}")
+        print(f"Amount  : {amount}")

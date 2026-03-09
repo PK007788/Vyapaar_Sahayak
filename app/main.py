@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
 from jose import jwt
@@ -22,6 +23,22 @@ from app.business_logic import (
 from app.auth import create_access_token, SECRET_KEY, ALGORITHM
 
 app = FastAPI(title="Vyapaar Saathi API")
+
+# ── CORS ──────────────────────────────────────────────────────────────────────
+# Allow the React Vite dev server (port 5173) to call the FastAPI backend (port 8000).
+# Without this, the browser blocks the preflight OPTIONS request with 405.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+# ─────────────────────────────────────────────────────────────────────────────
+
 security = HTTPBearer()
 
 # Initialize DB

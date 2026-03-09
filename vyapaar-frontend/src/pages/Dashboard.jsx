@@ -8,6 +8,7 @@ import { CustomerModal } from "../components/CustomerModal"
 import { PaymentModal } from "../components/PaymentModal"
 import { InvoiceModal } from "../components/InvoiceModal"
 import LanguageToggle from "../components/LanguageToggle"
+import VoiceCommand from "../components/VoiceCommand"
 
 export default function Dashboard() {
   const { logout } = useAuth()
@@ -169,19 +170,12 @@ export default function Dashboard() {
           
           {/* Top Header */}
           <header className="px-6 py-6 md:px-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-             <div className="relative w-full max-w-sm transition-all duration-300 focus-within:max-w-md group">
-               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-[#1A8C66]">
-                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-               </div>
-               <input 
-                 type="text" 
-                 placeholder={isHi ? "सर्च (जल्द आ रहा है)" : "Search (Voice coming soon)"}
-                 disabled
-                 className="w-full pl-12 pr-4 py-3.5 bg-[#F4F7F6] border-none rounded-2xl text-sm font-bold focus:bg-white focus:ring-2 focus:ring-[#1A8C66]/20 transition-all outline-none text-slate-700 placeholder:text-slate-400 shadow-inner"
-               />
+             {/* Voice Command bar replacing the old disabled search */}
+             <div className="flex-1 w-full max-w-xl">
+               <VoiceCommand language={language} onCommandResult={() => { loadDashboard(); loadCustomers() }} />
              </div>
              
-             <div className="flex items-center gap-4">
+             <div className="flex items-center gap-4 shrink-0">
                <div className="hidden sm:block">
                  <LanguageToggle />
                </div>
