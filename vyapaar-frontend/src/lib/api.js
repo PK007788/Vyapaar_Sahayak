@@ -83,5 +83,11 @@ export const api = {
   statement: (customer_id) => apiFetch(`/statement/${customer_id}`),
 
   getInvoiceDetails: (invoice_id) => apiFetch(`/invoice/${invoice_id}`),
+
+  updateInvoice: (invoice_id, { items }) =>
+    apiFetch(`/invoice/${invoice_id}`, {
+      method: "PUT",
+      body: JSON.stringify({ items }),
+    }),
 }
 

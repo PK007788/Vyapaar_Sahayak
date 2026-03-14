@@ -11,3 +11,4 @@ numpy
 pandas
 rapidfuzz
 indic-transliteration
+joblib

@@ -30,6 +30,8 @@ export default function Dashboard() {
   const [isInvoiceDetailsOpen, setInvoiceDetailsOpen] = useState(false)
   const [selectedInvoice, setSelectedInvoice] = useState(null)
   const [isLoadingInvoice, setIsLoadingInvoice] = useState(false)
+  const [isEditingInvoice, setIsEditingInvoice] = useState(false)
+  const [editInvoiceItems, setEditInvoiceItems] = useState([])
 
   function loadDashboard() {
     api.dashboard().then(setDashboard).catch(() => setDashboard(null))
@@ -81,6 +83,51 @@ export default function Dashboard() {
     } catch (e) {
       setError(e?.message || "Could not create invoice")
       throw e
+    }
+  }
+
+  const handleEditInvoiceClick = () => {
+    setIsEditingInvoice(true)
+    setEditInvoiceItems(selectedInvoice.items.map(item => ({ ...item })))
+  }
+
+  const handleEditItemChange = (index, field, value) => {
+    const newItems = [...editInvoiceItems]
+    newItems[index][field] = value
+    
+    // Auto calculate line_total if quantity or price changes
+    if (field === 'quantity' || field === 'unit_price') {
+      const q = Number(newItems[index].quantity) || 0
+      const p = Number(newItems[index].unit_price) || 0
+      newItems[index].line_total = q * p
+    }
+    setEditInvoiceItems(newItems)
+  }
+
+  const handleRemoveEditItem = (index) => {
+    setEditInvoiceItems(editInvoiceItems.filter((_, i) => i !== index))
+  }
+
+  const handleAddEditItem = () => {
+    setEditInvoiceItems([...editInvoiceItems, { item_name: "", quantity: 1, unit_price: 0, line_total: 0 }])
+  }
+
+  const handleSaveInvoiceEdit = async () => {
+    try {
+      setIsLoadingInvoice(true)
+      await api.updateInvoice(selectedInvoice.invoice.id, { items: editInvoiceItems })
+      setIsEditingInvoice(false)
+      loadDashboard()
+      if (statementCustomerId === String(selectedInvoice.invoice.customer_id)) {
+        loadStatement()
+      }
+      // Re-fetch invoice details to show updated data
+      const res = await api.getInvoiceDetails(selectedInvoice.invoice.id)
+      if (res.status === "success") setSelectedInvoice(res)
+    } catch (err) {
+      setError(err?.message || "Could not update invoice")
+    } finally {
+      setIsLoadingInvoice(false)
     }
   }
 
@@ -170,11 +217,8 @@ export default function Dashboard() {
           
           {/* Top Header */}
           <header className="px-6 py-6 md:px-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-             {/* Voice Command bar replacing the old disabled search */}
-             <div className="flex-1 w-full max-w-xl">
-               <VoiceCommand language={language} onCommandResult={() => { loadDashboard(); loadCustomers() }} />
-             </div>
-             
+             <div className="flex-1" />
+
              <div className="flex items-center gap-4 shrink-0">
                <div className="hidden sm:block">
                  <LanguageToggle />
@@ -198,6 +242,10 @@ export default function Dashboard() {
 
             <div className="flex items-center gap-4 mb-8">
                <h1 className="text-[34px] font-bold text-slate-900 tracking-tight leading-none">{isHi ? "डैशबोर्ड" : "Dashboard"}</h1>
+            </div>
+
+            <div className="mb-9">
+              <VoiceCommand language={language} onCommandResult={() => { loadDashboard(); loadCustomers() }} />
             </div>
 
             {dashboard && (
@@ -396,15 +444,26 @@ export default function Dashboard() {
               <h3 className="font-bold text-xl text-slate-900 tracking-tight">
                 {isHi ? "इनवॉइस विवरण" : "Invoice Details"}
               </h3>
-              <button 
-                onClick={() => {
-                  setInvoiceDetailsOpen(false)
-                  setSelectedInvoice(null)
-                }}
-                className="p-2.5 text-slate-400 hover:text-slate-800 bg-[#F4F7F6] hover:bg-slate-200 rounded-full transition-colors"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              </button>
+              <div className="flex items-center gap-3">
+                {!isEditingInvoice && selectedInvoice && selectedInvoice.invoice.status !== "VOIDED" && (
+                  <button 
+                    onClick={handleEditInvoiceClick}
+                    className="px-4 py-1.5 text-sm font-bold text-[#1A8C66] bg-[#1A8C66]/10 hover:bg-[#1A8C66]/20 rounded-full transition-colors"
+                  >
+                    {isHi ? "संपादित करें" : "Edit"}
+                  </button>
+                )}
+                <button 
+                  onClick={() => {
+                    setInvoiceDetailsOpen(false)
+                    setSelectedInvoice(null)
+                    setIsEditingInvoice(false)
+                  }}
+                  className="p-2.5 text-slate-400 hover:text-slate-800 bg-[#F4F7F6] hover:bg-slate-200 rounded-full transition-colors"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              </div>
             </div>
             
             <div className="p-8">
@@ -426,27 +485,106 @@ export default function Dashboard() {
                     </div>
                   </div>
                   
-                  <div className="mb-4 flex justify-between text-[11px] font-bold text-slate-400 uppercase tracking-widest px-1">
-                    <span>{isHi ? "आइटम" : "Items"}</span>
-                    <span>{isHi ? "कुल" : "Total"}</span>
-                  </div>
-                  <div className="bg-[#F8FAF9] rounded-2xl overflow-hidden mb-8">
-                    <ul className="divide-y divide-[#F0F4F2]">
-                      {selectedInvoice.items.map((item, idx) => (
-                        <li key={idx} className="p-4 px-5 flex justify-between items-center transition-colors">
-                          <div className="flex flex-col gap-1">
-                            <span className="font-bold text-slate-800 text-[15px] tracking-tight">{item.item_name}</span>
-                            <span className="text-[13px] text-slate-500 font-medium">{item.quantity} x ₹{item.unit_price}</span>
-                          </div>
-                          <span className="font-bold text-slate-800 text-[16px]">₹{item.line_total}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  {isEditingInvoice ? (
+                    <div className="mb-8">
+                      <div className="bg-[#F8FAF9] rounded-2xl overflow-hidden mb-4 border border-[#F0F4F2]">
+                        <ul className="divide-y divide-[#F0F4F2]">
+                          {editInvoiceItems.map((item, idx) => (
+                            <li key={idx} className="p-4 px-5 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+                              <div className="flex-1 w-full">
+                                <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1 block">Item</label>
+                                <input 
+                                  type="text" 
+                                  value={item.item_name}
+                                  onChange={(e) => handleEditItemChange(idx, 'item_name', e.target.value)}
+                                  placeholder="Item name"
+                                  className="w-full h-10 px-3 bg-white border border-slate-200 rounded-xl text-sm font-semibold text-slate-700 outline-none focus:border-[#1A8C66] focus:ring-1 focus:ring-[#1A8C66]"
+                                />
+                              </div>
+                              <div className="w-24 shrink-0">
+                                <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1 block">Qty</label>
+                                <input 
+                                  type="number" 
+                                  min="1"
+                                  value={item.quantity}
+                                  onChange={(e) => handleEditItemChange(idx, 'quantity', e.target.value)}
+                                  className="w-full h-10 px-3 bg-white border border-slate-200 rounded-xl text-sm font-semibold text-slate-700 outline-none focus:border-[#1A8C66] focus:ring-1 focus:ring-[#1A8C66]"
+                                />
+                              </div>
+                              <div className="w-28 shrink-0">
+                                <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1 block">Price</label>
+                                <input 
+                                  type="number" 
+                                  min="0"
+                                  value={item.unit_price}
+                                  onChange={(e) => handleEditItemChange(idx, 'unit_price', e.target.value)}
+                                  className="w-full h-10 px-3 bg-white border border-slate-200 rounded-xl text-sm font-semibold text-slate-700 outline-none focus:border-[#1A8C66] focus:ring-1 focus:ring-[#1A8C66]"
+                                />
+                              </div>
+                              <div className="flex items-end h-[60px] pb-1 shrink-0">
+                                <button 
+                                  onClick={() => handleRemoveEditItem(idx)}
+                                  className="w-9 h-9 flex items-center justify-center rounded-xl bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition-colors"
+                                >
+                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                </button>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <button 
+                        onClick={handleAddEditItem}
+                        className="w-full h-12 flex items-center justify-center gap-2 border-2 border-dashed border-[#F0F4F2] text-slate-500 font-bold text-sm rounded-xl hover:bg-[#F8FAF9] hover:border-slate-300 transition-colors"
+                      >
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        {isHi ? "नया आइटम जोड़ें" : "Add Item"}
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="mb-4 flex justify-between text-[11px] font-bold text-slate-400 uppercase tracking-widest px-1">
+                        <span>{isHi ? "आइटम" : "Items"}</span>
+                        <span>{isHi ? "कुल" : "Total"}</span>
+                      </div>
+                      <div className="bg-[#F8FAF9] rounded-2xl overflow-hidden mb-8">
+                        <ul className="divide-y divide-[#F0F4F2]">
+                          {selectedInvoice.items.map((item, idx) => (
+                            <li key={idx} className="p-4 px-5 flex justify-between items-center transition-colors">
+                              <div className="flex flex-col gap-1">
+                                <span className="font-bold text-slate-800 text-[15px] tracking-tight">{item.item_name}</span>
+                                <span className="text-[13px] text-slate-500 font-medium">{item.quantity} x ₹{item.unit_price}</span>
+                              </div>
+                              <span className="font-bold text-slate-800 text-[16px]">₹{item.line_total}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </>
+                  )}
                   
                   <div className="flex justify-between items-center pt-8 border-t-2 border-dashed border-[#F0F4F2] -mx-8 -mb-8 px-8 pb-8">
-                    <span className="font-bold text-slate-500 uppercase tracking-widest text-[12px]">{isHi ? "कुल राशि" : "Grand Total"}</span>
-                    <span className="text-[32px] font-bold text-[#1A8C66] tracking-tight">₹{selectedInvoice.invoice.total_amount}</span>
+                    {isEditingInvoice ? (
+                      <div className="flex items-center justify-between w-full">
+                         <div className="flex items-baseline gap-3">
+                           <span className="font-bold text-slate-500 uppercase tracking-widest text-[12px]">{isHi ? "कुल नया राशि" : "New Total"}</span>
+                           <span className="text-[24px] font-bold text-[#1A8C66] tracking-tight">₹{editInvoiceItems.reduce((acc, item) => acc + (item.line_total || 0), 0)}</span>
+                         </div>
+                         <div className="flex gap-3">
+                           <button onClick={() => setIsEditingInvoice(false)} className="px-5 py-2.5 rounded-xl font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors">
+                             {isHi ? "रद्द करें" : "Cancel"}
+                           </button>
+                           <button onClick={handleSaveInvoiceEdit} className="px-6 py-2.5 rounded-xl font-bold text-white bg-[#1A8C66] hover:bg-[#12684b] transition-colors shadow-lg shadow-[#1A8C66]/20">
+                             {isHi ? "सहेजें" : "Save Changes"}
+                           </button>
+                         </div>
+                      </div>
+                    ) : (
+                      <>
+                        <span className="font-bold text-slate-500 uppercase tracking-widest text-[12px]">{isHi ? "कुल राशि" : "Grand Total"}</span>
+                        <span className="text-[32px] font-bold text-[#1A8C66] tracking-tight">₹{selectedInvoice.invoice.total_amount}</span>
+                      </>
+                    )}
                   </div>
                 </div>
               ) : (

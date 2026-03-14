@@ -6,8 +6,9 @@ Routes classified intents to business-logic functions.
 Handles:
  • Normal single-turn commands  (Add_Credit, Record_Payment, Check_Balance)
  • Customer clarification flow  (multiple matches → store state → resume)
- • Multi-step invoice creation   (item → price → quantity → save)
+ • Multi-step invoice creation   (multi-item loop: item → qty → price → confirm → repeat)
  • Natural Hindi response messages throughout
+ • Standardized {response, continue_listening} output format
 """
 
 from app.business_logic import create_transaction, get_customer_statement, create_invoice
@@ -17,12 +18,24 @@ from app.ai.conversation_state import get_state, set_state, clear_state
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# RESPONSE HELPERS
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _resp(message: str, continue_listening: bool, **extra) -> dict:
+    """Build a standardized response dict."""
+    r = {"response": message, "continue_listening": continue_listening}
+    r.update(extra)
+    return r
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # MAIN ROUTER (called for fresh intents — no pending state)
 # ─────────────────────────────────────────────────────────────────────────────
 
 def route_command(intent: str, text: str, user_id: int):
     """
     Routes an AI command to the correct business logic function.
+    Returns standardized {response, continue_listening} format.
     """
 
     entities = extract_entities(text, user_id)
@@ -30,31 +43,45 @@ def route_command(intent: str, text: str, user_id: int):
     amount = entities.get("amount")
     customer_result = entities.get("customer_result")
 
+    if not customer_result:
+        return _resp(
+            "Koi customer nahi mila. Kya aap naam dobara bol sakte hain?",
+            True,
+            status="error",
+        )
+
     # ── MULTIPLE CUSTOMER MATCHES — ask for clarification ────────────────
     if customer_result["type"] == "multiple":
         options = [c["name"] for c in customer_result["customers"]]
 
         # Store the pending command so the next reply can resume it
         set_state(user_id, {
-            "pending_intent": intent,
-            "pending_amount": amount,
+            "active": True,
+            "intent": intent,
+            "step": "resolve_customer",
+            "candidates": options,
+            "context_data": {
+                "amount": amount
+            }
         })
 
         first_name = options[0].split()[0]            # e.g. "Rahul"
         options_str = " ya ".join(options)             # "Rahul Gupta ya Rahul Das"
 
-        return {
-            "status": "clarification_needed",
-            "message": f"Konse {first_name} ki baat kar rahe ho? {options_str}?",
-            "options": options,
-        }
+        return _resp(
+            f"Konse {first_name} ki baat kar rahe ho? {options_str}?",
+            True,
+            status="clarification_needed",
+            options=options,
+        )
 
     # ── NO CUSTOMER FOUND ────────────────────────────────────────────────
     if customer_result["type"] == "none":
-        return {
-            "status": "error",
-            "message": "Koi customer nahi mila. Kya aap naam dobara bol sakte hain?"
-        }
+        return _resp(
+            "Koi customer nahi mila. Kya aap naam dobara bol sakte hain?",
+            True,
+            status="error",
+        )
 
     # ── SINGLE CUSTOMER ──────────────────────────────────────────────────
     customer = customer_result["customer"]
@@ -62,188 +89,272 @@ def route_command(intent: str, text: str, user_id: int):
     return _execute_intent(intent, user_id, customer, amount)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# CLARIFICATION REPLY  (called when pending state exists)
-# ─────────────────────────────────────────────────────────────────────────────
 
-def handle_clarification_reply(text: str, user_id: int, state: dict):
-    """
-    User replied with a customer name after a clarification prompt.
-    Skip intent classification, look up the customer directly, and execute
-    the stored intent + amount.
-    """
-    customers = get_customer_list(user_id)
-    customer_result = extract_customer(text, customers)
-
-    if customer_result["type"] != "single":
-        # Still ambiguous or not found — ask again
-        clear_state(user_id)
-        return {
-            "result": {
-                "status": "error",
-                "message": "Customer samajh nahi aaya. Kripya poora naam bolein."
-            }
-        }
-
-    customer = customer_result["customer"]
-    intent = state["pending_intent"]
-    amount = state.get("pending_amount")
-
-    # Clear the pending state before executing
-    clear_state(user_id)
-
-    result = _execute_intent(intent, user_id, customer, amount)
-
-    return {
-        "intent": intent,
-        "confidence": 1.0,
-        "result": result
-    }
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# INVOICE MULTI-STEP FLOW
+# INVOICE MULTI-STEP FLOW (multi-item conversational loop)
 # ─────────────────────────────────────────────────────────────────────────────
 
 def _start_invoice_flow(user_id: int, customer: dict):
-    """Kick off the invoice conversation by asking for the item name."""
+    """Kick off the invoice conversation by asking for the first item name."""
 
     set_state(user_id, {
+        "active": True,
+        "intent": "Create_Invoice",
+        "step": "ask_item",
         "flow": "invoice",
-        "step": "item",
         "customer_id": customer.get("id") or customer.get("customer_id"),
         "customer_name": customer["name"],
-        "invoice_data": {}
+        "current_item": {},
+        "items": [],
+        "silence_warning_given": False,
     })
 
-    return {
-        "status": "invoice_step",
-        "message": "Kaunsa item becha gaya?",
-        "step": "item",
-    }
+    return _resp(
+        f"{customer['name']} ke liye invoice shuru karte hain. Kaunsa item add karna hai?",
+        True,
+        status="invoice_step",
+        step="ask_item",
+    )
 
 
 def handle_invoice_step(text: str, user_id: int, state: dict):
     """
     Process the current invoice step and advance to the next one.
-    Steps: item → price → quantity → create invoice.
+
+    Multi-item loop:
+        ask_item → ask_quantity → ask_price → confirm → (loop back to ask_item)
+
+    Finish commands are handled by command_engine.py before reaching here.
     """
     step = state.get("step")
-    data = state.get("invoice_data", {})
+    current_item = state.get("current_item", {})
+    items = state.get("items", [])
+    customer_name = state.get("customer_name", "")
 
-    # ── Step: ITEM NAME ──────────────────────────────────────────────────
-    if step == "item":
+    # ── Step: ASK ITEM NAME ──────────────────────────────────────────────
+    if step == "ask_item":
         item_name = text.strip()
         if not item_name:
-            return {
-                "result": {
-                    "status": "invoice_step",
-                    "message": "Item ka naam batayein.",
-                    "step": "item",
-                }
-            }
+            return _resp(
+                "Item ka naam batayein.",
+                True,
+                status="invoice_step",
+                step="ask_item",
+            )
 
-        data["item_name"] = item_name
-        state["invoice_data"] = data
-        state["step"] = "price"
+        # Check if user provided multiple items in one sentence via command_engine
+        from app.ai.command_engine import parse_multi_items
+        multi = parse_multi_items(text)
+
+        if len(multi) > 1:
+            # User said something like "500 ka chawal aur 200 ka tel"
+            # Auto-add all items with quantity=1 if value is provided
+            for mi in multi:
+                if mi.get("item_name") and mi.get("value"):
+                    items.append({
+                        "item_name": mi["item_name"],
+                        "quantity": 1,
+                        "unit_price": mi["value"],
+                    })
+
+            if items:
+                state["items"] = items
+                state["current_item"] = {}
+                state["step"] = "ask_item"
+                set_state(user_id, state)
+
+                summary = ", ".join(
+                    f"{it['item_name']} (₹{int(it['unit_price'])})"
+                    for it in items
+                )
+                return _resp(
+                    f"{len(items)} items add ho gaye: {summary}. Aur kuch add karna hai? Agar nahi to 'done' ya 'ho gaya' boliye.",
+                    True,
+                    status="invoice_step",
+                    step="ask_item",
+                )
+
+        # Single item — store name and ask for quantity
+        current_item["item_name"] = item_name
+        state["current_item"] = current_item
+        state["step"] = "ask_quantity"
         set_state(user_id, state)
 
-        return {
-            "result": {
-                "status": "invoice_step",
-                "message": "Ek item ki price kya hai?",
-                "step": "price",
-            }
-        }
+        return _resp(
+            f"'{item_name}' ki kitni quantity hai?",
+            True,
+            status="invoice_step",
+            step="ask_quantity",
+        )
 
-    # ── Step: UNIT PRICE ─────────────────────────────────────────────────
-    if step == "price":
-        price = extract_amount(text)
-        if price is None or price <= 0:
-            return {
-                "result": {
-                    "status": "invoice_step",
-                    "message": "Sahi price batayein (number mein).",
-                    "step": "price",
-                }
-            }
-
-        data["unit_price"] = price
-        state["invoice_data"] = data
-        state["step"] = "quantity"
-        set_state(user_id, state)
-
-        return {
-            "result": {
-                "status": "invoice_step",
-                "message": "Kitni quantity thi?",
-                "step": "quantity",
-            }
-        }
-
-    # ── Step: QUANTITY → CREATE INVOICE ───────────────────────────────────
-    if step == "quantity":
+    # ── Step: ASK QUANTITY ────────────────────────────────────────────────
+    if step == "ask_quantity":
         qty = extract_amount(text)
         if qty is None or qty <= 0:
-            return {
-                "result": {
-                    "status": "invoice_step",
-                    "message": "Sahi quantity batayein (number mein).",
-                    "step": "quantity",
-                }
-            }
+            return _resp(
+                "Sahi quantity batayein (number mein).",
+                True,
+                status="invoice_step",
+                step="ask_quantity",
+            )
 
-        data["quantity"] = qty
-        customer_id = state["customer_id"]
-        customer_name = state["customer_name"]
+        current_item["quantity"] = qty
+        state["current_item"] = current_item
+        state["step"] = "ask_price"
+        set_state(user_id, state)
 
-        # Build the item list for create_invoice
-        items = [{
-            "item_name": data["item_name"],
-            "quantity": data["quantity"],
-            "unit_price": data["unit_price"],
-        }]
+        return _resp(
+            f"Ek {current_item.get('item_name', 'item')} ki price kya hai?",
+            True,
+            status="invoice_step",
+            step="ask_price",
+        )
 
-        total = data["quantity"] * data["unit_price"]
+    # ── Step: ASK PRICE ──────────────────────────────────────────────────
+    if step == "ask_price":
+        price = extract_amount(text)
+        if price is None or price <= 0:
+            return _resp(
+                "Sahi price batayein (number mein).",
+                True,
+                status="invoice_step",
+                step="ask_price",
+            )
 
-        # Clear conversation state before DB call
-        clear_state(user_id)
+        current_item["unit_price"] = price
+        item_name = current_item.get("item_name", "item")
+        qty = current_item.get("quantity", 1)
+        total = qty * price
 
-        result = create_invoice(user_id, customer_id, items)
+        # Add the completed item to the list
+        items.append({
+            "item_name": item_name,
+            "quantity": qty,
+            "unit_price": price,
+        })
 
-        if result.get("status") == "success":
-            return {
-                "intent": "Create_Invoice",
-                "confidence": 1.0,
-                "result": {
-                    "status": "success",
-                    "message": (
-                        f"Invoice safalta se ban gaya! "
-                        f"{customer_name} ke liye {data['item_name']} — "
-                        f"{int(data['quantity'])} x ₹{int(data['unit_price'])} = ₹{int(total)}"
-                    ),
-                    "invoice_number": result.get("invoice_number"),
-                    "total_amount": result.get("total_amount"),
-                }
-            }
-        else:
-            return {
-                "intent": "Create_Invoice",
-                "confidence": 1.0,
-                "result": {
-                    "status": "error",
-                    "message": "Invoice banane mein samasya aayi. Dobara try karein."
-                }
-            }
+        state["items"] = items
+        state["current_item"] = {}
+        state["step"] = "ask_item"
+        state["silence_warning_given"] = False
+        set_state(user_id, state)
+
+        return _resp(
+            f"{item_name} ka {int(qty)} add ho gaya hai (₹{int(total)}). Aage kya add karu? Agar aur nahi to 'done' ya 'ho gaya' boliye.",
+            True,
+            status="invoice_step",
+            step="ask_item",
+        )
 
     # Fallback — shouldn't happen
     clear_state(user_id)
-    return {
-        "result": {
-            "status": "error",
-            "message": "Invoice flow mein kuch gadbad ho gayi. Dobara shuru karein."
-        }
-    }
+    return _resp(
+        "Invoice flow mein kuch gadbad ho gayi. Dobara shuru karein.",
+        False,
+        status="error",
+    )
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# INVOICE FINALIZATION
+# ─────────────────────────────────────────────────────────────────────────────
+
+def finalize_invoice(user_id: int, state: dict):
+    """
+    Create the invoice with all accumulated items.
+    Called when user says a finish command (done, ho gaya, etc.)
+    or after silence timeout.
+    """
+    items = state.get("items", [])
+    current_item = state.get("current_item", {})
+    customer_id = state.get("customer_id")
+    customer_name = state.get("customer_name", "")
+
+    # If there's a partially built item, try to complete it
+    if current_item.get("item_name"):
+        # If it has at least a name and a price/value, add it
+        if current_item.get("unit_price"):
+            items.append({
+                "item_name": current_item["item_name"],
+                "quantity": current_item.get("quantity", 1),
+                "unit_price": current_item["unit_price"],
+            })
+
+    if not items:
+        clear_state(user_id)
+        return _resp(
+            "Koi item add nahi hua. Invoice nahi ban sakta.",
+            False,
+            status="error",
+        )
+
+    # Build items for create_invoice
+    invoice_items = [{
+        "item_name": it["item_name"],
+        "quantity": it["quantity"],
+        "unit_price": it["unit_price"],
+    } for it in items]
+
+    total = sum(it["quantity"] * it["unit_price"] for it in items)
+
+    # Clear conversation state before DB call
+    clear_state(user_id)
+
+    result = create_invoice(user_id, customer_id, invoice_items)
+
+    if result.get("status") == "success":
+        items_summary = ", ".join(
+            f"{it['item_name']} ({int(it['quantity'])} x ₹{int(it['unit_price'])})"
+            for it in items
+        )
+        return _resp(
+            f"Invoice ban gaya! {customer_name} ke liye — {items_summary}. "
+            f"Total: ₹{int(total)}. Invoice number: #{result.get('invoice_number')}",
+            False,
+            status="success",
+            intent="Create_Invoice",
+            invoice_number=result.get("invoice_number"),
+            total_amount=result.get("total_amount"),
+        )
+    else:
+        return _resp(
+            "Invoice banane mein samasya aayi. Dobara try karein.",
+            False,
+            status="error",
+        )
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SILENCE HANDLING (called from frontend via backend endpoint)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def handle_silence_timeout(user_id: int) -> dict:
+    """
+    Called when the frontend detects silence during invoice creation.
+
+    First call  → reminder prompt (keep listening)
+    Second call → finalize invoice
+    """
+    state = get_state(user_id)
+
+    if not state or state.get("flow") != "invoice":
+        return _resp("", False)
+
+    if not state.get("silence_warning_given"):
+        # First silence timeout — give a reminder
+        state["silence_warning_given"] = True
+        set_state(user_id, state)
+
+        return _resp(
+            "Aapko aur kuch add karna hai kya? Agar nahi to 'done' ya 'ho gaya' boliye.",
+            True,
+            status="silence_warning",
+        )
+    else:
+        # Second silence timeout — finalize
+        return finalize_invoice(user_id, state)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -253,7 +364,7 @@ def handle_invoice_step(text: str, user_id: int, state: dict):
 def _execute_intent(intent: str, user_id: int, customer: dict, amount):
     """
     Execute a single intent for a resolved customer.
-    All responses use natural Hindi.
+    All responses use natural Hindi and standardized format.
     """
 
     customer_id = customer.get("id") or customer.get("customer_id")
@@ -262,10 +373,11 @@ def _execute_intent(intent: str, user_id: int, customer: dict, amount):
     # ── ADD CREDIT ───────────────────────────────────────────────────────
     if intent == "Add_Credit":
         if amount is None:
-            return {
-                "status": "error",
-                "message": "Kitna amount udhar likhna hai? Kripya batayein."
-            }
+            return _resp(
+                "Kitna amount udhar likhna hai? Kripya batayein.",
+                True,
+                status="error",
+            )
 
         result = create_transaction(
             user_id, customer_id, "CREDIT", amount,
@@ -273,19 +385,22 @@ def _execute_intent(intent: str, user_id: int, customer: dict, amount):
         )
 
         if result.get("status") == "success":
-            return {
-                "status": "success",
-                "message": f"{customer_name} ke khate mein ₹{int(amount)} udhar likha gaya."
-            }
-        return result
+            return _resp(
+                f"{customer_name} ke khate mein ₹{int(amount)} udhar likha gaya.",
+                False,
+                status="success",
+                intent=intent,
+            )
+        return _resp(result.get("message", "Transaction fail ho gayi."), False, status="error")
 
     # ── RECORD PAYMENT ───────────────────────────────────────────────────
     elif intent == "Record_Payment":
         if amount is None:
-            return {
-                "status": "error",
-                "message": "Kitna payment hua? Kripya amount batayein."
-            }
+            return _resp(
+                "Kitna payment hua? Kripya amount batayein.",
+                True,
+                status="error",
+            )
 
         result = create_transaction(
             user_id, customer_id, "PAYMENT", amount,
@@ -293,22 +408,26 @@ def _execute_intent(intent: str, user_id: int, customer: dict, amount):
         )
 
         if result.get("status") == "success":
-            return {
-                "status": "success",
-                "message": f"{customer_name} ka ₹{int(amount)} payment record ho gaya."
-            }
-        return result
+            return _resp(
+                f"{customer_name} ka ₹{int(amount)} payment record ho gaya.",
+                False,
+                status="success",
+                intent=intent,
+            )
+        return _resp(result.get("message", "Transaction fail ho gayi."), False, status="error")
 
     # ── CHECK BALANCE ────────────────────────────────────────────────────
     elif intent == "Check_Balance":
         statement = get_customer_statement(user_id, customer_id)
 
-        return {
-            "status": "success",
-            "customer": customer_name,
-            "message": f"{customer_name} ka khata dikhaya ja raha hai.",
-            "statement": statement
-        }
+        return _resp(
+            f"{customer_name} ka khata dikhaya ja raha hai.",
+            False,
+            status="success",
+            intent=intent,
+            customer=customer_name,
+            statement=statement,
+        )
 
     # ── CREATE INVOICE (start multi-step) ────────────────────────────────
     elif intent == "Create_Invoice":
@@ -316,20 +435,17 @@ def _execute_intent(intent: str, user_id: int, customer: dict, amount):
 
     # ── FUTURE INTENTS ───────────────────────────────────────────────────
     elif intent == "Send_Reminder":
-        return {"status": "info", "message": "Reminder system jaldi aa raha hai."}
+        return _resp("Reminder system jaldi aa raha hai.", False, status="info")
 
     elif intent == "Update_Inventory":
-        return {"status": "info", "message": "Inventory system jaldi aa raha hai."}
+        return _resp("Inventory system jaldi aa raha hai.", False, status="info")
 
     elif intent == "View_Sales_Summary":
-        return {"status": "info", "message": "Sales summary jaldi aa rahi hai."}
+        return _resp("Sales summary jaldi aa rahi hai.", False, status="info")
 
     # ── UNSUPPORTED ──────────────────────────────────────────────────────
     else:
-        return {
-            "status": "error",
-            "message": f"'{intent}' abhi support nahi hai."
-        }
+        return _resp(f"'{intent}' abhi support nahi hai.", False, status="error")
 
 
 # ── Quick smoke-test ──────────────────────────────────────────────────────

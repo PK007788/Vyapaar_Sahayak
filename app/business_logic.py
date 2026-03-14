@@ -324,6 +324,117 @@ def create_invoice(user_id, customer_id, items):
 
     finally:
         conn.close()
+
+
+# ---------------------------------------------------
+# INVOICE UPDATE (Manual Edits)
+# ---------------------------------------------------
+
+def update_invoice(user_id, invoice_id, items):
+    """
+    Updates an existing invoice with new items, recalculates the total, 
+    and adjusts the associated ledger transaction.
+    """
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    try:
+        if not items or not isinstance(items, list):
+            return {"status": "error", "message": "Invoice must contain items."}
+
+        # 1. Verify invoice ownership and status
+        cursor.execute("""
+            SELECT id, customer_id, total_amount, status
+            FROM invoices
+            WHERE id = ? AND user_id = ?
+        """, (invoice_id, user_id))
+
+        invoice = cursor.fetchone()
+
+        if not invoice:
+            return {"status": "error", "message": "Invoice not found or unauthorized."}
+
+        if invoice["status"] == "VOIDED":
+            return {"status": "error", "message": "Cannot edit a voided invoice."}
+
+        customer_id = invoice["customer_id"]
+        old_total = invoice["total_amount"]
+
+        # 2. Calculate new total
+        new_total = 0
+        for item in items:
+            name = item.get("item_name", "").strip()
+            qty = item.get("quantity")
+            price = item.get("unit_price")
+
+            if not name or qty <= 0 or price < 0:
+                return {"status": "error", "message": "Invalid item data."}
+            
+            new_total += qty * price
+
+        conn.execute("BEGIN")
+
+        # 3. Update the invoices table with the new total
+        cursor.execute("""
+            UPDATE invoices
+            SET total_amount = ? 
+            WHERE id = ?
+        """, (new_total, invoice_id))
+
+        # 4. Replace invoice items (delete old, insert new)
+        cursor.execute("DELETE FROM invoice_items WHERE invoice_id = ?", (invoice_id,))
+        
+        for item in items:
+            line_total = item["quantity"] * item["unit_price"]
+            cursor.execute("""
+                INSERT INTO invoice_items
+                (invoice_id, item_name, quantity, unit_price, line_total)
+                VALUES (?, ?, ?, ?, ?)
+            """, (invoice_id, item["item_name"], item["quantity"], item["unit_price"], line_total))
+
+        # 5. Fix the ledger transaction
+        # First, find the matching transaction for this invoice
+        cursor.execute("""
+            SELECT id, amount FROM transactions 
+            WHERE invoice_id = ? AND type = 'CREDIT'
+        """, (invoice_id,))
+        txn = cursor.fetchone()
+        
+        if txn:
+            txn_id = txn["id"]
+            
+            # Update the transaction amount
+            cursor.execute("""
+                UPDATE transactions 
+                SET amount = ? 
+                WHERE id = ?
+            """, (new_total, txn_id))
+            
+            # The transaction changed the customer's balance by `old_total`. 
+            # We need to reverse the old amount and apply the new amount.
+            difference = new_total - old_total
+            
+            cursor.execute("""
+                UPDATE customers
+                SET current_balance = current_balance + ?
+                WHERE id = ?
+            """, (difference, customer_id))
+
+        conn.commit()
+
+        return {
+            "status": "success",
+            "message": "Invoice updated successfully",
+            "new_total": new_total
+        }
+
+    except Exception as e:
+        conn.rollback()
+        print("DEBUG ERROR (update_invoice):", e)
+        return {"status": "error", "message": "Invoice update failed."}
+
+    finally:
+        conn.close()
 # ---------------------------------------------------
 # INVOICE VOIDING
 # ---------------------------------------------------
@@ -516,6 +627,9 @@ def get_customer_statement(user_id, customer_id):
 
         elif txn_type == "ADJUSTMENT":
             running_balance += amount
+            signed_amount = str(amount)
+
+        else:
             signed_amount = str(amount)
 
         statement.append({

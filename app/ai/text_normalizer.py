@@ -1,23 +1,20 @@
 """
 text_normalizer.py
 ──────────────────
-Converts Hindi Devanagari text to Roman (ITRANS) before entity extraction.
+Converts Hindi Devanagari text to Roman (ITRANS) before entity extraction,
+and replaces Hindi spoken numbers with digit values.
 
-Why ITRANS?
-  ITRANS maps ā/ī/ū long vowels to uppercase A/I/U, so after .lower() we get
-  standard ASCII that the fuzzy matcher and stop-word cleaner can handle.
-
-  राहुल  → rAhul  → rahul
-  गुप्ता → guptA  → gupta
-  ने     → ne
-  500    → 500    (digits / ASCII pass through unchanged)
-
-If the input is already Roman (no Devanagari characters), the function returns
-it lowercased without touching it, so mixed inputs are safe.
+Pipeline:
+  1. Devanagari → Roman (ITRANS) if needed
+  2. Replace Hindi number words → digit strings
+  3. Collapse multiple spaces
+  4. Strip leading/trailing whitespace
 """
 
 import re
 import unicodedata
+
+from app.ai.hindi_number_parser import replace_hindi_numbers
 
 # Lazy import so the server doesn't pay the startup cost unless we actually
 # receive Devanagari input.
@@ -69,7 +66,7 @@ def devanagari_to_roman(text: str) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Convenience alias used by entity_extractor.py
+# Convenience alias used by entity_extractor.py and command_engine.py
 # ---------------------------------------------------------------------------
 def normalize_input(text: str) -> str:
     """
@@ -77,9 +74,11 @@ def normalize_input(text: str) -> str:
 
     Steps:
       1. Devanagari → Roman (ITRANS) if needed
-      2. Collapse multiple spaces
-      3. Strip leading/trailing whitespace
+      2. Replace Hindi number words → digit strings
+      3. Collapse multiple spaces
+      4. Strip leading/trailing whitespace
     """
     text = devanagari_to_roman(text)
+    text = replace_hindi_numbers(text)
     text = re.sub(r"\s+", " ", text).strip()
     return text

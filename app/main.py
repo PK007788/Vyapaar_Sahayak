@@ -13,6 +13,7 @@ from app.business_logic import (
     login_user,
     create_customer,
     create_invoice,
+    update_invoice,
     create_transaction,
     get_customer_statement,
     get_customers_with_balance,
@@ -82,8 +83,16 @@ class InvoiceRequest(BaseModel):
     items: List[InvoiceItem]
 
 
+class UpdateInvoiceRequest(BaseModel):
+    items: List[InvoiceItem]
+
+
 class AICommandRequest(BaseModel):
     text: str
+
+
+class SilenceTimeoutRequest(BaseModel):
+    pass
 
 
 # --------------------------------------------------
@@ -132,7 +141,7 @@ def login(data: LoginRequest):
     if result["status"] != "success":
         return result
 
-    token = create_access_token(result["user_id"])
+    token = create_access_token(int(result["user_id"]))
 
     return {
         "access_token": token,
@@ -199,6 +208,17 @@ def create_invoice_api(
         data.customer_id,
         items
     )
+
+
+@app.put("/invoice/{invoice_id}")
+def update_invoice_api(
+    invoice_id: int,
+    data: UpdateInvoiceRequest,
+    user_id: int = Depends(get_current_user)
+):
+
+    items = [item.dict() for item in data.items]
+    return update_invoice(user_id, invoice_id, items)
 
 
 @app.post("/invoice/{invoice_id}/void")
@@ -302,8 +322,21 @@ def ai_command(
 ):
     """
     Natural language accounting command endpoint.
+    Returns standardized {response, continue_listening, ...} format.
     """
 
     result = process_command(data.text, user_id)
 
     return result
+
+
+@app.post("/ai-command/silence-timeout")
+def ai_silence_timeout(
+    user_id: int = Depends(get_current_user)
+):
+    """
+    Called by the frontend when the user is silent during an invoice flow.
+    First call → reminder prompt, second call → finalize invoice.
+    """
+    from app.ai.command_router import handle_silence_timeout
+    return handle_silence_timeout(user_id)
