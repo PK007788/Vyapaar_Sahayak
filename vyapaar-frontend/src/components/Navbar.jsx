@@ -30,9 +30,9 @@ export default function Navbar({ language = "en" }) {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-xl border-b border-white/40 shadow-sm transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
       <div className="flex justify-between items-center max-w-6xl mx-auto px-6 py-5 text-ink">
-        <Link to="/" className="font-display text-2xl font-bold text-brand hover:text-brand-dark transition-all flex items-center gap-2">
-          <div className="w-10 h-10 flex items-center justify-center overflow-hidden">
-            <img src="/images/logo.png" alt="VS" className="w-full h-full object-contain" />
+        <Link to="/" className="font-display text-2xl font-bold text-brand hover:text-brand-dark transition-all flex items-center gap-3 leading-none">
+          <div className="w-[1.65em] h-[1.65em] flex items-center justify-center overflow-hidden shrink-0">
+            <img src="/images/logo.png" alt="VS" className="w-full h-full object-contain scale-125" />
           </div>
           {language === "hi" ? "व्यापार सहायक" : "Vyapaar Sahayak"}
         </Link>
@@ -66,3 +66,6 @@ export default function Navbar({ language = "en" }) {
     </nav>
   )
 }
+
+
+// where can I change the logo image?You can change the logo image by updating the `src` attribute of the `<img>` tag within the `Navbar` component. Currently, it is set to `"/images/logo.png"`. You can replace this path with the path to your desired logo image. For example: `"/images/new-logo.png"`. Make sure the new image is placed in the correct directory (e.g., `public/images/`) so that it can be accessed properly.

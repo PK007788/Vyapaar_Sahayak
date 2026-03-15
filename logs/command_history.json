@@ -1,0 +1,100 @@
+[
+  {
+    "user_text": "Rahul ko 500 ka chawal aur 200 ka tel likh do",
+    "normalized_text": "rahul ko 500 ka chawal aur 200 ka tel likh do",
+    "predicted_intent": "Add_Credit",
+    "confidence_score": 0.45849626655154424,
+    "timestamp": "2026-03-15T18:04:24.918331"
+  },
+  {
+    "user_text": "Rahul ke naam \u20b9100 ka daal Aur \u20b9300 Ka chawal add kar do",
+    "normalized_text": "rahul ke naam 100 ka daal aur 300 ka chawal add kar do",
+    "predicted_intent": "Add_Credit",
+    "confidence_score": 0.5165011348847727,
+    "timestamp": "2026-03-15T18:07:20.708041"
+  },
+  {
+    "user_text": "Rahul ke naam 100 ka daal Aur 300 Ka chawal add kar do",
+    "normalized_text": "rahul ke naam 100 ka daal aur 300 ka chawal add kar do",
+    "predicted_intent": "Create_Invoice",
+    "confidence_score": 1.0,
+    "timestamp": "2026-03-15T18:13:20.038493"
+  },
+  {
+    "user_text": "Rahul ko 500 udhar likh do",
+    "normalized_text": "rahul ko 500 udhar likh do",
+    "predicted_intent": "Create_Invoice",
+    "confidence_score": 1.0,
+    "timestamp": "2026-03-15T18:14:58.670352"
+  },
+  {
+    "user_text": "Rahul ko 500 ka chawal aur 200 ka tel likh do",
+    "normalized_text": "rahul ko 500 ka chawal aur 200 ka tel likh do",
+    "predicted_intent": "Create_Invoice",
+    "confidence_score": 1.0,
+    "timestamp": "2026-03-15T18:15:04.150566"
+  },
+  {
+    "user_text": "Raat Ke Naam 500 ka chawal aur 200 ka daal add kar do",
+    "normalized_text": "raat ke naam 500 ka chawal aur 200 ka daal add kar do",
+    "predicted_intent": "Create_Invoice",
+    "confidence_score": 1.0,
+    "timestamp": "2026-03-15T18:16:01.223490"
+  },
+  {
+    "user_text": "Rahul",
+    "normalized_text": "rahul",
+    "predicted_intent": "Create_Invoice",
+    "confidence_score": 1.0,
+    "timestamp": "2026-03-15T18:16:16.278362"
+  },
+  {
+    "user_text": "Rahul ke naam 100 ka daal Aur 300 Ka chawal add kar do",
+    "normalized_text": "rahul ke naam 100 ka daal aur 300 ka chawal add kar do",
+    "predicted_intent": "Create_Invoice",
+    "confidence_score": 1.0,
+    "timestamp": "2026-03-15T18:26:19.171581"
+  },
+  {
+    "user_text": "Rahul Das",
+    "normalized_text": "rahul das",
+    "predicted_intent": "Create_Invoice",
+    "confidence_score": 1.0,
+    "timestamp": "2026-03-15T18:26:19.180648"
+  },
+  {
+    "user_text": "Rahul ke naam 100 ka daal Aur 300 Ka chawal add kar do",
+    "normalized_text": "rahul ke naam 100 ka daal aur 300 ka chawal add kar do",
+    "predicted_intent": "Create_Invoice",
+    "confidence_score": 1.0,
+    "timestamp": "2026-03-15T18:27:13.805125"
+  },
+  {
+    "user_text": "Rahul ke naam per ka tel Aur \u20b9300 Ka chawal add kar do",
+    "normalized_text": "rahul ke naam per ka tel aur 300 ka chawal add kar do",
+    "predicted_intent": "Create_Invoice",
+    "confidence_score": 1.0,
+    "timestamp": "2026-03-15T18:28:27.110402"
+  },
+  {
+    "user_text": "Ramesh ko \u20b9200 Udhar hai",
+    "normalized_text": "ramesh ko 200 udhar hai",
+    "predicted_intent": "Create_Invoice",
+    "confidence_score": 1.0,
+    "timestamp": "2026-03-15T18:30:34.912043"
+  },
+  {
+    "user_text": "Ramesh Thakur",
+    "normalized_text": "ramesh thakur",
+    "predicted_intent": "Create_Invoice",
+    "confidence_score": 1.0,
+    "timestamp": "2026-03-15T18:30:46.766880"
+  },
+  {
+    "user_text": "\u20b9200 De Diye Ramesh ne",
+    "normalized_text": "200 de diye ramesh ne",
+    "predicted_intent": "Create_Invoice",
+    "confidence_score": 1.0,
+    "timestamp": "2026-03-15T18:54:26.825902"
+  }
+]

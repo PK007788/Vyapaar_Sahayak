@@ -154,6 +154,21 @@ def extract_customer(text: str, customers: list) -> dict:
     if len(fuzzy_matches) > 1:
         return {"type": "multiple", "customers": fuzzy_matches}
 
+    # ── Tier 4: Suggestions for near misses ─────────────────────────────
+    # Sort all customers by their fuzzy score
+    scored_customers = []
+    for customer in customers:
+        score = fuzz.partial_ratio(customer["name"].lower(), cleaned)
+        if score >= 40:
+            scored_customers.append((score, customer))
+
+    if scored_customers:
+        # Sort descending by score
+        scored_customers.sort(key=lambda x: x[0], reverse=True)
+        # Take top 3
+        suggestions = [c[1] for c in scored_customers[:3]]
+        return {"type": "suggest", "customers": suggestions}
+
     return {"type": "none"}
 
 

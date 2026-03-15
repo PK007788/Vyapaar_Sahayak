@@ -2,18 +2,18 @@ import { useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { useLanguage } from "../context/LanguageContext"
 import LanguagePickerModal from "./LanguagePickerModal"
+// Timing Constants if we want to tweak the headline animation later
+const HEADLINE_MS = 20_000 // Total time for one language cycle (including typing and fade)
+const FADE_MS = 600 // Duration of fade out/in when switching languages
+const TYPE_MS = 100 // Time per character for typing effect (adjust for faster/slower typing)
 
-const HEADLINE_MS = 20_000
-const FADE_MS = 600
-const TYPE_MS = 55
-
-const content = {
+const content = { 
   en: {
     title: "Vyapaar Sahayak",
     subtitle:
       "Built with care for Indian shopkeepers who wake before sunrise, open their shutters with hope, and trust every day of hard work to provide for their families.",
     line: "A gentle digital companion that helps you remember every bill, every payment, and every customer promise.",
-    start: "Start Free",
+    start: "Start Free", 
     learn: "Learn More",
   },
   hi: {
@@ -26,7 +26,7 @@ const content = {
   },
 }
 
-export default function Hero() {
+export default function Hero() { // Hero section with dynamic headline and language switching
   const navigate = useNavigate()
   const { language, setLanguage, pinned } = useLanguage()
   const [lang, setLang] = useState(language)
@@ -35,7 +35,7 @@ export default function Hero() {
   const [pickerOpen, setPickerOpen] = useState(false)
   const cycleStartRef = useRef(Date.now())
 
-  useEffect(() => {
+  useEffect(() => { 
     setLang(language)
     setTypedCount(0)
     cycleStartRef.current = Date.now()
@@ -74,13 +74,15 @@ export default function Hero() {
       {/* Background Image - Premium Cinematic Version */}
       <div className="absolute inset-0 z-0">
         <img 
-          src="/images/hero-bg.png" 
-          alt="Premium Indian Market" 
-          className="w-full h-full object-cover scale-105"
+          src="/images/Simple Opulent Golden Yellow Blank Horizontal Vector Background with Orange Outlined Mandala Patterns.jpg" // Update this path to change the background image
+          alt="Premium Indian Market" // Descriptive alt text for accessibility
+          className="w-full h-full object-cover scale-105" // Slight zoom for a cinematic feel
         />
         {/* Layered Overlays for Depth */}
         <div className="absolute inset-0 bg-gradient-to-b from-cream/20 via-cream/40 to-cream z-10"></div>
         <div className="absolute inset-0 bg-white/10 backdrop-blur-[1px] z-5"></div>
+        <div className="absolute top-0 left-0 right-0 h-24 md:h-36 bg-gradient-to-b from-[#F3EEDB] to-transparent z-20"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-28 md:h-40 bg-gradient-to-b from-transparent to-[#F8FBFA] z-20"></div>
       </div>
       
       <div className="relative z-20 max-w-5xl mx-auto text-center px-6">
@@ -131,3 +133,4 @@ export default function Hero() {
     </section>
   )
 }
+ // where can I change the background image?You can change the background image by updating the `src` attribute of the `<img>` tag within the `Hero` component. Currently, it is set to `"/images/new_hero_bg.png"`. You can replace this path with the path to your desired background image. For example: `"/images/custom-hero-bg.png"`. Make sure the new image is placed in the correct directory (e.g., `public/images/`) so that it can be accessed properly.

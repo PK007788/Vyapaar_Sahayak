@@ -673,3 +673,110 @@ def get_customers_with_balance(user_id):
         })
 
     return customers
+
+# ---------------------------------------------------
+# NEW: DAILY SALES SUMMARY
+# ---------------------------------------------------
+
+def get_daily_sales_summary(user_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT COALESCE(SUM(total_amount), 0) as total_sales, COUNT(id) as invoice_count
+        FROM invoices
+        WHERE user_id = ? AND status = 'ISSUED' AND DATE(created_at) = DATE('now', 'localtime')
+    """, (user_id,))
+    result = cursor.fetchone()
+
+    cursor.execute("""
+        SELECT COALESCE(SUM(current_balance), 0) as total_pending
+        FROM customers
+        WHERE user_id = ? AND is_active = 1 AND current_balance > 0
+    """, (user_id,))
+    pending = cursor.fetchone()
+
+    conn.close()
+
+    if not result:
+        return {"status": "error", "message": "Failed to fetch sales summary."}
+
+    return {
+        "status": "success",
+        "total_sales": result["total_sales"],
+        "invoice_count": result["invoice_count"],
+        "total_pending": pending["total_pending"] if pending else 0
+    }
+
+# ---------------------------------------------------
+# NEW: ASSISTANT LEVEL INSIGHTS
+# ---------------------------------------------------
+
+def get_pending_credit_customers(user_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT name, current_balance
+        FROM customers
+        WHERE user_id = ? AND is_active = 1 AND current_balance > 0
+        ORDER BY current_balance DESC
+    """, (user_id,))
+
+    rows = cursor.fetchall()
+    conn.close()
+
+    customers = [{"name": row["name"], "balance": row["current_balance"]} for row in rows]
+    return {"status": "success", "customers": customers}
+
+def get_max_outstanding_balance(user_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT name, current_balance
+        FROM customers
+        WHERE user_id = ? AND is_active = 1 AND current_balance > 0
+        ORDER BY current_balance DESC LIMIT 1
+    """, (user_id,))
+
+    row = cursor.fetchone()
+    conn.close()
+
+    if not row:
+        return {"status": "error", "message": "Koi udhar nahi hai."}
+        
+    return {"status": "success", "name": row["name"], "balance": row["current_balance"]}
+
+# ---------------------------------------------------
+# NEW: PAYMENT REMINDER
+# ---------------------------------------------------
+
+def send_payment_reminder(user_id, customer_id):
+    """
+    Mock function to represent sending a payment reminder via SMS or WhatsApp.
+    We just log it and return success for the demo.
+    """
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    # Validate customer ownership
+    cursor.execute("""
+        SELECT id, name, phone, current_balance 
+        FROM customers
+        WHERE id = ? AND user_id = ? AND is_active = 1
+    """, (customer_id, user_id))
+
+    customer = cursor.fetchone()
+    conn.close()
+
+    if not customer:
+        return {"status": "error", "message": "Customer not found."}
+
+    # In a real app, integrate Twilio, WhatsApp API, etc. here.
+    print(f"[DEMO] Sending reminder to {customer['name']} ({customer['phone']}) for balance ₹{customer['current_balance']}")
+
+    return {
+        "status": "success",
+        "message": f"Reminder sent to {customer['name']}."
+    }

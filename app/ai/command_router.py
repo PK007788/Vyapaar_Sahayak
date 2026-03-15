@@ -11,7 +11,7 @@ Handles:
  • Standardized {response, continue_listening} output format
 """
 
-from app.business_logic import create_transaction, get_customer_statement, create_invoice
+from app.business_logic import create_transaction, get_customer_statement, create_invoice, get_daily_sales_summary, get_customer_balance, send_payment_reminder
 from app.ai.entity_extractor import extract_entities, extract_amount, extract_customer
 from app.ai.customer_lookup import get_customer_list
 from app.ai.conversation_state import get_state, set_state, clear_state
@@ -37,6 +37,10 @@ def route_command(intent: str, text: str, user_id: int):
     Routes an AI command to the correct business logic function.
     Returns standardized {response, continue_listening} format.
     """
+    # ── GLOBAL/NO-CUSTOMER INTENTS ───────────────────────────────────────
+    NO_CUSTOMER_INTENTS = {"View_Sales_Summary", "List_Pending_Credit", "Max_Outstanding_Balance"}
+    if intent in NO_CUSTOMER_INTENTS:
+        return _execute_intent(intent, user_id, None, None, text)
 
     entities = extract_entities(text, user_id)
 
@@ -44,15 +48,15 @@ def route_command(intent: str, text: str, user_id: int):
     customer_result = entities.get("customer_result")
 
     if not customer_result:
-        return _resp(
-            "Koi customer nahi mila. Kya aap naam dobara bol sakte hain?",
-            True,
-            status="error",
-        )
+        customer_result = {"type": "none"}
 
-    # ── MULTIPLE CUSTOMER MATCHES — ask for clarification ────────────────
-    if customer_result["type"] == "multiple":
-        options = [c["name"] for c in customer_result["customers"]]
+    ctype = customer_result["type"]
+
+    # ── MULTIPLE MATCHES OR SUGGESTIONS OR NONE — ask for clarification ──
+    if ctype in ["multiple", "suggest", "none"]:
+        options = []
+        if ctype in ["multiple", "suggest"]:
+            options = [c["name"] for c in customer_result["customers"]]
 
         # Store the pending command so the next reply can resume it
         set_state(user_id, {
@@ -61,32 +65,40 @@ def route_command(intent: str, text: str, user_id: int):
             "step": "resolve_customer",
             "candidates": options,
             "context_data": {
-                "amount": amount
+                "amount": amount,
+                "text": text
             }
         })
 
-        first_name = options[0].split()[0]            # e.g. "Rahul"
-        options_str = " ya ".join(options)             # "Rahul Gupta ya Rahul Das"
-
-        return _resp(
-            f"Konse {first_name} ki baat kar rahe ho? {options_str}?",
-            True,
-            status="clarification_needed",
-            options=options,
-        )
-
-    # ── NO CUSTOMER FOUND ────────────────────────────────────────────────
-    if customer_result["type"] == "none":
-        return _resp(
-            "Koi customer nahi mila. Kya aap naam dobara bol sakte hain?",
-            True,
-            status="error",
-        )
+        if ctype == "multiple":
+            first_name = options[0].split()[0]
+            options_str = " ya ".join(options)
+            return _resp(
+                f"Konse {first_name} ki baat kar rahe ho? {options_str}?",
+                True,
+                status="clarification_needed",
+                options=options,
+            )
+        elif ctype == "suggest":
+            options_str = " ya ".join(options)
+            return _resp(
+                f"Naam nahi mila. Kya aap inme se kisi ki baat kar rahe hain? {options_str}?",
+                True,
+                status="clarification_needed",
+                options=options,
+            )
+        else:
+            return _resp(
+                "Koi customer nahi mila. Kya aap naam dobara bol sakte hain?",
+                True,
+                status="clarification_needed",
+                options=[],
+            )
 
     # ── SINGLE CUSTOMER ──────────────────────────────────────────────────
     customer = customer_result["customer"]
 
-    return _execute_intent(intent, user_id, customer, amount)
+    return _execute_intent(intent, user_id, customer, amount, text)
 
 
 
@@ -96,9 +108,47 @@ def route_command(intent: str, text: str, user_id: int):
 # INVOICE MULTI-STEP FLOW (multi-item conversational loop)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _start_invoice_flow(user_id: int, customer: dict):
-    """Kick off the invoice conversation by asking for the first item name."""
+def _start_invoice_flow(user_id: int, customer: dict, text: str = ""):
+    """Kick off the invoice conversation by asking for the first item name.
+    If the text already contains a full multi-item list, auto-finalize it."""
 
+    from app.ai.command_engine import parse_multi_items
+    multi = parse_multi_items(text)
+    
+    # Check if we have multiple items AND they all have prices
+    # If so, we bypass the conversation flow and just create the invoice.
+    if multi and len(multi) > 0 and all(m.get("value") is not None for m in multi):
+        items_payload = []
+        for mi in multi:
+            items_payload.append({
+                "item_name": mi["item_name"],
+                "quantity": mi.get("quantity", 1),
+                "unit_price": mi.get("value")
+            })
+            
+        customer_id = customer.get("id") or customer.get("customer_id")
+        result = create_invoice(user_id, customer_id, items_payload)
+        
+        if result.get("status") == "success":
+            total = result.get("total_amount")
+            # Demo impact response formatting
+            lines = [
+                f"✔ invoice created (#{result.get('invoice_number')})",
+                "✔ ledger updated",
+                f"✔ {len(items_payload)} items added"
+            ]
+            response_text = "\n".join(lines)
+            
+            return _resp(
+                response_text,
+                continue_listening=False,
+                status="success",
+                intent="Create_Invoice",
+                invoice_number=result.get("invoice_number"),
+                total_amount=total,
+            )
+
+    # Otherwise, start the normal multi-turn flow
     set_state(user_id, {
         "active": True,
         "intent": "Create_Invoice",
@@ -361,14 +411,18 @@ def handle_silence_timeout(user_id: int) -> dict:
 # INTENT EXECUTION  (shared by normal flow + clarification reply)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _execute_intent(intent: str, user_id: int, customer: dict, amount):
+def _execute_intent(intent: str, user_id: int, customer: dict | None, amount, text: str = ""):
     """
-    Execute a single intent for a resolved customer.
+    Execute a single intent for a resolved customer (or no customer for global queries).
     All responses use natural Hindi and standardized format.
     """
 
-    customer_id = customer.get("id") or customer.get("customer_id")
-    customer_name = customer["name"]
+    if customer:
+        customer_id = customer.get("id") or customer.get("customer_id")
+        customer_name = customer["name"]
+    else:
+        customer_id = None
+        customer_name = ""
 
     # ── ADD CREDIT ───────────────────────────────────────────────────────
     if intent == "Add_Credit":
@@ -418,30 +472,70 @@ def _execute_intent(intent: str, user_id: int, customer: dict, amount):
 
     # ── CHECK BALANCE ────────────────────────────────────────────────────
     elif intent == "Check_Balance":
-        statement = get_customer_statement(user_id, customer_id)
-
-        return _resp(
-            f"{customer_name} ka khata dikhaya ja raha hai.",
-            False,
-            status="success",
-            intent=intent,
-            customer=customer_name,
-            statement=statement,
-        )
+        balance_res = get_customer_balance(user_id, customer_id)
+        if balance_res.get("status") == "success":
+            balance = balance_res["balance"]
+            return _resp(
+                f"{customer_name} ka outstanding balance ₹{int(balance)} hai.",
+                False,
+                status="success",
+                intent=intent,
+                customer=customer_name,
+                balance=balance,
+            )
+        return _resp("Balance check fail ho gaya.", False, status="error")
 
     # ── CREATE INVOICE (start multi-step) ────────────────────────────────
     elif intent == "Create_Invoice":
-        return _start_invoice_flow(user_id, customer)
+        if not customer:
+            return _resp("Invoice ke liye customer zaruri hai.", True, status="error")
+        # Pass the original text to extract multi-items
+        return _start_invoice_flow(user_id, customer, text=text)
 
-    # ── FUTURE INTENTS ───────────────────────────────────────────────────
+    # ── FUTURE INTENTS & SIMPLE FEATURES ─────────────────────────────────
     elif intent == "Send_Reminder":
-        return _resp("Reminder system jaldi aa raha hai.", False, status="info")
+        result = send_payment_reminder(user_id, customer_id)
+        if result.get("status") == "success":
+            return _resp(
+                f"✔ {customer_name} ko payment reminder bhej diya gaya.", 
+                False, 
+                status="success"
+            )
+        return _resp("Reminder bhejne mein samasya aayi.", False, status="error")
+
+    elif intent == "View_Sales_Summary":
+        sales_data = get_daily_sales_summary(user_id)
+        if sales_data.get("status") == "success":
+            return _resp(
+                f"Aaj ka total sales ₹{int(sales_data.get('total_sales', 0))} hai ({sales_data.get('invoice_count', 0)} invoices). Aur total market mein ₹{int(sales_data.get('total_pending', 0))} udhar baki hai.", 
+                False, 
+                status="success"
+            )
+        return _resp("Sales summary lane mein samasya aayi.", False, status="error")
+
+    elif intent == "List_Pending_Credit":
+        from app.business_logic import get_pending_credit_customers
+        res = get_pending_credit_customers(user_id)
+        customers_pending = res.get("customers", [])
+        if not customers_pending:
+            return _resp("Market mein koi udhar baki nahi hai.", False, status="success")
+        
+        top3 = customers_pending[:3]
+        names = ", ".join([f"{c['name']} (₹{int(c['balance'])})" for c in top3])
+        msg = f"In logon par udhar hai: {names}."
+        if len(customers_pending) > 3:
+            msg += f" Aur {len(customers_pending) - 3} log aur hain."
+        return _resp(msg, False, status="success")
+
+    elif intent == "Max_Outstanding_Balance":
+        from app.business_logic import get_max_outstanding_balance
+        res = get_max_outstanding_balance(user_id)
+        if res.get("status") == "success":
+            return _resp(f"Sabse zyada udhar {res['name']} par hai, ₹{int(res['balance'])} baki hai.", False, status="success")
+        return _resp("Koi udhar baki nahi hai.", False, status="success")
 
     elif intent == "Update_Inventory":
         return _resp("Inventory system jaldi aa raha hai.", False, status="info")
-
-    elif intent == "View_Sales_Summary":
-        return _resp("Sales summary jaldi aa rahi hai.", False, status="info")
 
     # ── UNSUPPORTED ──────────────────────────────────────────────────────
     else:

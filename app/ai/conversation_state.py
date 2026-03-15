@@ -48,6 +48,12 @@ def handle_reply(text: str, user_id: int, state: dict):
         from app.ai.text_normalizer import normalize_input
         normalized_text = normalize_input(text).lower()
         
+        from app.ai.customer_lookup import get_customer_list
+        customers = get_customer_list(user_id)
+        
+        if not candidates:
+            candidates = [c["name"] for c in customers]
+        
         # 2. Try to find an exact or fuzzy match among the candidates
         matched_candidate = None
         for cand in candidates:
@@ -73,10 +79,8 @@ def handle_reply(text: str, user_id: int, state: dict):
             }
 
         # 3. Candidate resolved! Now execute the original intent
-        from app.ai.customer_lookup import get_customer_list
         from app.ai.command_router import _execute_intent
         
-        customers = get_customer_list(user_id)
         resolved_customer = next((c for c in customers if c["name"].lower() == matched_candidate.lower()), None)
         
         if not resolved_customer:
@@ -85,11 +89,13 @@ def handle_reply(text: str, user_id: int, state: dict):
 
         # 4. Clear the state and execute original intent
         intent = state.get("intent", "")
-        amount = state.get("context_data", {}).get("amount")
+        context = state.get("context_data", {})
+        amount = context.get("amount")
+        original_text = context.get("text", "")
         
         clear_state(user_id)
         
-        return _execute_intent(intent, user_id, resolved_customer, amount)
+        return _execute_intent(intent, user_id, resolved_customer, amount, original_text)
 
     # ── INVOICE FLOW ─────────────────────────────────────────────
     if step in ["ask_item", "ask_quantity", "ask_price"]:

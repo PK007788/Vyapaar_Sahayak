@@ -22,6 +22,16 @@ export default function VoiceCommand({ language = "hi", onCommandResult }) {
   const [supported, setSupported] = useState(true)
   const [isSpeaking, setIsSpeaking] = useState(false)
   const [conversationActive, setConversationActive] = useState(false)
+  const [expandedItems, setExpandedItems] = useState(new Set())
+
+  const toggleExpand = (index) => {
+    setExpandedItems((prev) => {
+      const next = new Set(prev)
+      if (next.has(index)) next.delete(index)
+      else next.add(index)
+      return next
+    })
+  }
 
   const recognitionRef = useRef(null)
   const historyEndRef = useRef(null)
@@ -347,7 +357,7 @@ export default function VoiceCommand({ language = "hi", onCommandResult }) {
     const recognition = new SR()
     recognitionRef.current = recognition
 
-    recognition.lang = "hi-IN"
+    recognition.lang = "en-IN" // Prioritize Hinglish recognition
     recognition.continuous = true      // Let the user speak freely
     recognition.interimResults = true  // Get real-time text updates
 
@@ -371,6 +381,7 @@ export default function VoiceCommand({ language = "hi", onCommandResult }) {
         currentTranscript += event.results[i][0].transcript
       }
       
+      console.log("Raw transcript:", currentTranscript) // Added for debugging
       setTranscript(currentTranscript)
 
       // Clear the previous debounce timer
@@ -565,28 +576,40 @@ export default function VoiceCommand({ language = "hi", onCommandResult }) {
               {isHi ? "वॉइस इतिहास" : "Voice History"}
             </span>
             <button
-              onClick={() => setHistory([])}
+              onClick={() => { setHistory([]); setExpandedItems(new Set()); }}
               className="text-[11px] font-bold text-slate-400 hover:text-red-500 transition-colors"
             >
               {isHi ? "साफ़ करें" : "Clear"}
             </button>
           </div>
           <div className="max-h-64 overflow-y-auto no-scrollbar divide-y divide-[#F0F4F2]">
-            {history.map((item, i) => (
-              <div key={i} className="px-5 py-4">
+            {history.map((item, i) => {
+              const isExpanded = expandedItems.has(i);
+              return (
+              <div key={i} className="px-5 py-4 relative group hover:bg-[#F0F4F2]/40 transition-colors">
+                <button 
+                  onClick={() => toggleExpand(i)} 
+                  className="absolute right-3 top-4 p-2 text-slate-300 hover:text-slate-500 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-all rounded-full hover:bg-slate-100"
+                  aria-label={isExpanded ? "Collapse" : "Expand"}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={isExpanded ? "rotate-180 transition-transform" : "transition-transform"}>
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </button>
+
                 {/* User utterance */}
-                <div className="flex items-start gap-2 mb-2">
+                <div className="flex items-start gap-2 mb-2 pr-8">
                   <span className="shrink-0 w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center mt-0.5">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                       <circle cx="12" cy="7" r="4"/>
                     </svg>
                   </span>
-                  <p className="text-[13px] font-medium text-slate-700 leading-snug">{item.userText}</p>
+                  <p className={`text-[13px] font-medium text-slate-700 leading-snug whitespace-pre-wrap ${!isExpanded ? "line-clamp-1" : ""}`}>{item.userText}</p>
                 </div>
 
                 {/* Assistant response */}
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-2 pr-8">
                   <span className={`shrink-0 w-6 h-6 rounded-full flex items-center justify-center mt-0.5 ${
                     item.status === "success" ? "bg-[#EEF6F3]" :
                     item.status === "error" ? "bg-red-50" :
@@ -604,14 +627,14 @@ export default function VoiceCommand({ language = "hi", onCommandResult }) {
                     )}
                   </span>
                   <div>
-                    <p className="text-[13px] font-bold text-slate-800 leading-snug">{item.response}</p>
+                    <p className={`text-[13px] font-bold text-slate-800 leading-snug whitespace-pre-wrap ${!isExpanded ? "line-clamp-2" : ""}`}>{item.response}</p>
                     {/* Show what was actually sent to the API after normalization */}
-                    {item.normalized && (
+                    {isExpanded && item.normalized && (
                       <p className="text-[11px] text-slate-400 font-medium mt-1">
                         → <span className="italic">{item.normalized}</span>
                       </p>
                     )}
-                    {item.options?.length > 0 && (
+                    {isExpanded && item.options?.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 mt-2">
                         {item.options.map((opt, j) => (
                           <span
@@ -624,7 +647,7 @@ export default function VoiceCommand({ language = "hi", onCommandResult }) {
                         ))}
                       </div>
                     )}
-                    {item.intent && (
+                    {isExpanded && item.intent && (
                       <span className="mt-1.5 inline-block text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                         {item.intent.replace(/_/g, " ")}
                       </span>
@@ -632,7 +655,7 @@ export default function VoiceCommand({ language = "hi", onCommandResult }) {
                   </div>
                 </div>
               </div>
-            ))}
+            )})}
             <div ref={historyEndRef} />
           </div>
         </div>

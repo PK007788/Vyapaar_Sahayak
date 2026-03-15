@@ -74,11 +74,22 @@ def normalize_input(text: str) -> str:
 
     Steps:
       1. Devanagari → Roman (ITRANS) if needed
-      2. Replace Hindi number words → digit strings
-      3. Collapse multiple spaces
-      4. Strip leading/trailing whitespace
+      2. Remove punctuation
+      3. Replace Hindi number words → digit strings
+      4. Collapse multiple spaces
+      5. Strip leading/trailing whitespace
     """
     text = devanagari_to_roman(text)
+    
+    # Ensure lowercase
+    text = text.lower()
+    
+    # Remove currency symbols (₹, $)
+    text = re.sub(r'[₹$]', '', text)
+    
+    # Remove punctuation
+    text = re.sub(r'[^\w\s]', '', text)
+    
     text = replace_hindi_numbers(text)
     text = re.sub(r"\s+", " ", text).strip()
     return text
