@@ -96,5 +96,12 @@
     "predicted_intent": "Create_Invoice",
     "confidence_score": 1.0,
     "timestamp": "2026-03-15T18:54:26.825902"
+  },
+  {
+    "user_text": "rahul ne 500 rupay de diye",
+    "normalized_text": "rahul ne 500 rupay de diye",
+    "predicted_intent": "Create_Invoice",
+    "confidence_score": 1.0,
+    "timestamp": "2026-03-18T00:19:17.546900"
   }
 ]
