@@ -1,37 +1,80 @@
-# Vyapaar Sahayak
+Vyapaar Sahayak
 
-Voice-first billing and ledger assistant for small businesses. The project combines a FastAPI backend, SQLite storage, and a React frontend to let users manage customers, invoices, payments, and balances using normal Hindi/Hinglish commands.
+Vyapaar Sahayak is a voice-first billing and ledger assistant designed for small businesses such as kirana stores. It enables users to manage customers, invoices, payments, and balances using natural Hindi/Hinglish commands instead of traditional manual entry.
 
-## What This Project Does
+The system combines a FastAPI backend, SQLite database, and a React-based frontend to deliver a conversational accounting experience.
 
-- Registers shop owners and authenticates with JWT.
-- Manages customer ledger balances.
-- Creates, edits, and voids invoices with item-level entries.
-- Records payments and generates customer statements.
-- Accepts natural-language commands through an AI command pipeline.
-- Handles multi-turn conversation flows, including customer disambiguation and invoice step flows.
+Overview
 
-## Tech Stack
+This project focuses on simplifying day-to-day accounting operations through voice interaction. Users can create invoices, record payments, track balances, and navigate multi-step workflows without needing to understand complex accounting interfaces.
 
-### Backend
+The assistant supports conversational flows, meaning it can ask follow-up questions, handle ambiguous inputs (like duplicate customer names), and continue tasks until completion.
 
-- Python 3.12
-- FastAPI + Uvicorn
-- SQLite (`data/vyapaar.db`)
-- JWT auth (`python-jose`)
-- Password hashing (`bcrypt`, `passlib`)
-- ML/NLP (`scikit-learn`, `rapidfuzz`, `indic-transliteration`, `joblib`)
+Key Features
+Voice-based interaction using Hindi and Hinglish
+Customer management with ledger balance tracking
+Invoice creation, editing, and voiding
+Payment recording and statement generation
+Multi-step conversational invoice flow (item → quantity → price)
+Customer disambiguation (e.g., Rahul Gupta vs Rahul Das)
+Multi-item command parsing from a single sentence
+AI command pipeline for natural language understanding
+Voice history tracking and interaction logging
+Technology Stack
 
-### Frontend
+Backend:
 
-- React 19 + React Router
-- Vite
-- Tailwind CSS
-- Browser Speech APIs (speech recognition + text to speech)
+Python 3.12
+FastAPI with Uvicorn
+SQLite database
+JWT authentication
+Password hashing using bcrypt and passlib
+NLP stack using scikit-learn, rapidfuzz, indic-transliteration
 
-## Repository Layout
+Frontend:
 
-```text
+React (Vite)
+React Router
+Tailwind CSS
+Browser Speech APIs for speech recognition and text-to-speech
+System Architecture
+
+The system follows a modular AI-driven pipeline:
+
+Speech Input
+→ Speech-to-Text
+→ Text Normalization
+→ Rule-based Intent Detection
+→ ML Intent Classification
+→ Entity Extraction
+→ Conversation State Management
+→ Command Routing
+→ Business Logic
+→ Database
+→ Response
+→ Text-to-Speech
+
+This design allows the assistant to handle both direct commands and multi-turn conversations effectively.
+
+Repository Structure
+
+The project is organized into backend, AI modules, frontend, and supporting utilities.
+
+app/
+Contains backend logic including API routes, database setup, authentication, and core business logic
+app/ai/
+Handles the AI pipeline including intent classification, entity extraction, conversation state, and command routing
+data/
+Stores the SQLite database and trained ML models
+logs/
+Stores command history for debugging and improvement
+vyapaar-frontend/
+Contains the React-based frontend interface
+test files
+Script-based tests for validating flows like invoice creation, conversation handling, and disambiguation
+Setup Instructions
+
+```
 .
 |-- app/
 |   |-- main.py                 # FastAPI app and HTTP routes
@@ -62,126 +105,78 @@ Voice-first billing and ledger assistant for small businesses. The project combi
 `-- test_disambiguation.py
 ```
 
-## Backend Setup
+Backend:
 
-1. Create and activate a Python environment.
-2. Install dependencies:
+Create a Python virtual environment
+Install dependencies using requirements.txt
+Run the FastAPI server using Uvicorn
 
-```bash
-pip install -r requirements.txt
-```
+Frontend:
 
-3. Start the API server:
+Navigate to the frontend folder
+Install dependencies using npm
+Start the development server
 
-```bash
-uvicorn app.main:app --reload
-```
+The frontend communicates with the backend through API endpoints and supports voice interaction via browser APIs.
 
-Backend will run at `http://127.0.0.1:8000`.
+API Capabilities
 
-Database schema is initialized automatically at startup (`initialize_database()` is called in `app/main.py`).
+The backend exposes endpoints for:
 
-## Frontend Setup
+User registration and authentication
+Customer creation and listing
+Invoice creation, update, and void operations
+Payment recording
+Ledger and statement retrieval
+Dashboard analytics
+AI command processing
+Voice Command Flow
 
-```bash
-cd vyapaar-frontend
-npm install
-npm run dev
-```
+The AI command pipeline processes user input through multiple stages:
 
-Frontend runs at `http://localhost:5173`.
+Input normalization for Hindi/Hinglish variations
+Intent detection using rule-based and ML approaches
+Entity extraction (customer, amount, items, etc.)
+Conversation state handling for multi-step interactions
+Command execution via business logic
 
-Vite proxies `/api/*` to `http://127.0.0.1:8000` (configured in `vyapaar-frontend/vite.config.js`).
+The system supports commands such as:
 
-## API Endpoints (Current)
+Rahul ko 500 udhar likh do
+Rahul ne 200 rupaye diye
+Rahul ke naam invoice bana do
+2 kilo chawal 50 rupaye kilo add karo
+Rahul ko 500 ka chawal aur 200 ka tel likh do
+Testing
 
-### Public
+The project includes script-based tests that validate:
 
-- `GET /` - Health message
-- `POST /register` - Create shop user
-- `POST /login` - Authenticate and return bearer token
+Invoice lifecycle operations
+Payment and ledger updates
+Conversation flow handling
+Customer disambiguation
+Hindi normalization
 
-### Authenticated
+These tests can be executed directly using Python scripts.
 
-- `POST /customers` - Add customer
-- `GET /customers` - List customers with balances
-- `POST /payment` - Record payment transaction
-- `POST /invoice` - Create invoice
-- `PUT /invoice/{invoice_id}` - Update invoice items and totals
-- `POST /invoice/{invoice_id}/void` - Void invoice by reversal transaction
-- `GET /invoice/{invoice_id}` - Fetch invoice details with items
-- `GET /statement/{customer_id}` - Customer ledger statement
-- `GET /dashboard` - Dashboard metrics and recent transactions
-- `POST /ai-command` - Process natural language command
-- `POST /ai-command/silence-timeout` - Silence handler for invoice voice flow
+Current Limitations
+Conversation state is stored in-memory and resets on server restart
+JWT configuration is hardcoded and should be moved to environment variables
+SQLite is used, which limits scalability
+Test suite is not yet automated with frameworks like pytest
+Future Scope
+Move configuration to environment variables
+Persist conversation state using Redis or database
+Improve scalability with a production-grade database
+Add automated testing pipelines
+Provide deployment support (Docker, cloud hosting)
+Explore transformer-based multilingual models
+Author
 
-## Voice Command / AI Flow
+Prajnan Kumar Sarma
 
-1. User command goes to `process_command()` in `app/ai/command_engine.py`.
-2. Input normalization runs (Hindi/Hinglish cleanup, number normalization).
-3. If an active conversation exists, command resumes that state.
-4. Otherwise:
-	 - Rule-based intent fallback is attempted.
-	 - If needed, ML intent classifier predicts intent + confidence.
-5. `route_command()` dispatches to business logic.
-6. If customer name is ambiguous, state is stored and clarification is requested.
-7. Invoice flows run multi-step prompts (`ask_item -> ask_quantity -> ask_price`) and finalize on finish commands (`done`, `ho gaya`, etc.) or silence timeout logic.
+Note
 
-### Standard Command Response Shape
+This project is developed for educational and research purposes, focusing on real-world application of AI in small business automation.
 
-Most AI command responses follow this format:
 
-```json
-{
-	"response": "...",
-	"continue_listening": true,
-	"status": "success|error|clarification_needed|invoice_step|info"
-}
-```
-
-## Running Tests
-
-These are script-style integration tests (not pytest test suites).
-
-```bash
-python test_flow.py
-python test_conversation_flow.py
-python test_disambiguation.py
-```
-
-What they cover:
-
-- Ledger and invoice lifecycle (create, payment, void)
-- Conversation state handling
-- Duplicate customer disambiguation
-- Hindi normalization and finish command checks
-
-## Data and Training Artifacts
-
-- `intent.md` contains intent examples used for command understanding.
-- `entity_schema.md` documents expected entities.
-- `data/intent_classifier.pkl` and `data/tfidf_vectorizer.pkl` are loaded by `app/ai/intent_classifier.py` at runtime.
-
-## Configuration Notes
-
-- JWT settings are currently hardcoded in `app/auth.py`:
-	- `SECRET_KEY`
-	- `ALGORITHM`
-	- `ACCESS_TOKEN_EXPIRE_MINUTES`
-- Database path is fixed in `app/database.py` as `data/vyapaar.db`.
-- Frontend API base defaults to `/api` via `VITE_API_BASE_URL` fallback logic in `vyapaar-frontend/src/lib/api.js`.
-
-## Known Limitations
-
-- `SECRET_KEY` is hardcoded (move to environment variables before production).
-- Conversation state is in-memory (`app/ai/conversation_state.py`), so active flows are lost on server restart.
-- SQLite is used for local/single-node operation.
-- Root `package.json` is minimal and not used for frontend app runtime (frontend has its own package manifest).
-
-## Suggested Next Improvements
-
-1. Add `.env` support for auth and runtime config.
-2. Persist conversation state in Redis/DB.
-3. Add migration tooling (Alembic or equivalent).
-4. Convert script tests to pytest-based automated suites.
-5. Add Docker and production deployment docs.
